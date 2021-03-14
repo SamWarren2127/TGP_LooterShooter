@@ -15,6 +15,8 @@ public class WeaponSystem : MonoBehaviour
     int remainingBullets, totalAmmo;
     bool shooting, canShoot, reloading, fullAutoFire, burstFire, semiAutoFire, safety, jammed, isClearingJam, burstWeapon;
 
+    HUDManager hudManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,8 @@ public class WeaponSystem : MonoBehaviour
         shooting = false;
         fullAutoFire = true;
         jammed = false;
+
+        hudManager.UpdateAmmoText(remainingBullets, totalAmmo);
     }
 
     // Update is called once per frame
@@ -114,6 +118,10 @@ public class WeaponSystem : MonoBehaviour
         Instantiate(casing, spawnCasing.transform.position + spawnCasing.transform.right, spawnCasing.transform.rotation);
 
         remainingBullets--;
+
+        // Updating the HUD
+        hudManager.UpdateAmmoText(remainingBullets, totalAmmo);
+
         if (fullAutoFire)
         {
             Invoke("ResetShot", rateOfFire);
@@ -180,6 +188,7 @@ public class WeaponSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
+        hudManager.ShowReload();
         if (totalAmmo >= magazineSize)
         {
             totalAmmo -= magazineSize;
@@ -199,5 +208,6 @@ public class WeaponSystem : MonoBehaviour
     {
         remainingBullets = magazineSize;
         reloading = false;
+        hudManager.HideReload();
     }
 }

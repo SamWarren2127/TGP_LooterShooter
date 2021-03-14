@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
         }
 
         Cursor.lockState = CursorLockMode.Locked;
+
+
     }
 
     // Update is called once per frame
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isSprinting)
             {
-                _rigidbody.AddRelativeForce(characterMoveDirection * playerSpeed * moveMult * sprintMult, ForceMode.Force);
+                _rigidbody.AddRelativeForce(characterMoveDirection * playerSpeed * moveMult * sprintMult, ForceMode.VelocityChange);
 
                 if (_rigidbody.velocity.magnitude > (maxSpeed * sprintMult))
                 {
@@ -75,7 +77,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                _rigidbody.AddRelativeForce(characterMoveDirection * playerSpeed * moveMult, ForceMode.Force);
+                _rigidbody.AddRelativeForce(characterMoveDirection * playerSpeed * moveMult, ForceMode.VelocityChange);
 
                 if (_rigidbody.velocity.magnitude > maxSpeed)
                 {
@@ -83,9 +85,9 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        else if (_rigidbody.velocity.magnitude > 10f)
+        else if (_rigidbody.velocity.magnitude > 2f || _rigidbody.velocity.magnitude < -2f)
         {
-            _rigidbody.AddRelativeForce(-_rigidbody.velocity.normalized * stoppingForce, ForceMode.Force);
+            _rigidbody.AddRelativeForce(-_rigidbody.velocity.normalized * stoppingForce, ForceMode.VelocityChange);
         }
         else if (_rigidbody.velocity.magnitude != 0f)
         {
@@ -100,7 +102,7 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody.AddTorque(Vector3.up * mouseX * mouseSensitivity);
         }
-        else if (_rigidbody.angularVelocity.magnitude > 1f)
+        else if (_rigidbody.angularVelocity.magnitude > 0.3f)
         {
             _rigidbody.AddTorque(-_rigidbody.angularVelocity.normalized * mouseSensitivity);
         }
@@ -161,6 +163,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             _rigidbody.AddForce(transform.up * jumpForce, ForceMode.Force);
+            Debug.Log("Jump");
         }
     }
 }

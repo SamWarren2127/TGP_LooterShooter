@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    public Image a;
+    public HUDManager hudManager;
 
     public float health = 1.0f;
     public float armor = 1.0f;
@@ -17,20 +17,19 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         InvokeRepeating("damagePlayer", 10, 10);
+        hudManager.UpdateHealthBar(health);
+        hudManager.UpdateArmorBar(armor);
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateHealthBar();
+
     }
 
     void UpdateHealthBar()
     {
-        //a.fillAmount = 0;
-        a.fillAmount = Mathf.Lerp(a.fillAmount, (health / maxHealth), Time.deltaTime);
-        Color healthColor = Color.Lerp(Color.red, Color.white, (health / maxHealth));
-        a.color = healthColor;
+        hudManager.UpdateHealthBar(health);
     }
 
     void damagePlayer()
@@ -38,6 +37,7 @@ public class PlayerStats : MonoBehaviour
         if (health > 0)
         {
             health -= 0.2f;
+            UpdateHealthBar();
         }
         else
         {
