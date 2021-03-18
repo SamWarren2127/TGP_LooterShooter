@@ -10,9 +10,9 @@ public class WeaponSystem : MonoBehaviour
     public LayerMask layerMask;
     public GameObject spawnCasing, casing, muzzleFlash, bulletHoleGraphic;
 
-    public int damage, magazineSize;
+    public int damage, magazineSize, totalAmmo;
     public float rateOfFire, recoilX, recoilY, range, reloadTime;
-    int remainingBullets, totalAmmo;
+    int remainingBullets;
     bool shooting, canShoot, reloading, fullAutoFire, burstFire, semiAutoFire, safety, jammed, isClearingJam, burstWeapon;
 
     HUDManager hudManager;
@@ -51,6 +51,7 @@ public class WeaponSystem : MonoBehaviour
         // Reload
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
+            print("reload key pressed");
             Reload();
         }
 
@@ -120,7 +121,7 @@ public class WeaponSystem : MonoBehaviour
         remainingBullets--;
 
         // Updating the HUD
-        hudManager.UpdateAmmoText(remainingBullets, totalAmmo);
+        //hudManager.UpdateAmmoText(remainingBullets, totalAmmo);
 
         if (fullAutoFire)
         {
@@ -188,7 +189,8 @@ public class WeaponSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-        hudManager.ShowReload();
+        //hudManager.ShowReload();
+        print("reload started");
         if (totalAmmo >= magazineSize)
         {
             totalAmmo -= magazineSize;
@@ -206,8 +208,9 @@ public class WeaponSystem : MonoBehaviour
     }
     private void ReloadFinished()
     {
+        print("reload finished");
         remainingBullets = magazineSize;
         reloading = false;
-        hudManager.HideReload();
+        //hudManager.HideReload();
     }
 }
