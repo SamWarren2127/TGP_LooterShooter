@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
 {
+    public AudioManager audioManager;
     public Camera cam;
     public Transform attackPoint;
     public RaycastHit rayHit;
@@ -117,7 +118,8 @@ public class WeaponSystem : MonoBehaviour
         //Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
         //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
         Instantiate(casing, spawnCasing.transform.position + spawnCasing.transform.right, spawnCasing.transform.rotation);
-        FindObjectOfType<AudioManager>().Play("gunshot");
+        //FindObjectOfType<AudioManager>().Play("gunshot");
+        audioManager.Play("gunshot");
 
         remainingBullets--;
 
