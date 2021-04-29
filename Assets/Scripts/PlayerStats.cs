@@ -32,33 +32,17 @@ public class PlayerStats : MonoBehaviour
         hudManager.UpdateHealthBar(health);
     }
 
-    void damagePlayer(float damage)
+    void damagePlayer()
     {
-        if (armor > 0)
+        if (health > 0)
         {
-            armor -= damage;
-            if (armor < 0)
-            {
-                health += armor;
-            }
-        }
-        else if (health > 0 )
-        {
-            health -= damage;
+            health -= 0.2f;
             UpdateHealthBar();
         }
         else
         {
             print("dead");
         }
-
-    }
-    void healPlayer(float heal)
-    {
-        health += heal;
-    }
-    void armorHeal(float heal)
-    {
-        armor += heal;
+        
     }
 }

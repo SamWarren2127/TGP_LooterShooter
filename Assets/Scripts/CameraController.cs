@@ -4,6 +4,33 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField]
+    float sensitivity;
+    [SerializeField]
+    float smoothing;
+    [SerializeField]
+    GameObject character;
+    Vector2 mouseLook;
+    Vector2 smoothV;
+    [SerializeField]
+    GameObject pauseMenu;
+
+    void Update()
+    {
+        if(!pauseMenu.activeSelf)
+        {
+            var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+            md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+
+            smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
+            smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);
+
+            mouseLook += smoothV;
+            transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+            character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+        }
+    }
+
     private float crouchDifference = 0.5f;
 
     public void RotateCamera(float rotation)
