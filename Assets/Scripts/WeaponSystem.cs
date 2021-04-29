@@ -28,7 +28,7 @@ public class WeaponSystem : MonoBehaviour
         fullAutoFire = true;
         jammed = false;
 
-        hudManager.UpdateAmmoText(remainingBullets, totalAmmo);
+        //hudManager.UpdateAmmoText(remainingBullets, totalAmmo);
     }
 
     // Update is called once per frame
@@ -93,7 +93,7 @@ public class WeaponSystem : MonoBehaviour
 
     private void Shoot()
     {
-        print("shoot");
+        print("shooting");
         canShoot = false;
 
         //recoil
@@ -119,7 +119,7 @@ public class WeaponSystem : MonoBehaviour
         //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
         Instantiate(casing, spawnCasing.transform.position + spawnCasing.transform.right, spawnCasing.transform.rotation);
         //FindObjectOfType<AudioManager>().Play("gunshot");
-        audioManager.Play("gunshot");
+        //audioManager.Play("gunshot");
 
         remainingBullets--;
 
