@@ -10,10 +10,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float jumpForce;
     Vector3 moveDirection;
-    [HideInInspector]
-    bool isGrounded = true;
-
-    float oldPos;
 
     public float stepRate = 0.5f;
 
@@ -46,38 +42,4 @@ public class PlayerController : MonoBehaviour
             stepCoolDown = stepRate;
         }
 
-
-            /*if(_rigidbody.velocity.magnitude > 0)
-            {
-                //Debug.Log("Moving");
-            }
-
-            if(oldPos < transform.position.x || oldPos > transform.position.x)
-            {
-                FindObjectOfType<AudioManager>().Play("Footstep");
-                Debug.Log("Sound playing");
-            }*/
-
-            /*if(isGrounded == true)
-            {
-                FindObjectOfType<AudioManager>().Play("Footstep");
-            }*/
-        }
-
-    /*void OnCollisionEnter(Collision col)
-    {
-        if(col.gameObject.name == "Ground")
-        {
-            isGrounded = true;
-            Debug.Log("Collided");
-        }
-    }
-
-    void OnCollisionExit(Collision col)
-    {
-        if(col.gameObject.name == "Ground")
-        {
-            isGrounded = false;
-        }
-    }*/
 }
