@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
 {
-    public AudioManager audioManager;
     public Camera cam;
     public Transform attackPoint;
     public RaycastHit rayHit;
     public LayerMask layerMask;
     public GameObject spawnCasing, casing, muzzleFlash, bulletHoleGraphic;
 
-    public int damage, magazineSize, totalAmmo;
+    public int damage, magazineSize;
     public float rateOfFire, recoilX, recoilY, range, reloadTime;
-    int remainingBullets;
+    int remainingBullets, totalAmmo;
     bool shooting, canShoot, reloading, fullAutoFire, burstFire, semiAutoFire, safety, jammed, isClearingJam, burstWeapon;
 
+    [SerializeField]
     HUDManager hudManager;
 
     // Start is called before the first frame update
@@ -28,7 +28,7 @@ public class WeaponSystem : MonoBehaviour
         fullAutoFire = true;
         jammed = false;
 
-        //hudManager.UpdateAmmoText(remainingBullets, totalAmmo);
+        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
 
     // Update is called once per frame
@@ -52,7 +52,6 @@ public class WeaponSystem : MonoBehaviour
         // Reload
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
-            print("reload key pressed");
             Reload();
         }
 
@@ -93,7 +92,7 @@ public class WeaponSystem : MonoBehaviour
 
     private void Shoot()
     {
-        print("shooting");
+        print("shoot");
         canShoot = false;
 
         //recoil
@@ -118,13 +117,11 @@ public class WeaponSystem : MonoBehaviour
         //Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
         //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
         Instantiate(casing, spawnCasing.transform.position + spawnCasing.transform.right, spawnCasing.transform.rotation);
-        //FindObjectOfType<AudioManager>().Play("gunshot");
-        //audioManager.Play("gunshot");
 
         remainingBullets--;
 
         // Updating the HUD
-        //hudManager.UpdateAmmoText(remainingBullets, totalAmmo);
+        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
 
         if (fullAutoFire)
         {
@@ -193,7 +190,6 @@ public class WeaponSystem : MonoBehaviour
     {
         reloading = true;
         //hudManager.ShowReload();
-        print("reload started");
         if (totalAmmo >= magazineSize)
         {
             totalAmmo -= magazineSize;
@@ -211,9 +207,10 @@ public class WeaponSystem : MonoBehaviour
     }
     private void ReloadFinished()
     {
-        print("reload finished");
         remainingBullets = magazineSize;
         reloading = false;
+
         //hudManager.HideReload();
+        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
 }

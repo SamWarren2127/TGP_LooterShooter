@@ -721,7 +721,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.698
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -763,7 +763,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8835207, y: 0.041}
   m_AnchorMax: {x: 1, y: 0.17500001}
-  m_AnchoredPosition: {x: 1.0899658, y: 8.44}
+  m_AnchoredPosition: {x: 1.0898438, y: 8.439941}
   m_SizeDelta: {x: -2.1809082, y: 105.414764}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &231446787
@@ -1419,6 +1419,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45873b120c753bc4d882f0cafafea861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sensitivity: 0
+  smoothing: 0
+  character: {fileID: 0}
+  pauseMenu: {fileID: 0}
 --- !u!114 &431823385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2093,13 +2097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b938d1fe8e6037d429a70005c224f31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 10
-  stoppingForce: 200
-  jumpForce: 5
-  maxSpeed: 20
-  moveMult: 1
-  sprintMult: 1.5
-  mouseSensitivity: 5
+  speed: 10
+  jumpForce: 50
 --- !u!136 &937190813
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2477,7 +2476,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.43251455, y: 0}
   m_AnchorMax: {x: 1, y: 0.187}
-  m_AnchoredPosition: {x: -2.9700012, y: 2.199997}
+  m_AnchoredPosition: {x: -2.9700012, y: 2.1999817}
   m_SizeDelta: {x: -5.854538, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1296739288
@@ -3383,6 +3382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45873b120c753bc4d882f0cafafea861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sensitivity: 5
+  smoothing: 2
+  character: {fileID: 937190810}
+  pauseMenu: {fileID: 84899840}
 --- !u!1 &1684135582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3420,7 +3423,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015164345, y: 0.032337982}
   m_AnchorMax: {x: 0.28056166, y: 0.15}
-  m_AnchoredPosition: {x: -80.980225, y: -10.338623}
+  m_AnchoredPosition: {x: -80.980225, y: -10.338806}
   m_SizeDelta: {x: -195.68231, y: -20.042122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1684135584
@@ -3616,7 +3619,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.18900001, y: 0.19772324}
   m_AnchorMax: {x: 1, y: 0.379}
-  m_AnchoredPosition: {x: -0.000061035156, y: -0.7000046}
+  m_AnchoredPosition: {x: -0.000061035156, y: -0.7000122}
   m_SizeDelta: {x: 0.32313538, y: 5.246315}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &1696556101
@@ -3654,13 +3657,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 30/30
 --- !u!1 &1711316754
 GameObject:
   m_ObjectHideFlags: 0
@@ -3725,13 +3728,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Current Gun
 --- !u!222 &1711316757
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4032,7 +4035,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.709
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
