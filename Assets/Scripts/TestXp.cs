@@ -41,6 +41,7 @@ public class TestXp : MonoBehaviour
 
         // HUD Manager will hide XP after a certain amount of seconds
         hudManager.ShowXP();
+        hudManager.ShowLevelUp();
         UpdateXPBar();
         UpdateLevelText();
 

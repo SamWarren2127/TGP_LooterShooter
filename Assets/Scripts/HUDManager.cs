@@ -16,6 +16,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] GameObject xpPanel;
     [SerializeField] Slider xpBar;
     [SerializeField] TextMeshProUGUI levelTextMesh;
+    [SerializeField] TextMeshProUGUI levelUpText;
 
     private float showTime;
     private float xpShowTimer;
@@ -31,10 +32,10 @@ public class HUDManager : MonoBehaviour
         showTime = 5f;
         xpShowTimer = 0f;
         animateTime = 2.5f;
-
         // Make sure xp panel isnt showing
         if(xpPanel.activeSelf == true)
         {
+            levelUpText.enabled = false;
             HideXP();
         }
     }
@@ -53,6 +54,7 @@ public class HUDManager : MonoBehaviour
 
         if(xpShowTimer >= showTime)
         {
+            levelUpText.enabled = false;
             HideXP();
         }
     }
@@ -70,12 +72,12 @@ public class HUDManager : MonoBehaviour
 
     public void ShowReload()
     {
-        reloadingText.enabled = false;
+        reloadingText.enabled = true;
     }
 
     public void HideReload()
     {
-        reloadingText.enabled = true;
+        reloadingText.enabled = false;
     }
 
     public void ShowXP()
@@ -124,5 +126,10 @@ public class HUDManager : MonoBehaviour
     public void UpdateLevel(string _level)
     {
         levelTextMesh.text = "Level: " + _level;
+    }
+
+    public void ShowLevelUp()
+    {
+        levelUpText.enabled = true;
     }
 }

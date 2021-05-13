@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float speed;
     [SerializeField]
-    float jumpForce;
+    Vector3 jumpForce;
     [SerializeField]
     Vector3 moveDirection;
     bool isSprinting = false;
@@ -40,12 +40,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("_camera is a null reference");
         }
 
-        _character = GetComponent<CharacterController>();
-        if (_character == null)
-        {
-            Debug.Log("_character is a null reference");
-        }
-
         _collider = GetComponent<Collider>();
         {
             if(_collider == null)
@@ -65,12 +59,12 @@ public class PlayerController : MonoBehaviour
     {
         groundedPlayer = IsGrounded();
 
-        if (groundedPlayer && moveDirection.y > 0f)
-        {
-            moveDirection.y = 0f;
-        }
+        //if (groundedPlayer && moveDirection.y > 0f)
+        //{
+        //    moveDirection.y = 0f;
+        //}
 
-        if (groundedPlayer)
+        //if (groundedPlayer)
         {
             SetCharacterMoveDirection();
             Crouch();
@@ -129,14 +123,15 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer)
         {
-            moveDirection.y = jumpForce;
+            //moveDirection += jumpForce;
+            _rigidbody.velocity += jumpForce;
             Debug.Log("Jump");
         }
 
-        if(Input.GetKeyUp(KeyCode.Space))
-        {
-            moveDirection.y = 0f;
-        }
+        //if(Input.GetKeyUp(KeyCode.Space))
+        //{
+        //    moveDirection.y = 0f;
+        //}
     }
 
     bool IsGrounded()
