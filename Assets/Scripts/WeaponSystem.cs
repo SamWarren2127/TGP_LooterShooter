@@ -109,7 +109,14 @@ public class WeaponSystem : MonoBehaviour
 
             if (rayHit.collider.CompareTag("Enemy"))
             {
-                // Do damage
+                Debug.Log("Hit enemy");
+            }
+
+            Enemy health = rayHit.collider.GetComponent<Enemy>();
+
+            if(health != null)
+            {
+                health.TakeDamage(damage);
             }
         }
 
@@ -119,6 +126,7 @@ public class WeaponSystem : MonoBehaviour
         Instantiate(casing, spawnCasing.transform.position + spawnCasing.transform.right, spawnCasing.transform.rotation);
 
         remainingBullets--;
+        FindObjectOfType<AudioManager>().Play("gunshot");
 
         // Updating the HUD
         //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
@@ -212,5 +220,15 @@ public class WeaponSystem : MonoBehaviour
 
         //hudManager.HideReload();
         //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+    }
+
+    void Damage(Transform enemy)
+    {
+        Enemy e = enemy.GetComponent<Enemy>();
+
+        if(e != null)
+        {
+            e.TakeDamage(damage);
+        }
     }
 }
