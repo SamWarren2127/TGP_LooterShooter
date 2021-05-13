@@ -32,6 +32,11 @@ public class PlayerStats : MonoBehaviour
         hudManager.UpdateHealthBar(health);
     }
 
+    void UpdateArmorBar()
+    {
+        hudManager.UpdateArmorBar(armor);
+    }
+
     void damagePlayer()
     {
         if (health > 0)

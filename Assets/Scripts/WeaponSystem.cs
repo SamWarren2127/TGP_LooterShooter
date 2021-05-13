@@ -28,7 +28,7 @@ public class WeaponSystem : MonoBehaviour
         fullAutoFire = true;
         jammed = false;
 
-        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
 
     // Update is called once per frame
@@ -121,7 +121,7 @@ public class WeaponSystem : MonoBehaviour
         remainingBullets--;
 
         // Updating the HUD
-        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
 
         if (fullAutoFire)
         {
@@ -189,7 +189,7 @@ public class WeaponSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-        //hudManager.ShowReload();
+        hudManager.ShowReload();
         if (totalAmmo >= magazineSize)
         {
             totalAmmo -= magazineSize;
@@ -210,7 +210,7 @@ public class WeaponSystem : MonoBehaviour
         remainingBullets = magazineSize;
         reloading = false;
 
-        //hudManager.HideReload();
-        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+        hudManager.HideReload();
+        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
 }
