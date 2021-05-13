@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
         }
         Cursor.lockState = CursorLockMode.Locked;
 
-        oldPos = transform.position.x;
     }
 
     // Update is called once per frame
@@ -41,5 +40,5 @@ public class PlayerController : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("Footstep");
             stepCoolDown = stepRate;
         }
-
+    }
 }
