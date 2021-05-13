@@ -482,7 +482,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea19afd1084fa74d8ffd1cb7cc90a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &183070533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,6 +1891,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpForce: 50
+  stepRate: 0.5
+  stepCoolDown: 0
 --- !u!136 &937190813
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2486,12 +2490,18 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: TempMusic
     clip: {fileID: 8300000, guid: 01ce86e60fd7c9c4497f1f25c6b884a4, type: 3}
-    volume: 0.4
+    volume: 0.2
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: gunshot
     clip: {fileID: 8300000, guid: 7dd1ee7aebffdb04abee42bfdeec1236, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Footstep
+    clip: {fileID: 8300000, guid: 36f467bf236033340bab7af17be9ad4a, type: 3}
     volume: 0.4
     pitch: 1
     loop: 0
