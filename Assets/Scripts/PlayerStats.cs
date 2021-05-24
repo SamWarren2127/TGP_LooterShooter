@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : MonoBehaviour, IHealable<float>
 {
     public HUDManager hudManager;
 
@@ -48,6 +48,23 @@ public class PlayerStats : MonoBehaviour
         {
             print("dead");
         }
-        
+    }
+
+    public void Heal(float _healAmount)
+    {
+        if(_healAmount < 0)
+        {
+            Debug.Log("Cannot heal a negative number.");
+        }
+        else if(health + _healAmount > maxHealth)
+        {
+            health = maxHealth;
+        }
+        else
+        {
+            health += _healAmount;
+        }
+
+        UpdateHealthBar();
     }
 }

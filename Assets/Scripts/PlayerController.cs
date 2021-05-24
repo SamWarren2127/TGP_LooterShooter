@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody _rigidbody;
     CameraController _camera;
-    CharacterController _character;
     Collider _collider;
 
     [Header("Player Controller Stats")]
@@ -19,9 +18,9 @@ public class PlayerController : MonoBehaviour
     bool isSprinting = false;
     [SerializeField]
     float sprintMult;
+    float moveMult = 1.0f;
     float distanceToGround;
     bool groundedPlayer;
-    float startPosY;
     [SerializeField]
     float jumpTime;
 
@@ -42,14 +41,13 @@ public class PlayerController : MonoBehaviour
 
         _collider = GetComponent<Collider>();
         {
-            if(_collider == null)
+            if (_collider == null)
             {
                 Debug.Log("_collider is a null reference");
             }
         }
 
         distanceToGround = _collider.bounds.extents.y;
-        startPosY = transform.position.y;
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -59,27 +57,20 @@ public class PlayerController : MonoBehaviour
     {
         groundedPlayer = IsGrounded();
 
-        //if (groundedPlayer && moveDirection.y > 0f)
-        //{
-        //    moveDirection.y = 0f;
-        //}
+        SetCharacterMoveDirection();
+        Crouch();
+        Sprint();
+        Jump();
 
-        //if (groundedPlayer)
+        if (isSprinting)
         {
-            SetCharacterMoveDirection();
-            Crouch();
-            Sprint();
-            Jump();
-
-            if (isSprinting)
-            {
-                transform.Translate(moveDirection * sprintMult);
-            }
-            else
-            {
-                transform.Translate(moveDirection);
-            }
+            transform.Translate(moveDirection * sprintMult * moveMult);
         }
+        else
+        {
+            transform.Translate(moveDirection * moveMult);
+        }
+
     }
 
     private void SetCharacterMoveDirection()
@@ -123,19 +114,26 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer)
         {
-            //moveDirection += jumpForce;
             _rigidbody.velocity += jumpForce;
             Debug.Log("Jump");
         }
-
-        //if(Input.GetKeyUp(KeyCode.Space))
-        //{
-        //    moveDirection.y = 0f;
-        //}
     }
 
     bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
+    }
+
+    public void IncreaseMoveSpeed(float _moveMult)
+    {
+        StartCoroutine(IncreaseMoveMultCoroutine(_moveMult));
+    }
+
+    private IEnumerator IncreaseMoveMultCoroutine(float _moveMult)
+    {
+        float originalMult = moveMult;
+        moveMult = _moveMult;
+        yield return new WaitForSeconds(5f);
+        moveMult = originalMult;
     }
 }

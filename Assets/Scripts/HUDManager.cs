@@ -11,12 +11,21 @@ public class HUDManager : MonoBehaviour
     [SerializeField] Text ammoText;
     [SerializeField] Text reloadingText;
     [SerializeField] Text equippedGunText;
+    [SerializeField] Text abilityTempText;
+
     [SerializeField] Slider healthBar;
     [SerializeField] Slider armorBar;
-    [SerializeField] GameObject xpPanel;
     [SerializeField] Slider xpBar;
+    [SerializeField] Slider cooldownImage;
+
+    [SerializeField] GameObject xpPanel;
+
     [SerializeField] TextMeshProUGUI levelTextMesh;
     [SerializeField] TextMeshProUGUI levelUpText;
+
+    [SerializeField] Image grenadeIcon1;
+    [SerializeField] Image grenadeIcon2;
+    [SerializeField] Image grenadeIcon3;
 
     private float showTime;
     private float xpShowTimer;
@@ -26,14 +35,18 @@ public class HUDManager : MonoBehaviour
 
     private string ammoString = "Ammo: ";
 
+    private Image[] m_grenades;
+
     private void Start()
     {
         UpdateEquippedGunText();
         showTime = 5f;
         xpShowTimer = 0f;
         animateTime = 2.5f;
+        m_grenades = new Image[] { grenadeIcon1, grenadeIcon2, grenadeIcon3 };
+
         // Make sure xp panel isnt showing
-        if(xpPanel.activeSelf == true)
+        if (xpPanel.activeSelf == true)
         {
             levelUpText.enabled = false;
             HideXP();
@@ -57,6 +70,18 @@ public class HUDManager : MonoBehaviour
             levelUpText.enabled = false;
             HideXP();
         }
+
+        //TODO Call these functions when a grenade is thrown or picked up
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Debug.Log("UpArrowPressed");
+            ShowGrenade();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Debug.Log("DownArrowPressed");
+            HideGrenade();
+        }
     }
 
     public void UpdateAmmoText(int ammo, int maxAmmo)
@@ -78,6 +103,43 @@ public class HUDManager : MonoBehaviour
     public void HideReload()
     {
         reloadingText.enabled = false;
+    }
+
+    public void RefillGrenades()
+    {
+        foreach (Image grenade in m_grenades)
+        {
+            if (grenade.enabled == false)
+            {
+                grenade.enabled = true;
+            }
+        }
+    }
+
+    public void ShowGrenade()
+    {
+        Debug.Log("ShowGrenade");
+        foreach (Image grenade in m_grenades)
+        {
+            if (grenade.enabled == false)
+            {
+                grenade.enabled = true;
+                return;
+            }
+        }
+    }
+
+    public void HideGrenade()
+    {
+        Debug.Log("HideGrenade");
+        for (int i = 2; i > -1; i--)
+        {
+            if (m_grenades[i].enabled == true)
+            {
+                m_grenades[i].enabled = false;
+                return;
+            }
+        }
     }
 
     public void ShowXP()
@@ -112,6 +174,21 @@ public class HUDManager : MonoBehaviour
         // Show player if the ability is available
     }
 
+    public void UpdateAbilityTempText(string _ability)
+    {
+        abilityTempText.text = _ability;
+    }
+
+    public void UpdateCooldownImage(float _value)
+    {
+        cooldownImage.value = _value;
+    }
+
+    public void UpdateCooldownMaxValue(float _maxValue)
+    {
+        cooldownImage.maxValue = _maxValue;
+    }
+
     public void UpdateXPBar(float _value)
     {
         animateTimer = 0f;
@@ -132,4 +209,6 @@ public class HUDManager : MonoBehaviour
     {
         levelUpText.enabled = true;
     }
+
+
 }
