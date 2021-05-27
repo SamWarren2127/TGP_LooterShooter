@@ -113,7 +113,7 @@ public class AbilityController : MonoBehaviour
 
     public void IncreaseMoveSpeed(float _moveMult)
     {
-        playerController.IncreaseMoveSpeed(_moveMult);
+        //playerController.IncreaseMoveSpeed(_moveMult);
     }
 
     public void Move(Vector3 _moveDir)
