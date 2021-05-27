@@ -12,6 +12,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] Text reloadingText;
     [SerializeField] Text equippedGunText;
     [SerializeField] Text abilityTempText;
+    [SerializeField] TextMeshProUGUI[] statistics = new TextMeshProUGUI[4];
 
     [SerializeField] Slider healthBar;
     [SerializeField] Slider armorBar;
@@ -19,13 +20,20 @@ public class HUDManager : MonoBehaviour
     [SerializeField] Slider cooldownImage;
 
     [SerializeField] GameObject xpPanel;
+    [SerializeField] GameObject abilityUI;
+    [SerializeField] GameObject bloodPanel;
+    [SerializeField] GameObject HUD;
+    [SerializeField] GameObject deathMenu;
 
     [SerializeField] TextMeshProUGUI levelTextMesh;
     [SerializeField] TextMeshProUGUI levelUpText;
 
+    //TODO This only needs to be an array
+    private Image[] m_grenades;
     [SerializeField] Image grenadeIcon1;
     [SerializeField] Image grenadeIcon2;
     [SerializeField] Image grenadeIcon3;
+    [SerializeField] Image abilityBackground;
 
     private float showTime;
     private float xpShowTimer;
@@ -35,7 +43,7 @@ public class HUDManager : MonoBehaviour
 
     private string ammoString = "Ammo: ";
 
-    private Image[] m_grenades;
+    private Color originalColor;
 
     private void Start()
     {
@@ -44,6 +52,7 @@ public class HUDManager : MonoBehaviour
         xpShowTimer = 0f;
         animateTime = 2.5f;
         m_grenades = new Image[] { grenadeIcon1, grenadeIcon2, grenadeIcon3 };
+        originalColor = abilityBackground.color;
 
         // Make sure xp panel isnt showing
         if (xpPanel.activeSelf == true)
@@ -82,6 +91,38 @@ public class HUDManager : MonoBehaviour
             Debug.Log("DownArrowPressed");
             HideGrenade();
         }
+    }
+
+    public void ShowBloodPanel()
+    {
+        bloodPanel.SetActive(true);
+    }
+
+    public void HideBloodPanel()
+    {
+        bloodPanel.SetActive(true);
+    }
+
+    public void ShowHUD()
+    {
+        HUD.SetActive(true);
+    }
+
+    public void HideHUD()
+    {
+        HUD.SetActive(false);
+    }
+
+    public void ShowDeathMenu()
+    {
+        deathMenu.SetActive(true);
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void HideDeathMenu()
+    {
+        deathMenu.SetActive(false);
     }
 
     public void UpdateAmmoText(int ammo, int maxAmmo)
@@ -159,6 +200,22 @@ public class HUDManager : MonoBehaviour
         xpPanel.SetActive(false);
     }
 
+    public void ShoworHideAbilityUI()
+    {
+        abilityUI.SetActive(!abilityUI.activeSelf);
+
+        if (abilityUI.activeSelf)
+        {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
     public void UpdateHealthBar(float _value)
     {
         healthBar.value = _value;
@@ -169,9 +226,27 @@ public class HUDManager : MonoBehaviour
         armorBar.value = _value;
     }
 
-    public void UpdateAbility()
+    public void UpdateAbilityAvailable(bool _available)
     {
         // Show player if the ability is available
+        if(!_available)
+        {
+            if(abilityBackground.color != originalColor)
+            {
+                abilityBackground.color = originalColor;
+            }
+            else
+            {
+                return;
+            }
+        }
+        else
+        {
+            if(abilityBackground.color != Color.red)
+            {
+                abilityBackground.color = Color.red;
+            }
+        }
     }
 
     public void UpdateAbilityTempText(string _ability)
@@ -209,6 +284,4 @@ public class HUDManager : MonoBehaviour
     {
         levelUpText.enabled = true;
     }
-
-
 }

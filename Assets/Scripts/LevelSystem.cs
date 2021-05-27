@@ -21,7 +21,6 @@ public class LevelSystem : MonoBehaviour
         if (currentEXP >= maxEXP)
         {
             increaseLevel();
-            FindObjectOfType<AudioManager>().Play("LevelUp");
         }
     }
 

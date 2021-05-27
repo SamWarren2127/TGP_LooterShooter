@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class HasteAbility : Ability
 {
-    //public float cooldown = 15f;
-    //public string name = "Haste";
 
     public HasteAbility(AbilityController _controller) : base(_controller)
     {
         //Using base constructor
+        name = "Haste";
+        cooldown = 4f;
     }
 
     public override void Activate()
