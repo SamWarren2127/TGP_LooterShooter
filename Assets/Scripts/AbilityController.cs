@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class AbilityController : MonoBehaviour
 {
-    enum EAbility
+    public enum EAbility
     {
         NONE,
         HEAL,
-        HASTE
+        HASTE,
+        DOUBLE_JUMP,
+        DASH
     }
 
     EAbility m_currentAbility;
@@ -17,14 +19,14 @@ public class AbilityController : MonoBehaviour
     float cooldownTimer = 0f;
     float cooldownTime;
 
+    [SerializeField] GameObject abilityUI;
+
     [Header("Managers")]
     [SerializeField] AudioManager audioManager;
     [SerializeField] ParticleManager particleManager;
     [SerializeField] HUDManager hudManager;
-
     PlayerStats playerStats;
     PlayerController playerController;
-
 
     // Start is called before the first frame update
     void Start()
@@ -44,11 +46,15 @@ public class AbilityController : MonoBehaviour
         // Initialize abilities
         HealAbility healAbility = new HealAbility(this);
         HasteAbility hasteAbility = new HasteAbility(this);
+        DoubleJumpAbility doubleJumpAbility = new DoubleJumpAbility(this);
+        DashAbility dashAbility = new DashAbility(this);
 
         // Add abilites to a list
         abilities.Add(null);
         abilities.Add(healAbility);
         abilities.Add(hasteAbility);
+        abilities.Add(doubleJumpAbility);
+        abilities.Add(dashAbility);
 
         // Set current ability
         ChangeCurrentAbility(EAbility.HEAL);
@@ -63,6 +69,11 @@ public class AbilityController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            hudManager.ShoworHideAbilityUI();
+        }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (cooldownTimer <= 0f)
@@ -71,29 +82,56 @@ public class AbilityController : MonoBehaviour
             }
         }
 
+        // Keep the timer ticking
         if (cooldownTimer > 0f)
         {
             hudManager.UpdateCooldownImage(cooldownTimer);
             cooldownTimer -= Time.deltaTime;
         }
+
+        // If the player is grounded the ability will be red to show its unavailable
+        if (m_currentAbility == EAbility.DOUBLE_JUMP)
+        {
+            hudManager.UpdateAbilityAvailable(playerController.IsGrounded());
+            if (playerController.doubleJump == false)
+            {
+                playerController.doubleJump = true;
+            }
+        }
+        else if (playerController.doubleJump == true)
+        {
+            playerController.doubleJump = false;
+            hudManager.UpdateAbilityAvailable(false);
+        }
     }
 
     void ChangeCurrentAbility(EAbility _ability)
     {
+        // Change current ability
         m_currentAbility = _ability;
+
+        // Set cooldowns variables to current ability
         cooldownTime = abilities[(int)m_currentAbility].GetCooldown();
         cooldownTimer = cooldownTime;
-        //TODO Handle udating the UI
+
+        // Update UI
         hudManager.UpdateAbilityTempText(abilities[(int)m_currentAbility].GetName());
         hudManager.UpdateCooldownMaxValue(cooldownTime);
-        //Maybe make a sound
+
+        //TODO Make a sound 
+    }
+
+    public void ChangeCurrentAbilityByNumber(int _number)
+    {
+        ChangeCurrentAbility((EAbility)_number);
+        Debug.Log("Ability changed: " + ((EAbility)_number));
     }
 
     void ActivateCurrentAbility()
     {
-        abilities[(int)m_currentAbility].Activate();
         cooldownTimer = cooldownTime;
-        //TODO Update UI
+        hudManager.UpdateCooldownImage(cooldownTimer);
+        abilities[(int)m_currentAbility].Activate();
     }
 
     public void SpawnParticles(string _particleEffect)
@@ -119,5 +157,15 @@ public class AbilityController : MonoBehaviour
     public void Move(Vector3 _moveDir)
     {
         //TODO Add movement
+    }
+
+    public void DoubleJump()
+    {
+        playerController.DoubleJump();
+    }
+
+    public void Dash()
+    {
+        playerController.Dash();
     }
 }

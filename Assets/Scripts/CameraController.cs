@@ -14,10 +14,17 @@ public class CameraController : MonoBehaviour
     Vector2 smoothV;
     [SerializeField]
     GameObject pauseMenu;
+    [SerializeField]
+    GameObject abilityMenu;
+    [SerializeField]
+    GameObject deathMenu;
+
+
+    private float crouchDifference = 0.5f;
 
     void Update()
     {
-        if(!pauseMenu.activeSelf)
+        if(!pauseMenu.activeSelf && !abilityMenu.activeSelf && !deathMenu.activeSelf)
         {
             var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
             md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
@@ -26,18 +33,10 @@ public class CameraController : MonoBehaviour
             smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);
 
             mouseLook += smoothV;
+            mouseLook.y = Mathf.Clamp(mouseLook.y, -90f, 90f);
             transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
             character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
         }
-    }
-
-    private float crouchDifference = 0.5f;
-
-    public void RotateCamera(float rotation)
-    {
-        // Rotates the camera on the X axis to look up and down following the mouse
-        rotation = Mathf.Clamp(rotation, -90f, 90f);
-        transform.localRotation = Quaternion.Euler(rotation, 0f, 0f);
     }
 
     public void LowerCamera()

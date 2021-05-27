@@ -35,8 +35,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        //Play("TempMusic");
-        Play("Ambience");
+        Play("TempMusic");
     }
     public void Play(string name)
     {

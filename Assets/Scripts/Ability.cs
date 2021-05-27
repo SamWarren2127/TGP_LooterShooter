@@ -40,6 +40,16 @@ public abstract class Ability
         _abilityController.IncreaseMoveSpeed(_moveMult);
     }
 
+    protected void DoubleJump()
+    {
+        _abilityController.DoubleJump();
+    }
+
+    protected void Dash()
+    {
+        _abilityController.Dash();
+    }
+
     public string GetName()
     {
         return name;

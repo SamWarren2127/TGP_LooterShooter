@@ -10,7 +10,7 @@ public class HealAbility : Ability
     {
         //Using base constructor
         name = "Heal";
-        cooldown = 10f;
+        cooldown = 2f;
     }
 
     public override void Activate()
@@ -27,6 +27,7 @@ public class HealAbility : Ability
         //PlaySound("Heal");
 
         // UI / Particle Effect
-        SpawnParticles("healingEffect");
+        // String should be name of the prefab
+        SpawnParticles("HealParticle");
     }
 }
