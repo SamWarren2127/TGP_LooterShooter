@@ -24,7 +24,7 @@ public class HealAbility : Ability
         IncreaseMoveSpeed(1.2f);
 
         // Play Sound
-        //PlaySound("Heal");
+        //FindObjectOfType<AudioManager>().Play("Heal");
 
         // UI / Particle Effect
         // String should be name of the prefab
