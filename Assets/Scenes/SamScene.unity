@@ -2741,8 +2741,6 @@ MonoBehaviour:
   smoothing: 0
   character: {fileID: 0}
   pauseMenu: {fileID: 0}
-  abilityMenu: {fileID: 0}
-  deathMenu: {fileID: 0}
 --- !u!114 &431823385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4638,12 +4636,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: {x: 0, y: 5, z: 0}
-  dashForce: 10
-  moveDirection: {x: 0, y: 0, z: 0}
-  sprintMult: 2
-  jumpTime: 0
-  doubleJump: 0
+  jumpForce: 0
+  stepRate: 0.5
+  stepCoolDown: 0
 --- !u!136 &937190813
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4737,9 +4732,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hudManager: {fileID: 1616748915}
+  health: 1
+  armor: 1
   maxHealth: 1
   maxArmor: 1
-  lowHealthResistance: 0.5
+  canDamage: 0
 --- !u!114 &937190818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4765,7 +4762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87de5b486fbedc45b15da60e8bd0611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityUI: {fileID: 2140679970}
   audioManager: {fileID: 1384546059}
   particleManager: {fileID: 82957423}
   hudManager: {fileID: 1616748915}
@@ -8209,26 +8205,16 @@ MonoBehaviour:
   reloadingText: {fileID: 1162785784}
   equippedGunText: {fileID: 1711316756}
   abilityTempText: {fileID: 2193713}
-  statistics:
-  - {fileID: 358364378}
-  - {fileID: 936236635}
-  - {fileID: 187434070}
-  - {fileID: 1905393533}
   healthBar: {fileID: 2002850555}
   armorBar: {fileID: 200419619}
   xpBar: {fileID: 1001218396}
   cooldownImage: {fileID: 858908691}
   xpPanel: {fileID: 1244005232}
-  abilityUI: {fileID: 2140679970}
-  bloodPanel: {fileID: 1813753569}
-  HUD: {fileID: 1936063328}
-  deathMenu: {fileID: 42543379}
   levelTextMesh: {fileID: 499098536}
   levelUpText: {fileID: 1155964897}
   grenadeIcon1: {fileID: 262720209}
   grenadeIcon2: {fileID: 1693858042}
   grenadeIcon3: {fileID: 669526954}
-  abilityBackground: {fileID: 1433938887}
 --- !u!114 &1616748916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8698,8 +8684,6 @@ MonoBehaviour:
   smoothing: 2
   character: {fileID: 937190810}
   pauseMenu: {fileID: 84899840}
-  abilityMenu: {fileID: 2140679970}
-  deathMenu: {fileID: 42543379}
 --- !u!1 &1684135582
 GameObject:
   m_ObjectHideFlags: 0
@@ -8737,7 +8721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015164345, y: 0.032337982}
   m_AnchorMax: {x: 0.28056166, y: 0.15}
-  m_AnchoredPosition: {x: -80.980225, y: -10.335876}
+  m_AnchoredPosition: {x: -80.980225, y: -10.3359375}
   m_SizeDelta: {x: -195.68231, y: -20.042122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1684135584

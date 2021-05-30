@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     CameraController _camera;
     Collider _collider;
 
+    public float stepRate = 0.5f;
+    public float stepCooldown;
+
     [Header("Player Controller Stats")]
     [SerializeField]
     float speed;
@@ -77,6 +80,12 @@ public class PlayerController : MonoBehaviour
             transform.Translate(moveDirection * moveMult);
         }
 
+        stepCooldown -= Time.deltaTime;
+        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCooldown < 0f)
+        {
+            FindObjectOfType<AudioManager>().Play("Footstep");
+            stepCooldown = stepRate;
+        }
     }
 
     private void SetCharacterMoveDirection()
