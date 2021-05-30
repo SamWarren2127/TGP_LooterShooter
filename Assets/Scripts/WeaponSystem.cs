@@ -28,7 +28,7 @@ public class WeaponSystem : MonoBehaviour
         fullAutoFire = true;
         jammed = false;
 
-        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
 
     // Update is called once per frame
@@ -109,7 +109,14 @@ public class WeaponSystem : MonoBehaviour
 
             if (rayHit.collider.CompareTag("Enemy"))
             {
-                // Do damage
+                Debug.Log("Hit enemy");
+            }
+
+            Enemy health = rayHit.collider.GetComponent<Enemy>();
+
+            if(health != null)
+            {
+                health.TakeDamage(damage);
             }
         }
 
@@ -119,9 +126,10 @@ public class WeaponSystem : MonoBehaviour
         Instantiate(casing, spawnCasing.transform.position + spawnCasing.transform.right, spawnCasing.transform.rotation);
 
         remainingBullets--;
+        FindObjectOfType<AudioManager>().Play("gunshot");
 
         // Updating the HUD
-        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
 
         if (fullAutoFire)
         {
@@ -189,7 +197,7 @@ public class WeaponSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-        //hudManager.ShowReload();
+        hudManager.ShowReload();
         if (totalAmmo >= magazineSize)
         {
             totalAmmo -= magazineSize;
@@ -210,7 +218,17 @@ public class WeaponSystem : MonoBehaviour
         remainingBullets = magazineSize;
         reloading = false;
 
-        //hudManager.HideReload();
-        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+        hudManager.HideReload();
+        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+    }
+
+    void Damage(Transform enemy)
+    {
+        Enemy e = enemy.GetComponent<Enemy>();
+
+        if(e != null)
+        {
+            e.TakeDamage(damage);
+        }
     }
 }

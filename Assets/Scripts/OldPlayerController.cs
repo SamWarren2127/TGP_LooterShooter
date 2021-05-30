@@ -80,6 +80,7 @@ public class OldPlayerController : MonoBehaviour
                 {
                     _rigidbody.velocity = _rigidbody.velocity.normalized * maxSpeed;
                 }
+
             }
         }
         else if (_rigidbody.velocity.magnitude > 2f || _rigidbody.velocity.magnitude < -2f)
@@ -109,7 +110,7 @@ public class OldPlayerController : MonoBehaviour
         }
 
         //Rotates the camera on the X axis to look up and down following the mouse
-        _camera.RotateCamera(xRotation);
+        //_camera.RotateCamera(xRotation);
     }
 
     void SetCharacterMoveDirection()
