@@ -13,18 +13,22 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
     private float maxHealth = 1.0f;
     [SerializeField]
     private float maxArmor = 1.0f;
+    private bool isUnkillable;
 
     [SerializeField]
     private float lowHealthResistance = 0.5f;
     private float damageResistance = 1.0f;
-    private bool canDamage = false;
     private float lastDamagedTimer;
+
+    private bool canDamage;
 
     // Start is called before the first frame update
     void Start()
     {
         Health = maxHealth;
         Armor = maxArmor;
+        isUnkillable = false;
+        canDamage = false;
         UpdateHealthBar();
         UpdateArmorBar();
     }
@@ -222,6 +226,13 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
                     Health -= _damageAmount * damageResistance;
                     ResetDamageTimer();
 
+                    if(isUnkillable && !isAlive())
+                    {
+                        Health = 0.01f;
+                        UpdateHealthBar();
+                        return;
+                    }
+
                     if (!isAlive())
                     {
                         //TODO Handle Dying
@@ -256,6 +267,14 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
                     Health -= _damageAmount * damageResistance;
                     ResetDamageTimer();
 
+
+                    if (isUnkillable && !isAlive())
+                    {
+                        Health = 0.01f;
+                        UpdateHealthBar();
+                        return;
+                    }
+
                     if (!isAlive())
                     {
                         //TODO Handle Dying
@@ -271,6 +290,15 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
                 UpdateHealthBar();
             }
         }
+    }
+
+    public IEnumerator Unkillable(float _time)
+    {
+        isUnkillable = true;
+        hudManager.ToggleUnkillablePanel(isUnkillable);
+        yield return new WaitForSeconds(_time);
+        isUnkillable = false;
+        hudManager.ToggleUnkillablePanel(isUnkillable);
     }
 
     private void Die()
