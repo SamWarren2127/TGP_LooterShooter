@@ -2731,7 +2731,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepRate: 0.5
+  sprintRate: 1
   stepCooldown: 0
+  sprintCooldown: 0
   speed: 5
   jumpForce: {x: 0, y: 6, z: 0}
   dashForce: 10
@@ -17212,6 +17214,10 @@ PrefabInstance:
     - target: {fileID: 4633412547826299546, guid: 10998ba292f622c4fa9f13509762780b, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633412547826299547, guid: 10998ba292f622c4fa9f13509762780b, type: 3}
+      propertyPath: sounds.Array.data[7].volume
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 4633412547826299548, guid: 10998ba292f622c4fa9f13509762780b, type: 3}
       propertyPath: m_LocalPosition.x

@@ -9,7 +9,10 @@ public class PlayerController : MonoBehaviour
     Collider _collider;
 
     public float stepRate = 0.5f;
+    public float sprintRate = 0.5f;
     public float stepCooldown;
+    public float sprintCooldown;
+
 
     [Header("Player Controller Stats")]
     [SerializeField]
@@ -83,13 +86,20 @@ public class PlayerController : MonoBehaviour
         }
 
         stepCooldown -= Time.deltaTime;
-        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCooldown < 0f && isGrounded == true)
+        sprintCooldown -= Time.deltaTime;
+        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCooldown < 0f && isGrounded == true && isSprinting == true)
         {
             FindObjectOfType<AudioManager>().Play("Footstep");
             stepCooldown = stepRate;
         }
 
-        Debug.Log(isGrounded);
+        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && sprintCooldown < 0f && isGrounded == true && isSprinting == false)
+        {
+            FindObjectOfType<AudioManager>().Play("Footstep");
+            sprintCooldown = sprintRate;
+        }
+
+        //Debug.Log(isGrounded);
 
     }
 

@@ -6,6 +6,13 @@ public class HealAbility : Ability
 {
     float healAmount = 0.2f;
 
+    AudioManager audioManager;
+
+    void Start()
+    {
+        audioManager = AudioManager.FindObjectOfType<AudioManager>();
+    }
+
     public HealAbility(AbilityController _controller) : base(_controller)
     {
         //Using base constructor
@@ -24,10 +31,15 @@ public class HealAbility : Ability
         IncreaseMoveSpeed(1.2f);
 
         // Play Sound
-        //FindObjectOfType<AudioManager>().Play("Heal");
+        AudioManager.FindObjectOfType<AudioManager>().Play("Heal");
 
         // UI / Particle Effect
         // String should be name of the prefab
         SpawnParticles("HealParticle");
     }
+
+    //public void PlayAudio()
+    //{
+      //  audioManager.Play("Heal");
+    //}
 }
