@@ -184,6 +184,7 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
                         // Deal damage down to 1/5 health
                         Health -= temp * damageResistance;
                         hudManager.ShowBloodPanel();
+                        FindObjectOfType<AudioManager>().Play("LowHealth");
 
                         // Minus the damage already dealt from the remainding damage
                         _damageAmount -= temp;
