@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     public bool doubleJump;
 
+    private bool isGrounded;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,7 +83,7 @@ public class PlayerController : MonoBehaviour
         }
 
         stepCooldown -= Time.deltaTime;
-        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCooldown < 0f)
+        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCooldown < 0f && isGrounded == true)
         {
             FindObjectOfType<AudioManager>().Play("Footstep");
             stepCooldown = stepRate;
@@ -166,5 +168,21 @@ public class PlayerController : MonoBehaviour
         moveMult = _moveMult;
         yield return new WaitForSeconds(3f);
         moveMult = originalMult;
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "Floor")
+        {
+            isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if(col.gameObject.tag == "Floor")
+        {
+            isGrounded = false;
+        }
     }
 }
