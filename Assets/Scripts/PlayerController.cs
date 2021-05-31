@@ -88,6 +88,9 @@ public class PlayerController : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("Footstep");
             stepCooldown = stepRate;
         }
+
+        Debug.Log(isGrounded);
+
     }
 
     private void SetCharacterMoveDirection()

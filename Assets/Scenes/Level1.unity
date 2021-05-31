@@ -3322,7 +3322,6 @@ MonoBehaviour:
   recoilY: 0
   range: 0
   reloadTime: 1
-  hudManager: {fileID: 413773869}
 --- !u!1 &280857150
 GameObject:
   m_ObjectHideFlags: 0
@@ -22491,7 +22490,7 @@ GameObject:
   - component: {fileID: 7720998641582212681}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
