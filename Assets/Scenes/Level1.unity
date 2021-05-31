@@ -17219,6 +17219,10 @@ PrefabInstance:
       propertyPath: sounds.Array.data[7].volume
       value: 0.125
       objectReference: {fileID: 0}
+    - target: {fileID: 4633412547826299547, guid: 10998ba292f622c4fa9f13509762780b, type: 3}
+      propertyPath: sounds.Array.data[8].volume
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 4633412547826299548, guid: 10998ba292f622c4fa9f13509762780b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 550.5

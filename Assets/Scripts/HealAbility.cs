@@ -37,9 +37,4 @@ public class HealAbility : Ability
         // String should be name of the prefab
         SpawnParticles("HealParticle");
     }
-
-    //public void PlayAudio()
-    //{
-      //  audioManager.Play("Heal");
-    //}
 }
