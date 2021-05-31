@@ -20,8 +20,6 @@ public class AbilityController : MonoBehaviour
     float cooldownTimer = 0f;
     float cooldownTime;
 
-    [SerializeField] GameObject abilityUI;
-
     [Header("Managers")]
     [SerializeField] AudioManager audioManager;
     [SerializeField] ParticleManager particleManager;
@@ -74,7 +72,7 @@ public class AbilityController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Tab))
         {
-            hudManager.ShoworHideAbilityUI();
+            hudManager.ToggleAbilityUI();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))

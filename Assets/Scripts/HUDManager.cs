@@ -206,7 +206,7 @@ public class HUDManager : MonoBehaviour
         xpPanel.SetActive(false);
     }
 
-    public void ShoworHideAbilityUI()
+    public void ToggleAbilityUI()
     {
         abilityUI.SetActive(!abilityUI.activeSelf);
 
