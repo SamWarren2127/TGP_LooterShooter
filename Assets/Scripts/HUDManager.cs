@@ -24,6 +24,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] GameObject bloodPanel;
     [SerializeField] GameObject HUD;
     [SerializeField] GameObject deathMenu;
+    [SerializeField] GameObject unkillablePanel;
 
     [SerializeField] TextMeshProUGUI levelTextMesh;
     [SerializeField] TextMeshProUGUI levelUpText;
@@ -93,6 +94,11 @@ public class HUDManager : MonoBehaviour
         }
     }
 
+    public void ToggleUnkillablePanel(bool _toggle)
+    {
+        unkillablePanel.SetActive(_toggle);
+    }
+
     public void ShowBloodPanel()
     {
         bloodPanel.SetActive(true);
@@ -100,7 +106,7 @@ public class HUDManager : MonoBehaviour
 
     public void HideBloodPanel()
     {
-        bloodPanel.SetActive(true);
+        bloodPanel.SetActive(false);
     }
 
     public void ShowHUD()

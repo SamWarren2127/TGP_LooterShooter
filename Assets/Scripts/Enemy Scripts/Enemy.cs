@@ -35,7 +35,7 @@ public class EnemyStats : MonoBehaviour
 
                     transform.Translate(Vector3.forward * Time.deltaTime * m_moveSpeed);
 
-                    var rayColor = IsPathBlocked() ? Color.red : Color.green;
+                    Color rayColor = IsPathBlocked() ? Color.red : Color.green;
                     Debug.DrawRay(transform.position, _direction * _rayDistance, rayColor);
 
 
@@ -45,7 +45,7 @@ public class EnemyStats : MonoBehaviour
                         GetDestination();
                     }
 
-                    var targetToAggro = CheckForAggression();
+                    Transform targetToAggro = CheckForAggression();
                     if (targetToAggro != null)
                     {
                         _target = targetToAggro.GetComponent<Enemy>();
@@ -102,17 +102,10 @@ public class EnemyStats : MonoBehaviour
     private bool IsPathBlocked()
     {
         //RaycastHit hit;
-        Debug.Log("IsPathBlocked");
         Ray ray = new Ray(transform.position, _direction);
-        var hitSomething = Physics.RaycastAll(ray, _rayDistance, _layerMask);
+        RaycastHit[] hitSomething = Physics.RaycastAll(ray, _rayDistance, _layerMask);
         return hitSomething.Any();
-        ////var hitObject = Physics.Raycast(ray, out hit, _rayDistance);
-        //if(Physics.Raycast(ray, out hit, _rayDistance))
-        //{
-        //    Debug.Log("Hit");
-        //    //return true;
-        //}
-        //return false; 
+
     }
 
     private bool NeedADestination()
@@ -140,16 +133,16 @@ public class EnemyStats : MonoBehaviour
         float aggroRadius = 5f;
 
         RaycastHit hit;
-        var angle = transform.rotation * startingAngle;
-        var direction = angle * Vector3.forward;
-        var pos = transform.position;
+        Quaternion angle = transform.rotation * startingAngle;
+        Vector3 direction = angle * Vector3.forward;
+        Vector3 pos = transform.position;
 
         for(int i = 0; i < 24; i++)
         {
             if(Physics.Raycast(pos, direction, out hit, aggroRadius))
             {
                 //Will need to sort for player
-                var enemy = hit.collider.GetComponent<Enemy>();
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
                 if(enemy != null)
                 {
                     Debug.DrawRay(pos, direction * hit.distance, Color.red);

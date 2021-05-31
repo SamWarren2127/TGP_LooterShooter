@@ -10,7 +10,8 @@ public class AbilityController : MonoBehaviour
         HEAL,
         HASTE,
         DOUBLE_JUMP,
-        DASH
+        DASH,
+        UNKILLABLE
     }
 
     EAbility m_currentAbility;
@@ -48,6 +49,7 @@ public class AbilityController : MonoBehaviour
         HasteAbility hasteAbility = new HasteAbility(this);
         DoubleJumpAbility doubleJumpAbility = new DoubleJumpAbility(this);
         DashAbility dashAbility = new DashAbility(this);
+        UnkillableAbility unkillableAbility = new UnkillableAbility(this);
 
         // Add abilites to a list
         abilities.Add(null);
@@ -55,6 +57,7 @@ public class AbilityController : MonoBehaviour
         abilities.Add(hasteAbility);
         abilities.Add(doubleJumpAbility);
         abilities.Add(dashAbility);
+        abilities.Add(unkillableAbility);
 
         // Set current ability
         ChangeCurrentAbility(EAbility.HEAL);
@@ -123,8 +126,11 @@ public class AbilityController : MonoBehaviour
 
     public void ChangeCurrentAbilityByNumber(int _number)
     {
-        ChangeCurrentAbility((EAbility)_number);
-        Debug.Log("Ability changed: " + ((EAbility)_number));
+        if(m_currentAbility != (EAbility)_number)
+        {
+            ChangeCurrentAbility((EAbility)_number);
+            Debug.Log("Ability changed: " + ((EAbility)_number));
+        }
     }
 
     void ActivateCurrentAbility()
@@ -167,5 +173,10 @@ public class AbilityController : MonoBehaviour
     public void Dash()
     {
         playerController.Dash();
+    }
+
+    public void UnkillableForATime(float _time)
+    {
+        StartCoroutine(playerStats.Unkillable(_time));
     }
 }
