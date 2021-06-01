@@ -22,7 +22,7 @@ public class PatrolState : BaseState
 
     private void Awake()
     {
-        m_enodeSetUp = GameObject.FindGameObjectWithTag("ESetup").GetComponent<EnodeSetUp>();
+        m_enodeSetUp = GameObject.FindGameObjectWithTag("ESetUp").GetComponent<EnodeSetUp>();
         m_Enodes = m_enodeSetUp.Enodes;
         
     }
