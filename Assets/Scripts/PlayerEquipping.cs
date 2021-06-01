@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEquippedItem : MonoBehaviour
+public class PlayerEquipping : MonoBehaviour
 {
     public EquippedItem equippedItem;
     
-    public void PlayerEquip(ItemData item, Mesh mesh)
+    public void PlayerEquip(ItemData item, GameObject weaponObject )
     {
-        equippedItem.SetEquipped(item, mesh);
+        equippedItem.SetEquipped(item, weaponObject);
     }
 
     public void PlayerRemove()
