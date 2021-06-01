@@ -12,7 +12,7 @@ public class WeaponSystem : MonoBehaviour
 
     public int damage, magazineSize;
     public float rateOfFire, recoilX, recoilY, range, reloadTime;
-    int remainingBullets, totalAmmo;
+    public int remainingBullets, totalAmmo;
     bool shooting, canShoot, reloading, fullAutoFire, burstFire, semiAutoFire, safety, jammed, isClearingJam, burstWeapon;
 
     HUDManager hudManager;
@@ -54,6 +54,7 @@ public class WeaponSystem : MonoBehaviour
         // Reload
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
+            Debug.Log("Reload");
             Reload();
         }
 
@@ -199,18 +200,22 @@ public class WeaponSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
+        Debug.Log(reloading);
         hudManager.ShowReload();
         if (totalAmmo >= magazineSize)
         {
             totalAmmo -= magazineSize;
+            Debug.Log("3");
         }
         else if (magazineSize > totalAmmo && totalAmmo > 0)
         {
             remainingBullets = totalAmmo;
+            Debug.Log("4");
         }
         else
         {
             reloading = false;
+            Debug.Log(reloading);
             return;
         }
         Invoke("ReloadFinished", reloadTime);

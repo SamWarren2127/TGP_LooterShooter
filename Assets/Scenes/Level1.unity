@@ -3324,6 +3324,8 @@ MonoBehaviour:
   recoilY: 0
   range: 0
   reloadTime: 1
+  remainingBullets: 0
+  totalAmmo: 30
 --- !u!1 &280857150
 GameObject:
   m_ObjectHideFlags: 0
