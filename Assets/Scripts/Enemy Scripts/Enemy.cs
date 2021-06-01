@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable<float>
 {
     
 
@@ -210,6 +210,21 @@ public class Enemy : MonoBehaviour
         _direction = new Vector3(_direction.x, 0f, _direction.z);
 
         _desiredRotation = Quaternion.LookRotation(_direction);
+    }
+
+    public void Damage(float _damageAmount)
+    {
+        health -= _damageAmount;
+
+        if(health <= 0)
+        {
+            //Drop Items
+
+            //kill the enemy
+            Destroy(gameObject);
+            
+        }
+        throw new System.NotImplementedException();
     }
 
     public enum EnemyState
