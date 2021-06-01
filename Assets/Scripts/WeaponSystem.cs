@@ -36,6 +36,7 @@ public class WeaponSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+                
         // safety
         if (Input.GetKey(KeyCode.Tilde))
         {

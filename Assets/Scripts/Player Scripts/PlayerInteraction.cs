@@ -5,17 +5,33 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public PlayerInput input;
     public Camera playerCamera;
     public Interactable playerFocus;
     public Transform playerTransform;
+
+    public int screenWidth;
+    public int screenHeight;
 
     public float awakeRadius = 5f;
 
     public Vector3 playerScreenCenter;
 
     private void Start() 
+    {       
+        centerCursor();
+
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        GameObject playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
+        //playerCamera = playerTransform.GetComponent<Camera>();
+        
+    }
+
+    public void centerCursor()
     {
+        screenWidth = Screen.width;
+        screenHeight = Screen.height;
         //find screen center
         playerScreenCenter.x = 0.5f * Screen.width;
         playerScreenCenter.y = 0.5f * Screen.height;
@@ -39,6 +55,11 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Screen.width!=screenWidth || Screen.height !=screenHeight)
+        {
+            centerCursor();
+        }
+
         Vector3 playerPosition = playerTransform.position;
 
         //check to see if any objects are in range for objects that need to be awoken automatically
@@ -60,7 +81,7 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         //for objects that need to be interacted with manually
-        if (input.interact) // if player presses interact key, bound to e by default
+        if (Input.GetButtonDown("Interact")) // if player presses interact key, bound to e by default
         {
             Ray ray = playerCamera.ScreenPointToRay(playerScreenCenter); //project ray from camera           
             RaycastHit hit;

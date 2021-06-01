@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public List<ItemData> inventory = new List<ItemData>();
+    public List<ItemData> inventoryItems = new List<ItemData>();
 
-    public void AddItem (ItemData item)
+    public int inventorySpace = 19;
+
+    public bool AddItem (ItemData item)
     {
-        inventory.Add(item);
+        if (inventoryItems.Count <= inventorySpace)
+        {
+            inventoryItems.Add(item);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void RemoveItem(ItemData item)
     {
 
-        inventory.Remove(item);
+        inventoryItems.Remove(item);
     }
 }
