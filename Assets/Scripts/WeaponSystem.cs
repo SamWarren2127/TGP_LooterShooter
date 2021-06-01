@@ -28,7 +28,7 @@ public class WeaponSystem : MonoBehaviour
         fullAutoFire = true;
         jammed = false;
 
-        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
 
     // Update is called once per frame

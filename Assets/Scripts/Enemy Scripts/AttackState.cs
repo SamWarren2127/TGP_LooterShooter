@@ -29,7 +29,15 @@ public class AttackState : BaseState
             Debug.Log("Attack!");
             _enemyNew.FireWeapon();
         }
-        //Implement going out of range attack and moving to chase state
+
+
+        //Going out of range attack and changing to chase state
+        if (Vector3.Distance(_enemyNew.m_target.transform.position, m_transform.position) > 10f)
+        {
+            return typeof(ChaseState);
+        }
+
+        
         return null;
     }
 }

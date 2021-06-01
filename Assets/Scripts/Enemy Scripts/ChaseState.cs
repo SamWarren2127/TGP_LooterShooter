@@ -23,9 +23,9 @@ public class ChaseState : BaseState
         m_transform.Translate(Vector3.forward * Time.deltaTime * 4f); //GameSettings.EnemySpeed
 
         var distance = Vector3.Distance(m_transform.position, _enemyNew.m_target.transform.position);
-        if (distance <= 4f) //GameSettings.AttackRange
+        if (distance <= 10f) //GameSettings.AttackRange
         {
-            //retrun typeof(AttackState);
+            return typeof(AttackState);
         }
         return null;
     }

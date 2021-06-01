@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     
 
@@ -89,11 +89,11 @@ public class EnemyStats : MonoBehaviour
                     break;
                 }
                 
-            case EnemyState.Patrol:
-                {
-                    //Get Nodes and travel between nodes till player spotted
-                }
-                break;
+            //case EnemyState.Patrol:
+            //    {
+            //        //Get Nodes and travel between nodes till player spotted
+            //    }
+            //    break;
         }
 
 
@@ -164,6 +164,28 @@ public class EnemyStats : MonoBehaviour
         return null;
 
     }
+
+
+
+
+
+    public float health;
+    private bool isDead = false;
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+
+        if (health <= 0 && !isDead)
+        {
+            Die();
+        }
+    }
+    void Die()
+    {
+        Destroy(gameObject);
+        isDead = true;
+    }
+
 
 
     //Wander GetNewDest
