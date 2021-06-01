@@ -12,11 +12,11 @@ public class WeaponSystem : MonoBehaviour
 
     public int damage, magazineSize;
     public float rateOfFire, recoilX, recoilY, range, reloadTime;
-    int remainingBullets, totalAmmo;
+    public int remainingBullets, totalAmmo;
     bool shooting, canShoot, reloading, fullAutoFire, burstFire, semiAutoFire, safety, jammed, isClearingJam, burstWeapon;
 
-    [SerializeField]
     HUDManager hudManager;
+    AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +28,15 @@ public class WeaponSystem : MonoBehaviour
         fullAutoFire = true;
         jammed = false;
 
+        hudManager = FindObjectOfType<HUDManager>();
+        audioManager = FindObjectOfType<AudioManager>();
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
 
     // Update is called once per frame
     void Update()
     {
+                
         // safety
         if (Input.GetKey(KeyCode.Tilde))
         {
@@ -52,6 +55,7 @@ public class WeaponSystem : MonoBehaviour
         // Reload
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
+            Debug.Log("Reload");
             Reload();
         }
 
@@ -124,9 +128,9 @@ public class WeaponSystem : MonoBehaviour
         //Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
         //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
         Instantiate(casing, spawnCasing.transform.position + spawnCasing.transform.right, spawnCasing.transform.rotation);
-
+        audioManager.Play("gunshot");
         remainingBullets--;
-        FindObjectOfType<AudioManager>().Play("gunshot");
+
 
         // Updating the HUD
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);
@@ -197,18 +201,22 @@ public class WeaponSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
+        Debug.Log(reloading);
         hudManager.ShowReload();
         if (totalAmmo >= magazineSize)
         {
             totalAmmo -= magazineSize;
+            Debug.Log("3");
         }
         else if (magazineSize > totalAmmo && totalAmmo > 0)
         {
             remainingBullets = totalAmmo;
+            Debug.Log("4");
         }
         else
         {
             reloading = false;
+            Debug.Log(reloading);
             return;
         }
         Invoke("ReloadFinished", reloadTime);

@@ -6,8 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody _rigidbody;
     CameraController _camera;
-    CharacterController _character;
     Collider _collider;
+
+    public float stepRate = 0.5f;
+    public float sprintRate = 0.5f;
+    public float stepCooldown;
+    public float sprintCooldown;
+
 
     [Header("Player Controller Stats")]
     [SerializeField]
@@ -15,15 +20,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Vector3 jumpForce;
     [SerializeField]
+    float dashForce;
+    [SerializeField]
     Vector3 moveDirection;
     bool isSprinting = false;
     [SerializeField]
     float sprintMult;
+    float moveMult = 1.0f;
     float distanceToGround;
     bool groundedPlayer;
-    float startPosY;
     [SerializeField]
     float jumpTime;
+
+    public bool doubleJump;
+
+    private bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -42,14 +53,14 @@ public class PlayerController : MonoBehaviour
 
         _collider = GetComponent<Collider>();
         {
-            if(_collider == null)
+            if (_collider == null)
             {
                 Debug.Log("_collider is a null reference");
             }
         }
 
         distanceToGround = _collider.bounds.extents.y;
-        startPosY = transform.position.y;
+        doubleJump = false;
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -59,27 +70,37 @@ public class PlayerController : MonoBehaviour
     {
         groundedPlayer = IsGrounded();
 
-        //if (groundedPlayer && moveDirection.y > 0f)
-        //{
-        //    moveDirection.y = 0f;
-        //}
 
-        //if (groundedPlayer)
+        SetCharacterMoveDirection();
+        Crouch();
+        Sprint();
+        Jump();
+
+        if (isSprinting)
         {
-            SetCharacterMoveDirection();
-            Crouch();
-            Sprint();
-            Jump();
-
-            if (isSprinting)
-            {
-                transform.Translate(moveDirection * sprintMult);
-            }
-            else
-            {
-                transform.Translate(moveDirection);
-            }
+            transform.Translate(moveDirection * sprintMult * moveMult);
         }
+        else
+        {
+            transform.Translate(moveDirection * moveMult);
+        }
+
+        stepCooldown -= Time.deltaTime;
+        sprintCooldown -= Time.deltaTime;
+        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCooldown < 0f && isGrounded == true && isSprinting == true)
+        {
+            FindObjectOfType<AudioManager>().Play("Footstep");
+            stepCooldown = stepRate;
+        }
+
+        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && sprintCooldown < 0f && isGrounded == true && isSprinting == false)
+        {
+            FindObjectOfType<AudioManager>().Play("Footstep");
+            sprintCooldown = sprintRate;
+        }
+
+        //Debug.Log(isGrounded);
+
     }
 
     private void SetCharacterMoveDirection()
@@ -123,19 +144,58 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && groundedPlayer)
         {
-            //moveDirection += jumpForce;
-            _rigidbody.velocity += jumpForce;
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
+            _rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
             Debug.Log("Jump");
         }
-
-        //if(Input.GetKeyUp(KeyCode.Space))
-        //{
-        //    moveDirection.y = 0f;
-        //}
+    }
+    
+    public void DoubleJump()
+    {
+        if(doubleJump && !groundedPlayer)
+        {
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
+            _rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
+        }
     }
 
-    bool IsGrounded()
+    public void Dash()
+    {
+        _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _rigidbody.velocity.y, 0f);
+        _rigidbody.AddRelativeForce(Vector3.forward * dashForce, ForceMode.VelocityChange);
+    }
+
+     public bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
+    }
+
+    public void IncreaseMoveSpeed(float _moveMult)
+    {
+        StartCoroutine(IncreaseMoveMultCoroutine(_moveMult));
+    }
+
+    private IEnumerator IncreaseMoveMultCoroutine(float _moveMult)
+    {
+        float originalMult = moveMult;
+        moveMult = _moveMult;
+        yield return new WaitForSeconds(3f);
+        moveMult = originalMult;
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "Floor")
+        {
+            isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if(col.gameObject.tag == "Floor")
+        {
+            isGrounded = false;
+        }
     }
 }
