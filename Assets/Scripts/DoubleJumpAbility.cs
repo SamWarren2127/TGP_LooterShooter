@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoubleJumpAbility : Ability
 {
+    AudioManager audioManager;
+
     public DoubleJumpAbility(AbilityController _controller) : base(_controller)
     {
         name = "DoubleJump";
@@ -13,7 +15,7 @@ public class DoubleJumpAbility : Ability
     public override void Activate()
     {
         // Play Sound
-        //PlaySound("DoubleJump");
+        AudioManager.FindObjectOfType<AudioManager>().Play("DoubleJump");
 
         // Spawn Particles
         //SpawnParticles("DoubleJump");

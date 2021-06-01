@@ -5,31 +5,47 @@ using UnityEngine;
 
 public class EquippedItem : MonoBehaviour
 {
-    public Mesh equippedObject;
-    public ItemData equippedItem;
+    public GameObject equippedObject;
+    public GameObject weaponObject;
 
-    public bool itemEquipped; 
+    public Quaternion setRotation;
 
-    public void SetEquipped(ItemData item, Mesh mesh)
+    public ItemData itemData;
+
+    public bool itemEquippedBool; 
+
+    public void SetEquipped(ItemData item, GameObject weaponPrefab)
     {
-        itemEquipped = true;
-        equippedItem = item;
-        equippedObject = mesh;
+        RemoveEquipped();
 
-        UpdateVisuals();
+        itemEquippedBool = true;
+        itemData = item;
+        weaponObject = weaponPrefab;
+
+        UpdateEquipped();
     }
 
-    private void UpdateVisuals()
+    private void UpdateEquipped()
     {
-        GetComponent<MeshFilter>().mesh = equippedObject;
+       
+        equippedObject = Instantiate(weaponObject, this.transform.position, Quaternion.identity) as GameObject;
+
+        equippedObject.transform.parent = this.transform;
+
+        equippedObject.transform.rotation = setRotation;
+
     }
+
+
 
     public void RemoveEquipped()
     {
-        itemEquipped = false;
-        equippedItem = null;
+        Destroy(equippedObject);
+               
+        itemEquippedBool = false;
+        itemData = null;
         equippedObject = null;
+        weaponObject = null;
 
-        UpdateVisuals();
     }
 }
