@@ -58,7 +58,7 @@ public class WeaponSystem : MonoBehaviour
         // Shoot
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire)
+            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire && hudManager.abilityUI.activeSelf == false)
             {
                 // full auto if possible 
                 Shoot();
@@ -70,7 +70,7 @@ public class WeaponSystem : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire)
+            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire && hudManager.abilityUI.activeSelf == false)
             {
                 // burst or single where applicable 
                 Shoot();

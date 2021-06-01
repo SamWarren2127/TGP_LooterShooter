@@ -20,7 +20,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] Slider cooldownImage;
 
     [SerializeField] GameObject xpPanel;
-    [SerializeField] GameObject abilityUI;
+    public GameObject abilityUI;
     [SerializeField] GameObject bloodPanel;
     [SerializeField] GameObject HUD;
     [SerializeField] GameObject deathMenu;
