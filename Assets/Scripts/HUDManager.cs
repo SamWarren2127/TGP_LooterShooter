@@ -289,5 +289,6 @@ public class HUDManager : MonoBehaviour
     public void ShowLevelUp()
     {
         levelUpText.enabled = true;
+        FindObjectOfType<AudioManager>().Play("LevelUp");
     }
 }
