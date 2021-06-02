@@ -65,9 +65,7 @@ public class WeaponSystem : MonoBehaviour
             }
             else 
             {
-                Debug.Log("empty");
-                FindObjectOfType<AudioManager>().Play("EmptyClick");
-
+                // Play empty click sound
             }
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -80,8 +78,6 @@ public class WeaponSystem : MonoBehaviour
             else
             {
                 // Play empty click sound
-                Debug.Log("empty single");
-                FindObjectOfType<AudioManager>().Play("EmptyClick");
             }
         }
 
@@ -215,7 +211,6 @@ public class WeaponSystem : MonoBehaviour
             reloading = false;
             return;
         }
-        FindObjectOfType<AudioManager>().Play("Reload");
         Invoke("ReloadFinished", reloadTime);
     }
     private void ReloadFinished()
