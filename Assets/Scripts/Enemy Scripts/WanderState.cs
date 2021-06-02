@@ -99,11 +99,13 @@ public class WanderState : BaseState
             if (Physics.Raycast(pos, direction, out hit, aggroRadius))
             {
                 //Will need to sort for player
-                EnemyNew enemy = hit.collider.GetComponent<EnemyNew>();
-                if (enemy != null)
+                PlayerStats m_playerStats = hit.collider.GetComponent<PlayerStats>();
+
+
+                if (m_playerStats != null)
                 {
                     Debug.DrawRay(pos, direction * hit.distance, Color.red);
-                    return enemy.transform;
+                    return m_playerStats.transform;
                 }
                 else
                 {

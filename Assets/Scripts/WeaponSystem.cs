@@ -114,15 +114,18 @@ public class WeaponSystem : MonoBehaviour
 
             if (rayHit.collider.CompareTag("Enemy"))
             {
+                GameObject enemy = rayHit.collider.gameObject;
                 Debug.Log("Hit enemy");
+
+                IDamageable<float> eInterface = enemy.gameObject.GetComponent<IDamageable<float>>();
+
+                if (eInterface != null)
+                {
+                    eInterface.Damage(damage);
+                }
             }
 
-            Enemy health = rayHit.collider.GetComponent<Enemy>();
 
-            if (health != null)
-            {
-                health.TakeDamage(damage);
-            }
         }
 
         // Sound and nice looking stuff
@@ -263,22 +266,7 @@ public class WeaponSystem : MonoBehaviour
 
         hudManager.HideReload();
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);
-    }
 
-    void Damage(Transform enemy)
-    {
-        Enemy e = enemy.GetComponent<Enemy>();
-
-        //if(e != null)
-        //{
-        //    e.TakeDamage(damage);
-        //}
-
-        IDamageable<float> eInterface = enemy.gameObject.GetComponent<IDamageable<float>>();
-
-        if (eInterface != null)
-        {
-            eInterface.Damage(damage);
-        }
     }
 }
+
