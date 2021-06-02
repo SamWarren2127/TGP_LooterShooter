@@ -36,5 +36,6 @@ public class skills : MonoBehaviour
     public void resetSkillPoints()
     {
         skillpoints = skillpointsSpent;
+        skillpointsSpent = 0;
     }
 }
