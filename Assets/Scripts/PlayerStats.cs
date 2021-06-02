@@ -14,6 +14,7 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
     [SerializeField]
     private float maxArmor = 1.0f;
     private bool isUnkillable;
+    private bool isHealingOverTime;
 
     [SerializeField]
     private float lowHealthResistance = 0.5f;
@@ -22,13 +23,17 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
 
     private bool canDamage;
 
+    private float healingTime;
+
     // Start is called before the first frame update
     void Start()
     {
         Health = maxHealth;
         Armor = maxArmor;
         isUnkillable = false;
+        isHealingOverTime = false;
         canDamage = false;
+        healingTime = 5f;
         UpdateHealthBar();
         UpdateArmorBar();
     }
@@ -45,14 +50,11 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
             Damage(0.5f);
         }
 
-        lastDamagedTimer -= Time.deltaTime;
-    }
+        lastDamagedTimer += Time.deltaTime;
 
-    void FixedUpdate()
-    {
-        if (Health < 0.5f && lastDamagedTimer > 5f)
+        if(Health < 0.5f && lastDamagedTimer > 5f && !isHealingOverTime)
         {
-            Heal(0.1f);
+            StartCoroutine(HealOverTime());
         }
     }
 
@@ -132,6 +134,28 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
         }
 
         UpdateHealthBar();
+    }
+
+    private IEnumerator HealOverTime()
+    {
+        float healAmount = Health - (maxHealth * 0.5f);
+        healAmount = Mathf.Abs(healAmount);
+        float healperTick = healAmount / (healingTime / 0.2f);
+        isHealingOverTime = true;
+
+        for(float i = healingTime; i >= 0f; i -= 0.2f)
+        {
+            if(lastDamagedTimer < 5f)
+            {
+                isHealingOverTime = false;
+                yield return null;
+            }
+
+            Heal(healperTick);
+            yield return new WaitForSeconds(0.2f); 
+        }
+
+        isHealingOverTime = false;
     }
 
     public void Damage(float _damageAmount)

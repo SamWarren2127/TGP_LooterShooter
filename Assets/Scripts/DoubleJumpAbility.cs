@@ -6,7 +6,7 @@ public class DoubleJumpAbility : Ability
 {
     public DoubleJumpAbility(AbilityController _controller) : base(_controller)
     {
-        name = "DoubleJump";
+        name = "Double Jump";
         cooldown = 3f;
     }
 

@@ -146,12 +146,12 @@ public class OldPlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Crouch"))
             {
-                _camera.LowerCamera();
+                //_camera.LowerCamera(crou);
             }
 
             if (Input.GetButtonUp("Crouch"))
             {
-                _camera.RaiseCamera();
+                //_camera.RaiseCamera();
             }
         }
     }

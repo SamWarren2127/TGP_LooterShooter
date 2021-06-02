@@ -14,7 +14,7 @@ public class DashAbility : Ability
     public override void Activate()
     {
         // Play Sound
-        //FindObjectOfType<AudioManager>().Play("Dash");
+        PlaySound("Dash");
 
         // Spawn Particles
         //SpawnParticles("dashParticles");

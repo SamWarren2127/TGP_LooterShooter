@@ -46,6 +46,8 @@ public class HUDManager : MonoBehaviour
 
     private Color originalColor;
 
+    private AbilityButtonManager abilityButtonManager;
+
     private void Start()
     {
         UpdateEquippedGunText();
@@ -54,12 +56,18 @@ public class HUDManager : MonoBehaviour
         animateTime = 2.5f;
         m_grenades = new Image[] { grenadeIcon1, grenadeIcon2, grenadeIcon3 };
         originalColor = abilityBackground.color;
+        abilityButtonManager = FindObjectOfType<AbilityButtonManager>();
 
         // Make sure xp panel isnt showing
         if (xpPanel.activeSelf == true)
         {
             levelUpText.enabled = false;
             HideXP();
+        }
+
+        if(abilityUI)
+        {
+            abilityUI.SetActive(false);
         }
     }
 
@@ -258,6 +266,11 @@ public class HUDManager : MonoBehaviour
     public void UpdateAbilityTempText(string _ability)
     {
         abilityTempText.text = _ability;
+
+        if (abilityTempText.text == "Double Jump")
+        {
+            abilityTempText.text = "Double\nJump";
+        }
     }
 
     public void UpdateCooldownImage(float _value)
@@ -268,6 +281,11 @@ public class HUDManager : MonoBehaviour
     public void UpdateCooldownMaxValue(float _maxValue)
     {
         cooldownImage.maxValue = _maxValue;
+    }
+
+    public void SwapEquippedAbility()
+    {
+        abilityButtonManager.ToggleEquipButton(abilityButtonManager.CurrentlyEquippedButton, false);
     }
 
     public void UpdateXPBar(float _value)
