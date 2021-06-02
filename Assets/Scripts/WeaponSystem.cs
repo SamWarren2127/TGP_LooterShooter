@@ -199,7 +199,7 @@ public class WeaponSystem : MonoBehaviour
             else if (semiAutoFire)
             {
                 semiAutoFire = false;
-                fullAutoFire = true;
+                burstFire = true;
             }
         }
 
