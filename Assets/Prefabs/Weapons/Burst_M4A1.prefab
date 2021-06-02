@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 104836611037062273}
   - component: {fileID: 104836611037062274}
   m_Layer: 0
-  m_Name: M4A1 Sopmod
+  m_Name: Burst_M4A1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,6 +136,7 @@ MonoBehaviour:
   casing: {fileID: 1170647774315830, guid: 28d312f5afb338546bf32e6b3648a401, type: 3}
   muzzleFlash: {fileID: 0}
   bulletHoleGraphic: {fileID: 0}
+  weaponName: M4A1b
   damage: 0
   magazineSize: 30
   totalAmmo: 210
