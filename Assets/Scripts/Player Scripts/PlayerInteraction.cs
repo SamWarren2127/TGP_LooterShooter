@@ -79,18 +79,25 @@ public class PlayerInteraction : MonoBehaviour
                 }
             }
         }
-
+        
         //for objects that need to be interacted with manually
         if (Input.GetButtonDown("Interact")) // if player presses interact key, bound to e by default
         {
+            Debug.Log("Interact");
+
+
             Ray ray = playerCamera.ScreenPointToRay(playerScreenCenter); //project ray from camera           
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100)) // ray hits
             {
+                
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
                 
                 if (interactable != null) //if obj has interactable component
-                {SetFocus(interactable);} //set object as current focus
+                {
+                    Debug.Log("Hit interactable");
+                    SetFocus(interactable);
+                } //set object as current focus
                 
                 else
                 {RemoveFocus();}

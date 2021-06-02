@@ -4,29 +4,32 @@ using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
 {
-    public Camera cam;
+    Camera cam;
     public Transform attackPoint;
     public RaycastHit rayHit;
     public LayerMask layerMask;
     public GameObject spawnCasing, casing, muzzleFlash, bulletHoleGraphic;
-
-    public int damage, magazineSize;
+    public string weaponName;
+    public int damage, magazineSize, totalAmmo, bulletsPerBurst;
     public float rateOfFire, recoilX, recoilY, range, reloadTime;
-    int remainingBullets, totalAmmo;
-    bool shooting, canShoot, reloading, fullAutoFire, burstFire, semiAutoFire, safety, jammed, isClearingJam, burstWeapon;
+    int remainingBullets, currentBurst;
+    bool shooting, canShoot, reloading, jammed, isClearingJam, changingFireRate;
+    public bool fullAutoFire, semiAutoFire, burstFire, safety, burstWeapon, fullAutoWeapon; // todo add a full auto weapon bool
 
-    [SerializeField]
     HUDManager hudManager;
 
     // Start is called before the first frame update
     void Start()
     {
         remainingBullets = magazineSize;
+        currentBurst = bulletsPerBurst;
         canShoot = true;
         reloading = false;
         shooting = false;
-        fullAutoFire = true;
         jammed = false;
+        changingFireRate = false;
+        hudManager = FindObjectOfType<HUDManager>();
+        cam = GetComponentInParent<Camera>();
 
         //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
@@ -35,45 +38,48 @@ public class WeaponSystem : MonoBehaviour
     void Update()
     {
         // safety
-        if (Input.GetKey(KeyCode.Tilde))
+        if (Input.GetKeyDown(KeyCode.H))
         {
+            print("safety toggled");
             canShoot = !canShoot;
             safety = !safety;
         }
 
         // Change fire mode
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && !changingFireRate)
         {
+            print("F key pressed");
+            changingFireRate = true;
             ChangeFireRate();
-        }
 
-        // Leaning
+        }
 
         // Reload
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
-            Reload();
+            print("R key pressed");
+            StartCoroutine(Reload());
         }
 
         // Shoot
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire && hudManager.abilityUI.activeSelf == false)
+            if (canShoot && !shooting && fullAutoFire && !reloading && remainingBullets > 0 && !jammed && hudManager.abilityUI.activeSelf == false)
             {
-                // full auto if possible 
-                Shoot();
+                StartCoroutine(Shoot());
             }
-            else 
+            else
             {
                 // Play empty click sound
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0))
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire && hudManager.abilityUI.activeSelf == false)
+            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && hudManager.abilityUI.activeSelf == false)
             {
                 // burst or single where applicable 
-                Shoot();
+                StartCoroutine(Shoot());
             }
             else
             {
@@ -90,9 +96,8 @@ public class WeaponSystem : MonoBehaviour
 
     }
 
-    private void Shoot()
+    IEnumerator Shoot()
     {
-        print("shoot");
         canShoot = false;
 
         //recoil
@@ -114,7 +119,7 @@ public class WeaponSystem : MonoBehaviour
 
             Enemy health = rayHit.collider.GetComponent<Enemy>();
 
-            if(health != null)
+            if (health != null)
             {
                 health.TakeDamage(damage);
             }
@@ -131,33 +136,43 @@ public class WeaponSystem : MonoBehaviour
         // Updating the HUD
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);
 
-        if (fullAutoFire)
-        {
-            Invoke("ResetShot", rateOfFire);
-        }
-        
-    }
-    private void ResetShot()
-    {
+        //Reseting can shoot
+        yield return new WaitForSeconds(rateOfFire);
         canShoot = true;
+
+        if (burstFire && remainingBullets > 0 && currentBurst > 0)
+        {
+            currentBurst -= 1;
+            if (currentBurst <= 0)
+            {
+                currentBurst = bulletsPerBurst;
+            }
+            else
+            {
+                print("burst still firing");
+                StartCoroutine(Shoot());
+            }
+        }
     }
 
     private void ChangeFireRate()
     {
-        if (!burstWeapon)
-        { 
+        if (fullAutoWeapon)
+        {
             if (fullAutoFire)
             {
+                print("switching to semi");
                 fullAutoFire = false;
                 semiAutoFire = true;
             }
-           else  if (semiAutoFire)
-           {
+            else if (semiAutoFire)
+            {
+                print("switching to full auto");
                 semiAutoFire = false;
                 fullAutoFire = true;
-           }
+            }
         }
-        else
+        else if (burstWeapon && fullAutoWeapon)
         {
             if (fullAutoFire)
             {
@@ -175,6 +190,22 @@ public class WeaponSystem : MonoBehaviour
                 fullAutoFire = true;
             }
         }
+        else if (burstWeapon)
+        {
+            if (burstFire)
+            {
+                burstFire = false;
+                semiAutoFire = true;
+            }
+            else if (semiAutoFire)
+            {
+                semiAutoFire = false;
+                burstFire = true;
+            }
+        }
+
+        print("setting to false");
+        changingFireRate = false;
     }
 
     private void WeaponJam()
@@ -185,37 +216,49 @@ public class WeaponSystem : MonoBehaviour
     IEnumerator ClearWeaponJam()
     {
         isClearingJam = true;
-        print("clearing weapon jam");
         // do animation 
 
         // Maybe add a skill based game eg press E when the progress par reaches X position 
 
         yield return new WaitForSeconds(10);
-        print("weapon jammed cleared");
     }
 
-    private void Reload()
+    IEnumerator Reload()
     {
         reloading = true;
         hudManager.ShowReload();
         if (totalAmmo >= magazineSize)
         {
+            print(1);
             totalAmmo -= magazineSize;
+            remainingBullets = magazineSize;
         }
         else if (magazineSize > totalAmmo && totalAmmo > 0)
         {
-            remainingBullets = totalAmmo;
+            print(2);
+
+            remainingBullets += totalAmmo;
+            totalAmmo = totalAmmo - remainingBullets;
+            if (remainingBullets > magazineSize)
+            {
+                totalAmmo = remainingBullets - magazineSize;
+                remainingBullets = magazineSize;
+            }
+            if (totalAmmo < 0)
+            {
+                totalAmmo = 0;
+            }
+
         }
         else
         {
+            print(3);
             reloading = false;
-            return;
+            yield return null;
         }
-        Invoke("ReloadFinished", reloadTime);
-    }
-    private void ReloadFinished()
-    {
-        remainingBullets = magazineSize;
+        yield return new WaitForSeconds(reloadTime);
+
+        //remainingBullets = magazineSize;
         reloading = false;
 
         hudManager.HideReload();
@@ -226,9 +269,16 @@ public class WeaponSystem : MonoBehaviour
     {
         Enemy e = enemy.GetComponent<Enemy>();
 
-        if(e != null)
+        //if(e != null)
+        //{
+        //    e.TakeDamage(damage);
+        //}
+
+        IDamageable<float> eInterface = enemy.gameObject.GetComponent<IDamageable<float>>();
+
+        if (eInterface != null)
         {
-            e.TakeDamage(damage);
+            eInterface.Damage(damage);
         }
     }
 }

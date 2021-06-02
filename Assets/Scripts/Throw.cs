@@ -8,13 +8,13 @@ public class Throw : MonoBehaviour
     public Transform armLocation;
     public float ammo;
     public float maxAmmo;
-    public static bool throwing; 
+    public static bool throwing;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ammo = 0;
     }
 
     // Update is called once per frame
@@ -23,8 +23,23 @@ public class Throw : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             throwing = true;
-            objectToThrow.GetComponent<GrenadeEffect>().throwEffect(armLocation);
+            objectToThrow.GetComponent<GrenadeEffects>().throwEffect(armLocation);
             throwing = false;
+            ammo -= 1;
         }
+    }
+
+    public void grenadePickedUP(GameObject grenade)
+    {
+        if (objectToThrow != grenade)
+        {
+            objectToThrow = grenade;
+        }
+        increaseGrenadeAmmo(1);
+    }
+
+    public void increaseGrenadeAmmo(int amount)
+    {
+        ammo += amount;
     }
 }
