@@ -7,31 +7,75 @@ public class EnodeSetUp : MonoBehaviour
     public GameObject Enode;
     public GameObject[] Enodes = new GameObject[4];
     public GameObject Dnode;
-    private GameObject[] Dnodes;
+    private GameObject[] Dnodes = new GameObject[4];
 
 
     private void Awake()
     {
         Debug.Log("Awake");
-        Vector3 pos = new Vector3(-30, 1, -20);
+        //Coords for Lewis' Scene
+        //Vector3 pos = new Vector3(-30, 1, -20);
+        //GameObject m_node = Instantiate(Enode);
+        //m_node.transform.position = pos;
+        //Enodes[0] = m_node;
+
+        //pos = new Vector3(30, 1, -20);
+        //m_node = Instantiate(Enode);
+        //m_node.transform.position = pos;
+        //Enodes[1] = m_node;
+
+        //pos = new Vector3(30, 1, 20);
+        //m_node = Instantiate(Enode);
+        //m_node.transform.position = pos;
+        //Enodes[2] = m_node;
+
+        //pos = new Vector3(-30, 1, 20);
+        //m_node = Instantiate(Enode);
+        //m_node.transform.position = pos;
+        //Enodes[3] = m_node;
+
+        //Coords for level 1
+        Vector3 pos = new Vector3(-127, -77, 170);
         GameObject m_node = Instantiate(Enode);
         m_node.transform.position = pos;
         Enodes[0] = m_node;
 
-        pos = new Vector3(30, 1, -20);
+        pos = new Vector3(-127, -77, 270);
         m_node = Instantiate(Enode);
         m_node.transform.position = pos;
         Enodes[1] = m_node;
 
-        pos = new Vector3(30, 1, 20);
+        pos = new Vector3(40, -77, 270);
         m_node = Instantiate(Enode);
         m_node.transform.position = pos;
         Enodes[2] = m_node;
 
-        pos = new Vector3(-30, 1, 20);
+        pos = new Vector3(40, -77, 170);
         m_node = Instantiate(Enode);
         m_node.transform.position = pos;
         Enodes[3] = m_node;
+
+
+        //Driving Points
+        pos = new Vector3(-85, -77, 118);
+        m_node = Instantiate(Dnode);
+        m_node.transform.position = pos;
+        Dnodes[0] = m_node;
+
+        pos = new Vector3(-85, -77, 157);
+        m_node = Instantiate(Dnode);
+        m_node.transform.position = pos;
+        Dnodes[1] = m_node;
+
+        pos = new Vector3(3, -77, 157);
+        m_node = Instantiate(Dnode);
+        m_node.transform.position = pos;
+        Dnodes[2] = m_node;
+
+        pos = new Vector3(3, -77, 118);
+        m_node = Instantiate(Dnode);
+        m_node.transform.position = pos;
+        Dnodes[3] = m_node;
     }
 
 
