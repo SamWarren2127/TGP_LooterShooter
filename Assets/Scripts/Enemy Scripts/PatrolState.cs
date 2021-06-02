@@ -17,8 +17,8 @@ public class PatrolState : BaseState
     private EnemyNew _enemyNew;
     private EnodeSetUp m_enodeSetUp;
 
-    public float m_Speed = 10.0f;
-    public float turnSpeed = 10f;
+    private float m_Speed = 8.0f;
+    private float turnSpeed = 10f;
 
     private bool started;
 
@@ -47,7 +47,7 @@ public class PatrolState : BaseState
             return typeof(ChaseState);
         }
 
-        if (_destination == null || Vector3.Distance(m_transform.position, _destination.Value) <= stopDistance) //transform.positon
+        if (_destination == null || Vector3.Distance(m_transform.position, _destination.Value) <= stopDistance) 
         {
             FindNextDestination();
         }
@@ -59,13 +59,14 @@ public class PatrolState : BaseState
         }
         else
         {
-            m_transform.Translate(Vector3.forward * Time.deltaTime * m_Speed); //GameSettings.EnemySpeed
+            m_transform.Translate(Vector3.forward * Time.deltaTime * m_Speed); 
         }
-        Debug.DrawRay(m_transform.position, _direction * _rayDistance, Color.red);
+        //Enable for debug ray
+        //Debug.DrawRay(m_transform.position, _direction * _rayDistance, Color.red);
         while (IsPathBlocked())
         {
             FindNextDestination();
-            Debug.Log("Wall");
+            //Debug.Log("Wall");
         }
 
 
@@ -155,18 +156,21 @@ public class PatrolState : BaseState
 
                 if (m_playerStats != null)
                 {
-                    Debug.DrawRay(pos, direction * hit.distance, Color.red);
+                    //Debug Rays
+                    //Debug.DrawRay(pos, direction * hit.distance, Color.red);
                     return m_playerStats.transform;
                 }
                 else
                 {
                     //Debugging purposes
-                    Debug.DrawRay(pos, direction * hit.distance, Color.yellow);
+                    //Debug Rays
+                    //Debug.DrawRay(pos, direction * hit.distance, Color.yellow);
                 }
             }
             else
             {
-                Debug.DrawRay(pos, direction * aggroRadius, Color.white);
+                //Debug Rays
+                //Debug.DrawRay(pos, direction * aggroRadius, Color.white);
             }
             direction = stepAngle * direction;
         }

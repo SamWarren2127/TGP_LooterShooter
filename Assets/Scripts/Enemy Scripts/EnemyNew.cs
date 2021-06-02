@@ -10,7 +10,7 @@ public class EnemyNew : MonoBehaviour
 
     public RaycastHit rayHit;
     public LayerMask layerMask;
-    public float range = 20.0f;
+    public float range = 10.0f;
     public float damage = 0.08f;
 
     public Transform m_target { get; private set; }
@@ -49,15 +49,21 @@ public class EnemyNew : MonoBehaviour
 
     public void FireWeapon()
     {
+        //Debug.Log("Ray Activated");
         Vector3 direction = Vector3.Normalize(m_target.position - transform.position);
-
+        //Debug.DrawRay(transform.position, direction * 25f, Color.red);
 
         if (Physics.Raycast(transform.position, direction, out rayHit, range, layerMask))
         {
+            //Debug.Log("Ray Activated");
+            //Debug.DrawRay(transform.position, direction * 25f, Color.red);
             Debug.Log(rayHit.collider.name);
+            //Debug.DrawRay(transform.position, direction * 25f, Color.red);
 
             if (rayHit.collider.CompareTag("Player"))
             {
+                Debug.Log("Ray Activated");
+                Debug.DrawRay(transform.position, direction * 25f, Color.red);
                 PlayerStats health = rayHit.collider.GetComponent<PlayerStats>();
                 IDamageable<float> eInterface = health.gameObject.GetComponent<IDamageable<float>>();
 
@@ -84,10 +90,6 @@ public class EnemyNew : MonoBehaviour
     }
 
 
-    void Damage()
-    {
-
-    }
 
     private IEnumerator TurnOffLaser()
     {

@@ -46,8 +46,9 @@ public class WanderState : BaseState
         {
             m_transform.Translate(Vector3.forward * Time.deltaTime * m_Speed); //GameSettings.EnemySpeed
         }
-        Debug.DrawRay(m_transform.position, _direction * _rayDistance, Color.red);
-        while(IsPathBlocked())
+        //Debug Ray
+        //Debug.DrawRay(m_transform.position, _direction * _rayDistance, Color.red);
+        while (IsPathBlocked())
         {
             FindRandomDestination();
             Debug.Log("Wall");
@@ -104,18 +105,21 @@ public class WanderState : BaseState
 
                 if (m_playerStats != null)
                 {
-                    Debug.DrawRay(pos, direction * hit.distance, Color.red);
+                    //Debug Rays
+                    //Debug.DrawRay(pos, direction * hit.distance, Color.red);
                     return m_playerStats.transform;
                 }
                 else
                 {
-                    //Debugging purposes
-                    Debug.DrawRay(pos, direction * hit.distance, Color.yellow);
+                    
+                    //Debug Rays
+                    //Debug.DrawRay(pos, direction * hit.distance, Color.yellow);
                 }
             }
             else
             {
-                Debug.DrawRay(pos, direction * aggroRadius, Color.white);
+                //Debug Rays
+                //Debug.DrawRay(pos, direction * aggroRadius, Color.white);
             }
             direction = stepAngle * direction;
         }

@@ -2,11 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour
+public class EnemyStats : MonoBehaviour, IDamageable<float>
 {
     public float health;
 
     private bool isDead = false;
+
+    public void Damage(float _damageAmount)
+    {
+        health -= _damageAmount;
+
+        if (health <= 0)
+        {
+            //Drop Items
+
+            //kill the enemy
+            Destroy(gameObject);
+
+        }
+        return;
+        throw new System.NotImplementedException();
+    }
 
     public void TakeDamage(float amount)
     {
