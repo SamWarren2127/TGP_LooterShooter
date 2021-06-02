@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
 {
-    public Camera cam;
+    Camera cam;
     public Transform attackPoint;
     public RaycastHit rayHit;
     public LayerMask layerMask;
     public GameObject spawnCasing, casing, muzzleFlash, bulletHoleGraphic;
-
+    public string weaponName;
     public int damage, magazineSize, totalAmmo, bulletsPerBurst;
     public float rateOfFire, recoilX, recoilY, range, reloadTime;
     int remainingBullets, currentBurst;
     bool shooting, canShoot, reloading, jammed, isClearingJam, changingFireRate;
     public bool fullAutoFire, semiAutoFire, burstFire, safety, burstWeapon, fullAutoWeapon; // todo add a full auto weapon bool
 
-    [SerializeField] HUDManager hudManager;
+    HUDManager hudManager;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +28,8 @@ public class WeaponSystem : MonoBehaviour
         shooting = false;
         jammed = false;
         changingFireRate = false;
+        hudManager = FindObjectOfType<HUDManager>();
+        cam = GetComponentInParent<Camera>();
 
         //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
@@ -55,6 +57,7 @@ public class WeaponSystem : MonoBehaviour
         // Reload
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
+            print("R key pressed");
             StartCoroutine(Reload());
         }
 
@@ -228,6 +231,7 @@ public class WeaponSystem : MonoBehaviour
         {
             print(1);
             totalAmmo -= magazineSize;
+            remainingBullets = magazineSize;
         }
         else if (magazineSize > totalAmmo && totalAmmo > 0)
         {
