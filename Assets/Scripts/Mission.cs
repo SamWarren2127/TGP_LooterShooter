@@ -16,8 +16,6 @@ public class Mission : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //int missionTarget = enemies[Random.Range(0, enemies.Length)];
-        //missionText.text = "Kill enemies (" + enemiesKilled + "/" + missionTarget + ")";
         NewMission();
     }
 
