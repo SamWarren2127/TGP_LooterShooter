@@ -58,10 +58,15 @@ public class HUDManager : MonoBehaviour
         originalColor = abilityBackground.color;
 
         // Make sure xp panel isnt showing
-        if (xpPanel.activeSelf == true)
+        if (xpPanel.activeSelf)
         {
             levelUpText.enabled = false;
             HideXP();
+        }
+
+        if(abilityUI.activeSelf)
+        {
+            abilityUI.SetActive(!abilityUI.activeSelf);
         }
     }
 

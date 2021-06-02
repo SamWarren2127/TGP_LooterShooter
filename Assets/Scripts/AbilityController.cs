@@ -36,6 +36,7 @@ public class AbilityController : MonoBehaviour
     PlayerController playerController;
     AbilityButtonManager abilityButtonManager;
     Skills skills;
+    TestXp testXp;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +65,12 @@ public class AbilityController : MonoBehaviour
             Debug.Log(skills + " is null");
         }
 
+        testXp = GetComponent<TestXp>();
+        if (testXp == null)
+        {
+            Debug.Log(testXp + " is null");
+        }
+
         // Initialize abilities
         HealAbility healAbility = new HealAbility(this);
         HasteAbility hasteAbility = new HasteAbility(this);
@@ -81,6 +88,11 @@ public class AbilityController : MonoBehaviour
 
         hudManager.UpdateSkillPoints(skills.skillpoints);
 
+        for (int i = 1; i < abilities.Count; i++)
+        {
+            hudManager.UpdateCostAndCooldown(i, abilities[i].GetCost(), abilities[i].GetCooldown());
+        }
+
         // Set current ability
         ChangeCurrentAbility(EAbility.HEAL);
         hudManager.UpdateAbilityTempText(abilities[(int)m_currentAbility].GetName());
@@ -89,11 +101,6 @@ public class AbilityController : MonoBehaviour
         cooldownTime = abilities[(int)m_currentAbility].GetCooldown();
         cooldownTimer = cooldownTime;
         hudManager.UpdateCooldownMaxValue(cooldownTime);
-
-        for(int i = 1; i < abilities.Count; i++)
-        {
-            hudManager.UpdateCostAndCooldown(i, abilities[i].GetCost(), abilities[i].GetCooldown());
-        }
     }
 
     // Update is called once per frame
@@ -171,6 +178,12 @@ public class AbilityController : MonoBehaviour
         if(skills.skillpoints <= 0 && skills.skillpoints < abilities[_number].GetCost())
         {
             Debug.Log("Dont have enough skill points");
+            return;
+        }
+
+        if(testXp.Level < abilities[_number].GetLevelRequirement())
+        {
+            Debug.Log("Level is not high enough");
             return;
         }
 

@@ -7,7 +7,7 @@ public class TestXp : MonoBehaviour
     [SerializeField] HUDManager hudManager;
     Skills skills;
 
-    private float Level;
+    public float Level;
     private float currentXp;
     private float xpCap;
 

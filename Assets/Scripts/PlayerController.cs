@@ -129,13 +129,13 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Crouch"))
             {
                 speed /= 3;
-                _camera.LowerCamera();
+                //_camera.LowerCamera();
             }
 
             if (Input.GetButtonUp("Crouch"))
             {
                 speed *= 3;
-                _camera.RaiseCamera();
+                //_camera.RaiseCamera();
             }
         }
     }

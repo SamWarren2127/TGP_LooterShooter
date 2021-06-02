@@ -13,6 +13,7 @@ public class HealAbility : Ability
         cooldown = 8f;
         cost = 0;
         levelRequirement = 1;
+        isUnlocked = true;
     }
 
     public override void Activate()

@@ -16,8 +16,8 @@ public class Skills : MonoBehaviour
     {
         if ( skillpoints >= amount)
         {
-            skillpoints -= 1;
-            skillpointsSpent += 1;
+            skillpoints -= amount;
+            skillpointsSpent += amount;
         }
     }
 
