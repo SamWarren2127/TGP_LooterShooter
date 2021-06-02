@@ -2706,7 +2706,6 @@ MonoBehaviour:
   audioManager: {fileID: 0}
   particleManager: {fileID: 811000796}
   hudManager: {fileID: 413773869}
-  abilityButtonManager: {fileID: 0}
 --- !u!114 &216271273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2764,7 +2763,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b938d1fe8e6037d429a70005c224f31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioManager: {fileID: 0}
   stepRate: 0.5
   sprintRate: 1
   stepCooldown: 0
@@ -18098,7 +18096,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892596872}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 86.61, y: 2.696144, z: 17.544632}
+  m_LocalPosition: {x: 80.79121, y: 2.696144, z: 17.544632}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1379845998}
@@ -18526,7 +18524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 5e1763ee9b2dac043ad82380ed4e1946, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -97.58
+      value: -85.68
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 5e1763ee9b2dac043ad82380ed4e1946, type: 3}
       propertyPath: m_LocalPosition.y
@@ -23522,7 +23520,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 999517f045d65924db469ec2a4a5c833, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

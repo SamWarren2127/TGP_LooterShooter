@@ -6,14 +6,14 @@ public class TestXp : MonoBehaviour
 {
     [SerializeField] HUDManager hudManager;
 
-    private int Level;
+    private float Level;
     private float currentXp;
     private float xpCap;
 
     // Start is called before the first frame update
     void Start()
     {
-        Level = 1;
+        Level = 1f;
         currentXp = 0f;
         xpCap = 50f;
     }
@@ -61,6 +61,6 @@ public class TestXp : MonoBehaviour
 
     void UpdateLevelText()
     {
-        hudManager.UpdateLevel(Level);
+        hudManager.UpdateLevel(Level.ToString());
     }
 }
