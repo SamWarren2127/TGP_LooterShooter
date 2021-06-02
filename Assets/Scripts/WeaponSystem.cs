@@ -14,7 +14,7 @@ public class WeaponSystem : MonoBehaviour
     public float rateOfFire, recoilX, recoilY, range, reloadTime;
     int remainingBullets, currentBurst;
     bool shooting, canShoot, reloading, jammed, isClearingJam, changingFireRate;
-    public bool fullAutoFire, semiAutoFire, burstFire, safety, burstWeapon; // todo add a full auto weapon bool
+    public bool fullAutoFire, semiAutoFire, burstFire, safety, burstWeapon, fullAutoWeapon; // todo add a full auto weapon bool
 
     [SerializeField] HUDManager hudManager;
 
@@ -156,7 +156,7 @@ public class WeaponSystem : MonoBehaviour
 
     private void ChangeFireRate()
     {
-        if (!burstWeapon)
+        if (fullAutoWeapon)
         {
             if (fullAutoFire)
             {
@@ -171,7 +171,7 @@ public class WeaponSystem : MonoBehaviour
                 fullAutoFire = true;
             }
         }
-        else
+        else if (burstWeapon)
         {
             if (fullAutoFire)
             {
@@ -189,6 +189,7 @@ public class WeaponSystem : MonoBehaviour
                 fullAutoFire = true;
             }
         }
+
         print("setting to false");
         changingFireRate = false;
     }
