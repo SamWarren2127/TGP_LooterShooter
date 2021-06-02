@@ -6,6 +6,8 @@ public abstract class Ability
 {
     protected float cooldown;
     protected string name;
+    protected int cost;
+    protected int levelRequirement;
     protected bool isUnlocked = false;
     protected AbilityController _abilityController;
 
@@ -59,6 +61,16 @@ public abstract class Ability
     public float GetCooldown()
     {
         return cooldown;
+    }
+
+    public int GetCost()
+    {
+        return cost;
+    }
+
+    public int GetLevelRequirement()
+    {
+        return levelRequirement;
     }
 
     public bool IsUnlocked()

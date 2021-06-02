@@ -12,7 +12,9 @@ public class HUDManager : MonoBehaviour
     [SerializeField] Text reloadingText;
     [SerializeField] Text equippedGunText;
     [SerializeField] Text abilityTempText;
+    [SerializeField] TextMeshProUGUI skillPointsText;
     [SerializeField] TextMeshProUGUI[] statistics = new TextMeshProUGUI[4];
+    [SerializeField] TextMeshProUGUI[] costAndCooldownText = new TextMeshProUGUI[6];
 
     [SerializeField] Slider healthBar;
     [SerializeField] Slider armorBar;
@@ -50,7 +52,7 @@ public class HUDManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateEquippedGunText();
+        UpdateEquippedGunText("MP7");
         showTime = 5f;
         xpShowTimer = 0f;
         animateTime = 2.5f;
@@ -144,10 +146,9 @@ public class HUDManager : MonoBehaviour
         ammoText.text = ammoString + ammo.ToString() + "/" + maxAmmo.ToString();
     }
 
-    public void UpdateEquippedGunText()
+    public void UpdateEquippedGunText (string _gunName)
     {
-        // Eventually we will pass what gun we are holding from the inventory to update this text
-        equippedGunText.text = "MP7";
+        equippedGunText.text = _gunName;
     }
 
     public void ShowReload()
@@ -308,5 +309,15 @@ public class HUDManager : MonoBehaviour
     {
         levelUpText.enabled = true;
         FindObjectOfType<AudioManager>().Play("LevelUp");
+    }
+
+    public void UpdateSkillPoints(int _skillPoints)
+    {
+        skillPointsText.text = "Skill Points: " + _skillPoints;
+    }
+
+    public void UpdateCostAndCooldown(int _ability, int _cost, float _cooldown)
+    {
+        costAndCooldownText[_ability].text = "Cost: " + _cost + "\n" + "Cooldown: " + _cooldown;
     }
 }

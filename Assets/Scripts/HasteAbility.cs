@@ -8,7 +8,9 @@ public class HasteAbility : Ability
     {
         //Using base constructor
         name = "Haste";
-        cooldown = 4f;
+        cooldown = 10f;
+        cost = 1;
+        levelRequirement = 1;
     }
 
     public override void Activate()
@@ -19,7 +21,7 @@ public class HasteAbility : Ability
         IncreaseMoveSpeed(2f);
 
         // Play Sound
-        AudioManager.FindObjectOfType<AudioManager>().Play("Haste");
+        PlaySound("Haste");
 
         // UI / Particle Effect
         //SpawnParticles("hasteEffect");

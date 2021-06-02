@@ -9,12 +9,12 @@ public class AbilityButtonManager : MonoBehaviour
     [SerializeField] int rows;
     public GameObject[,] abilityButtons;
     [SerializeField] GameObject[] buttons = new GameObject[5];
-    [SerializeField] AbilityController abilityController;
+    AbilityController abilityController;
 
     // Start is called before the first frame update
     void Start()
     {
-        //abilityController = FindObjectOfType<AbilityController>();
+        abilityController = FindObjectOfType<AbilityController>();
 
         // Initialize array
         abilityButtons = new GameObject[columns, rows];

@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestXp : MonoBehaviour
 {
     [SerializeField] HUDManager hudManager;
+    Skills skills;
 
     private int Level;
     private float currentXp;
@@ -16,6 +17,7 @@ public class TestXp : MonoBehaviour
         Level = 1;
         currentXp = 0f;
         xpCap = 50f;
+        skills = GetComponent<Skills>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,8 @@ public class TestXp : MonoBehaviour
         Level++;
         currentXp = 0;
         xpCap += 50f;
+        skills.AddSkillPoints(1);
+        hudManager.UpdateSkillPoints(skills.skillpoints);
 
         // HUD Manager will hide XP after a certain amount of seconds
         hudManager.ShowXP();

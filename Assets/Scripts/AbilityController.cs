@@ -34,7 +34,8 @@ public class AbilityController : MonoBehaviour
     [SerializeField] HUDManager hudManager;
     PlayerStats playerStats;
     PlayerController playerController;
-    [SerializeField] AbilityButtonManager abilityButtonManager;
+    AbilityButtonManager abilityButtonManager;
+    Skills skills;
 
     // Start is called before the first frame update
     void Start()
@@ -51,11 +52,17 @@ public class AbilityController : MonoBehaviour
             Debug.Log(playerController + " is null");
         }
 
-        //abilityButtonManager = FindObjectOfType<AbilityButtonManager>();
-        //if(abilityButtonManager == null)
-        //{
-        //    Debug.Log(abilityButtonManager + " is null");
-        //}
+        abilityButtonManager = FindObjectOfType<AbilityButtonManager>();
+        if (abilityButtonManager == null)
+        {
+            Debug.Log(abilityButtonManager + " is null");
+        }
+
+        skills = GetComponent<Skills>();
+        if(skills == null)
+        {
+            Debug.Log(skills + " is null");
+        }
 
         // Initialize abilities
         HealAbility healAbility = new HealAbility(this);
@@ -72,6 +79,8 @@ public class AbilityController : MonoBehaviour
         abilities.Add(dashAbility);
         abilities.Add(unkillableAbility);
 
+        hudManager.UpdateSkillPoints(skills.skillpoints);
+
         // Set current ability
         ChangeCurrentAbility(EAbility.HEAL);
         hudManager.UpdateAbilityTempText(abilities[(int)m_currentAbility].GetName());
@@ -80,6 +89,11 @@ public class AbilityController : MonoBehaviour
         cooldownTime = abilities[(int)m_currentAbility].GetCooldown();
         cooldownTimer = cooldownTime;
         hudManager.UpdateCooldownMaxValue(cooldownTime);
+
+        for(int i = 1; i < abilities.Count; i++)
+        {
+            hudManager.UpdateCostAndCooldown(i, abilities[i].GetCost(), abilities[i].GetCooldown());
+        }
     }
 
     // Update is called once per frame
@@ -137,7 +151,7 @@ public class AbilityController : MonoBehaviour
         // Update UI
         hudManager.UpdateAbilityTempText(abilities[(int)m_currentAbility].GetName());
         hudManager.UpdateCooldownMaxValue(cooldownTime);
-        
+
         abilityButtonManager.EquipAbilityButton((int)m_currentAbility);
 
         //TODO Make a sound 
@@ -154,7 +168,15 @@ public class AbilityController : MonoBehaviour
 
     public void UnlockAbilityByNumber(int _number)
     {
+        if(skills.skillpoints <= 0 && skills.skillpoints < abilities[_number].GetCost())
+        {
+            Debug.Log("Dont have enough skill points");
+            return;
+        }
+
         abilities[_number].Unlock();
+        skills.SpendSkillPoints(abilities[_number].GetCost());
+        hudManager.UpdateSkillPoints(skills.skillpoints);
         abilityButtonManager.UnlockAbilityButton(_number);
         Debug.Log(abilities[_number] + " unlocked");
     }

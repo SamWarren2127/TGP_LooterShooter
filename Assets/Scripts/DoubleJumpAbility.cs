@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class DoubleJumpAbility : Ability
 {
-    AudioManager audioManager;
 
     public DoubleJumpAbility(AbilityController _controller) : base(_controller)
     {
         name = "Double Jump";
-        cooldown = 3f;
+        cooldown = 6f;
+        cost = 2;
+        levelRequirement = 2;
     }
 
     public override void Activate()
     {
         // Play Sound
-        AudioManager.FindObjectOfType<AudioManager>().Play("DoubleJump");
+        PlaySound("DoubleJump");
 
         // Spawn Particles
         //SpawnParticles("DoubleJump");

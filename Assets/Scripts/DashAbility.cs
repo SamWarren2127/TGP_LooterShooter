@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class DashAbility : Ability
 {
-    AudioManager audioManager;
 
     public DashAbility(AbilityController _controller) : base(_controller)
     {
         // using base constructor
         name = "Dash";
-        cooldown = 4f;
+        cooldown = 6f;
+        cost = 2;
+        levelRequirement = 2;
     }
 
     public override void Activate()
     {
         // Play Sound
-        AudioManager.FindObjectOfType<AudioManager>().Play("Dash");
+        PlaySound("Dash");
 
         // Spawn Particles
         //SpawnParticles("dashParticles");

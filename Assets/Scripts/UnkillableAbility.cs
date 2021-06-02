@@ -8,7 +8,9 @@ public class UnkillableAbility : Ability
     {
         // Using the base constructor
         name = "Unkillable";
-        cooldown = 4f;
+        cooldown = 20f;
+        cost = 3;
+        levelRequirement = 3;
     }
 
     public override void Activate()
