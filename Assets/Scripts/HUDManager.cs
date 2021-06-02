@@ -299,7 +299,7 @@ public class HUDManager : MonoBehaviour
         }
     }
 
-    public void UpdateLevel(string _level)
+    public void UpdateLevel(int _level)
     {
         levelTextMesh.text = "Level: " + _level;
     }
