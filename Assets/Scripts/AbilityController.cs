@@ -14,6 +14,14 @@ public class AbilityController : MonoBehaviour
         UNKILLABLE
     }
 
+    /// Abilities
+    /// 0 - None
+    /// 1 - Heal
+    /// 2 - Haste
+    /// 3 - Double Jump
+    /// 4 - Dash
+    /// 5 - Unkillable
+
     EAbility m_currentAbility;
     List<Ability> abilities = new List<Ability>();
 
@@ -26,6 +34,7 @@ public class AbilityController : MonoBehaviour
     [SerializeField] HUDManager hudManager;
     PlayerStats playerStats;
     PlayerController playerController;
+    [SerializeField] AbilityButtonManager abilityButtonManager;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +50,12 @@ public class AbilityController : MonoBehaviour
         {
             Debug.Log(playerController + " is null");
         }
+
+        //abilityButtonManager = FindObjectOfType<AbilityButtonManager>();
+        //if(abilityButtonManager == null)
+        //{
+        //    Debug.Log(abilityButtonManager + " is null");
+        //}
 
         // Initialize abilities
         HealAbility healAbility = new HealAbility(this);
@@ -70,17 +85,21 @@ public class AbilityController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             hudManager.ToggleAbilityUI();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (m_currentAbility == EAbility.DOUBLE_JUMP)
         {
-            if (cooldownTimer <= 0f)
+            if (Input.GetKeyDown(KeyCode.Space) && cooldownTimer <= 0f && !playerController.IsGrounded())
             {
                 ActivateCurrentAbility();
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.Q) && cooldownTimer <= 0f && abilities[(int)m_currentAbility].IsUnlocked())
+        {
+            ActivateCurrentAbility();
         }
 
         // Keep the timer ticking
@@ -118,17 +137,26 @@ public class AbilityController : MonoBehaviour
         // Update UI
         hudManager.UpdateAbilityTempText(abilities[(int)m_currentAbility].GetName());
         hudManager.UpdateCooldownMaxValue(cooldownTime);
+        
+        abilityButtonManager.EquipAbilityButton((int)m_currentAbility);
 
         //TODO Make a sound 
     }
 
     public void ChangeCurrentAbilityByNumber(int _number)
     {
-        if(m_currentAbility != (EAbility)_number)
+        if (m_currentAbility != (EAbility)_number)
         {
             ChangeCurrentAbility((EAbility)_number);
             Debug.Log("Ability changed: " + ((EAbility)_number));
         }
+    }
+
+    public void UnlockAbilityByNumber(int _number)
+    {
+        abilities[_number].Unlock();
+        abilityButtonManager.UnlockAbilityButton(_number);
+        Debug.Log(abilities[_number] + " unlocked");
     }
 
     void ActivateCurrentAbility()
@@ -155,7 +183,7 @@ public class AbilityController : MonoBehaviour
 
     public void IncreaseMoveSpeed(float _moveMult)
     {
-        //playerController.IncreaseMoveSpeed(_moveMult);
+        StartCoroutine(playerController.IncreaseMoveMultCoroutine(_moveMult));
     }
 
     public void Move(Vector3 _moveDir)

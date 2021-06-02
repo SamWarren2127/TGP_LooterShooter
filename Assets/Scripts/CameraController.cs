@@ -19,9 +19,6 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     GameObject deathMenu;
 
-
-    private float crouchDifference = 0.5f;
-
     void Update()
     {
         if(!pauseMenu.activeSelf && !abilityMenu.activeSelf && !deathMenu.activeSelf)
@@ -39,13 +36,13 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void LowerCamera()
+    public void LowerCamera(float _crouchDiff)
     {
-        transform.Translate(Vector3.down * crouchDifference);
+        transform.Translate(Vector3.down * _crouchDiff);
     }
 
-    public void RaiseCamera()
+    public void RaiseCamera(float _crouchDiff)
     {
-        transform.Translate(Vector3.up * crouchDifference);
+        transform.Translate(Vector3.up * _crouchDiff);
     }
 }

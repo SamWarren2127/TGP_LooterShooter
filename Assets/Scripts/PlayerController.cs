@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody _rigidbody;
     CameraController _camera;
-    Collider _collider;
+    CapsuleCollider _collider;
+    [SerializeField] AudioManager audioManager;
 
     public float stepRate = 0.5f;
     public float sprintRate = 0.5f;
@@ -31,7 +32,9 @@ public class PlayerController : MonoBehaviour
     bool groundedPlayer;
     [SerializeField]
     float jumpTime;
+    private float crouchDifference = 0.5f;
 
+    [HideInInspector]
     public bool doubleJump;
 
     private bool isGrounded;
@@ -51,7 +54,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("_camera is a null reference");
         }
 
-        _collider = GetComponent<Collider>();
+        _collider = GetComponent<CapsuleCollider>();
         {
             if (_collider == null)
             {
@@ -69,7 +72,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         groundedPlayer = IsGrounded();
-
 
         SetCharacterMoveDirection();
         Crouch();
@@ -89,7 +91,7 @@ public class PlayerController : MonoBehaviour
         sprintCooldown -= Time.deltaTime;
         if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCooldown < 0f && isGrounded == true && isSprinting == true)
         {
-            FindObjectOfType<AudioManager>().Play("Footstep");
+            audioManager.Play("Footstep");
             stepCooldown = stepRate;
         }
 
@@ -129,13 +131,15 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Crouch"))
             {
                 speed /= 3;
-                _camera.LowerCamera();
+                _collider.height *= 0.5f;
+                _camera.LowerCamera(crouchDifference);
             }
 
             if (Input.GetButtonUp("Crouch"))
             {
                 speed *= 3;
-                _camera.RaiseCamera();
+                _collider.height *= 2f;
+                _camera.RaiseCamera(crouchDifference);
             }
         }
     }
@@ -152,7 +156,7 @@ public class PlayerController : MonoBehaviour
     
     public void DoubleJump()
     {
-        if(doubleJump && !groundedPlayer)
+        if(Input.GetKeyDown(KeyCode.Space) && doubleJump && !groundedPlayer)
         {
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
             _rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
@@ -170,12 +174,7 @@ public class PlayerController : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
     }
 
-    public void IncreaseMoveSpeed(float _moveMult)
-    {
-        StartCoroutine(IncreaseMoveMultCoroutine(_moveMult));
-    }
-
-    private IEnumerator IncreaseMoveMultCoroutine(float _moveMult)
+    public IEnumerator IncreaseMoveMultCoroutine(float _moveMult)
     {
         float originalMult = moveMult;
         moveMult = _moveMult;
