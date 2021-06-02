@@ -8,7 +8,7 @@ public class PlayerEquippedItem : MonoBehaviour
     
     public void PlayerEquip(ItemData item, Mesh mesh)
     {
-        equippedItem.SetEquipped(item, mesh);
+        //equippedItem.SetEquipped(item, mesh);
     }
 
     public void PlayerRemove()

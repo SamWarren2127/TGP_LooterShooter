@@ -1,15 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSystem : MonoBehaviour
+public class WeaponSystem : MonoBehaviour, IGunDisplayable
 {
     Camera cam;
     public Transform attackPoint;
     public RaycastHit rayHit;
     public LayerMask layerMask;
     public GameObject spawnCasing, casing, muzzleFlash, bulletHoleGraphic;
-    public string weaponName;
+    private string weaponName;
     public int damage, magazineSize, totalAmmo, bulletsPerBurst;
     public float rateOfFire, recoilX, recoilY, range, reloadTime;
     int remainingBullets, currentBurst;
@@ -17,7 +16,8 @@ public class WeaponSystem : MonoBehaviour
     public bool fullAutoFire, semiAutoFire, burstFire, safety, burstWeapon, fullAutoWeapon; // todo add a full auto weapon bool
 
     HUDManager hudManager;
-
+    private GUNTYPE gunType;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -281,4 +281,21 @@ public class WeaponSystem : MonoBehaviour
             eInterface.Damage(damage);
         }
     }
+
+    public GUNTYPE GetGunType()
+    {
+        return gunType;
+    }
+
+    public string GetGunName()
+    {
+        return weaponName;
+    }
+}
+
+public enum GUNTYPE
+{
+    MP7,
+    AK47,
+    SKORPION
 }
