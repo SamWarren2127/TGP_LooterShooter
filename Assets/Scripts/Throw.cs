@@ -14,7 +14,7 @@ public class Throw : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        ammo = 0;
     }
 
     // Update is called once per frame
@@ -25,6 +25,21 @@ public class Throw : MonoBehaviour
             throwing = true;
             objectToThrow.GetComponent<GrenadeEffects>().throwEffect(armLocation);
             throwing = false;
+            ammo -= 1;
         }
+    }
+
+    public void grenadePickedUP(GameObject grenade)
+    {
+        if (objectToThrow != grenade)
+        {
+            objectToThrow = grenade;
+        }
+        increaseGrenadeAmmo(1);
+    }
+
+    public void increaseGrenadeAmmo(int amount)
+    {
+        ammo += amount;
     }
 }

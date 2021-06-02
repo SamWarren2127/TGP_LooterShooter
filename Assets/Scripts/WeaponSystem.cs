@@ -52,8 +52,6 @@ public class WeaponSystem : MonoBehaviour
 
         }
 
-        // Leaning
-
         // Reload
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
