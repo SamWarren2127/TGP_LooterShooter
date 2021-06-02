@@ -7,7 +7,7 @@ public class EnodeSetUp : MonoBehaviour
     public GameObject Enode;
     public GameObject[] Enodes = new GameObject[4];
     public GameObject Dnode;
-    public GameObject[] Dnodes;
+    public GameObject[] Dnodes = new GameObject[4];
 
 
     private void Awake()
