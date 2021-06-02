@@ -170,12 +170,7 @@ public class PlayerController : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
     }
 
-    public void IncreaseMoveSpeed(float _moveMult)
-    {
-        StartCoroutine(IncreaseMoveMultCoroutine(_moveMult));
-    }
-
-    private IEnumerator IncreaseMoveMultCoroutine(float _moveMult)
+    public IEnumerator IncreaseMoveMultCoroutine(float _moveMult)
     {
         float originalMult = moveMult;
         moveMult = _moveMult;
