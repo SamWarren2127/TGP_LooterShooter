@@ -171,7 +171,7 @@ public class WeaponSystem : MonoBehaviour
                 fullAutoFire = true;
             }
         }
-        else if (burstWeapon)
+        else if (burstWeapon && fullAutoWeapon)
         {
             if (fullAutoFire)
             {
@@ -179,6 +179,19 @@ public class WeaponSystem : MonoBehaviour
                 burstFire = true;
             }
             else if (burstFire)
+            {
+                burstFire = false;
+                semiAutoFire = true;
+            }
+            else if (semiAutoFire)
+            {
+                semiAutoFire = false;
+                fullAutoFire = true;
+            }
+        }
+        else if (burstWeapon)
+        {
+            if (burstFire)
             {
                 burstFire = false;
                 semiAutoFire = true;
