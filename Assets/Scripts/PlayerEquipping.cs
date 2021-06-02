@@ -5,6 +5,15 @@ using UnityEngine;
 public class PlayerEquipping : MonoBehaviour
 {
     public EquippedItem equippedItem;
+
+    
+    public void Start()
+    {
+        equippedItem = FindObjectOfType<EquippedItem>();
+
+        Debug.Log(equippedItem.name);
+    }
+
     
     public void PlayerEquip(ItemData item, GameObject weaponObject )
     {

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40a32a91e88629429ba426e51b1526c, type: 3}
+  m_Name: Basic MP7
+  m_EditorClassIdentifier: 
+  ItemName: Basic MP7
+  ItemID: 70
+  ItemIcon: {fileID: 21300000, guid: 389abb0715f675743a12b73f26862c79, type: 3}
+  ItemQuality: 0
+  player: {fileID: 0}
+  weaponObject: {fileID: 3309510801308897986, guid: dcdbebf5f32ca5e4389952b6c65db028, type: 3}
