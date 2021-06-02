@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DashAbility : Ability
 {
+    AudioManager audioManager;
+
     public DashAbility(AbilityController _controller) : base(_controller)
     {
         // using base constructor
@@ -14,7 +16,7 @@ public class DashAbility : Ability
     public override void Activate()
     {
         // Play Sound
-        PlaySound("Dash");
+        AudioManager.FindObjectOfType<AudioManager>().Play("Dash");
 
         // Spawn Particles
         //SpawnParticles("dashParticles");

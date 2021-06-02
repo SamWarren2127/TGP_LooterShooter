@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable<float>
 {
     
 
@@ -89,11 +89,11 @@ public class EnemyStats : MonoBehaviour
                     break;
                 }
                 
-            case EnemyState.Patrol:
-                {
-                    //Get Nodes and travel between nodes till player spotted
-                }
-                break;
+            //case EnemyState.Patrol:
+            //    {
+            //        //Get Nodes and travel between nodes till player spotted
+            //    }
+            //    break;
         }
 
 
@@ -166,6 +166,28 @@ public class EnemyStats : MonoBehaviour
     }
 
 
+
+
+
+    public float health;
+    private bool isDead = false;
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+
+        if (health <= 0 && !isDead)
+        {
+            Die();
+        }
+    }
+    void Die()
+    {
+        Destroy(gameObject);
+        isDead = true;
+    }
+
+
+
     //Wander GetNewDest
     //public bool NeedDestination()
     //{
@@ -188,6 +210,21 @@ public class EnemyStats : MonoBehaviour
         _direction = new Vector3(_direction.x, 0f, _direction.z);
 
         _desiredRotation = Quaternion.LookRotation(_direction);
+    }
+
+    public void Damage(float _damageAmount)
+    {
+        health -= _damageAmount;
+
+        if(health <= 0)
+        {
+            //Drop Items
+
+            //kill the enemy
+            Destroy(gameObject);
+            
+        }
+        throw new System.NotImplementedException();
     }
 
     public enum EnemyState

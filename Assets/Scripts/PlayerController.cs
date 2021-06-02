@@ -10,7 +10,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioManager audioManager;
 
     public float stepRate = 0.5f;
+    public float sprintRate = 0.5f;
     public float stepCooldown;
+    public float sprintCooldown;
+
 
     [Header("Player Controller Stats")]
     [SerializeField]
@@ -33,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector]
     public bool doubleJump;
+
+    private bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -83,11 +88,21 @@ public class PlayerController : MonoBehaviour
         }
 
         stepCooldown -= Time.deltaTime;
-        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCooldown < 0f)
+        sprintCooldown -= Time.deltaTime;
+        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && stepCooldown < 0f && isGrounded == true && isSprinting == true)
         {
             audioManager.Play("Footstep");
             stepCooldown = stepRate;
         }
+
+        if ((Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) && sprintCooldown < 0f && isGrounded == true && isSprinting == false)
+        {
+            FindObjectOfType<AudioManager>().Play("Footstep");
+            sprintCooldown = sprintRate;
+        }
+
+        //Debug.Log(isGrounded);
+
     }
 
     private void SetCharacterMoveDirection()
@@ -165,5 +180,21 @@ public class PlayerController : MonoBehaviour
         moveMult = _moveMult;
         yield return new WaitForSeconds(3f);
         moveMult = originalMult;
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "Floor")
+        {
+            isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit(Collision col)
+    {
+        if(col.gameObject.tag == "Floor")
+        {
+            isGrounded = false;
+        }
     }
 }

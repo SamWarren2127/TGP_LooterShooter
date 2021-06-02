@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HasteAbility : Ability
 {
-
     public HasteAbility(AbilityController _controller) : base(_controller)
     {
         //Using base constructor
@@ -20,7 +19,7 @@ public class HasteAbility : Ability
         IncreaseMoveSpeed(2f);
 
         // Play Sound
-        //PlaySound("Haste");
+        AudioManager.FindObjectOfType<AudioManager>().Play("Haste");
 
         // UI / Particle Effect
         //SpawnParticles("hasteEffect");

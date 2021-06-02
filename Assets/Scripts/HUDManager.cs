@@ -20,7 +20,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] Slider cooldownImage;
 
     [SerializeField] GameObject xpPanel;
-    [SerializeField] GameObject abilityUI;
+    public GameObject abilityUI;
     [SerializeField] GameObject bloodPanel;
     [SerializeField] GameObject HUD;
     [SerializeField] GameObject deathMenu;
@@ -307,5 +307,6 @@ public class HUDManager : MonoBehaviour
     public void ShowLevelUp()
     {
         levelUpText.enabled = true;
+        FindObjectOfType<AudioManager>().Play("LevelUp");
     }
 }

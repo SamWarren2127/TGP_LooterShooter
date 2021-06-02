@@ -13,10 +13,11 @@ public class ItemObject : Interactable
 
     private void AddToInventory()
     {
-        Debug.Log("Picking Up Item: " + item.ItemName);
+        bool itemAdded = FindObjectOfType<PlayerInventory>().AddItem(item); //return true if enough inventory space
 
-        FindObjectOfType<PlayerInventory>().AddItem(item);
-
-        Destroy(gameObject);
+        if (itemAdded)
+        {
+            Destroy(gameObject);
+        }
     }   
 }

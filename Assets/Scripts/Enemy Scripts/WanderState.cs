@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WanderState : BaseState
 {
-    public Vector3? _destination; //Question mark means its nullable
+    public Vector3? _destination; //Question mark means its not nullable
     private float stopDistance = 1f;
     private float turnSpeed = 1f;
     private readonly LayerMask _layerMask = LayerMask.NameToLayer("Walls");
@@ -29,7 +29,7 @@ public class WanderState : BaseState
         if(chaseTarget != null)
         {
             _enemyNew.SetTarget(chaseTarget);
-            //return typeof(ChaseState)
+            return typeof(ChaseState);
         }
 
         if(_destination.HasValue == false || Vector3.Distance(m_transform.position, _destination.Value) <= stopDistance) //transform.positon
@@ -73,7 +73,7 @@ public class WanderState : BaseState
 
     private void FindRandomDestination()
     {
-        Vector3 testPosition = (m_transform.position + m_transform.forward * 4f) + new Vector3(UnityEngine.Random.Range(-4.5f, 4.5f), 0f, UnityEngine.Random.Range(-4.5f, 4.5f));
+        Vector3 testPosition = (m_transform.position + m_transform.forward * 4f) + new Vector3(UnityEngine.Random.Range(-4.5f, 4.5f), 0f, UnityEngine.Random.Range(-4.5f, 4.5f)); //Change this line to make the distance longer
         _destination = new Vector3(testPosition.x, 1f, testPosition.z);
 
         _direction = Vector3.Normalize(_destination.Value - m_transform.position);
@@ -87,7 +87,7 @@ public class WanderState : BaseState
 
     private Transform CheckForAgro()
     {
-        float aggroRadius = 5f;
+        float aggroRadius = 20f;
 
         RaycastHit hit;
         Quaternion angle = m_transform.rotation * startingAngle;

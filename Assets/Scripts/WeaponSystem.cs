@@ -15,8 +15,8 @@ public class WeaponSystem : MonoBehaviour
     int remainingBullets, totalAmmo;
     bool shooting, canShoot, reloading, fullAutoFire, burstFire, semiAutoFire, safety, jammed, isClearingJam, burstWeapon;
 
+    [SerializeField]
     HUDManager hudManager;
-    AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +28,7 @@ public class WeaponSystem : MonoBehaviour
         fullAutoFire = true;
         jammed = false;
 
-        hudManager = FindObjectOfType<HUDManager>();
-        audioManager = FindObjectOfType<AudioManager>();
-        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
 
     // Update is called once per frame
@@ -60,7 +58,7 @@ public class WeaponSystem : MonoBehaviour
         // Shoot
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire)
+            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire && hudManager.abilityUI.activeSelf == false)
             {
                 // full auto if possible 
                 Shoot();
@@ -72,7 +70,7 @@ public class WeaponSystem : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire)
+            if (canShoot && !shooting && !reloading && remainingBullets > 0 && !jammed && fullAutoFire && hudManager.abilityUI.activeSelf == false)
             {
                 // burst or single where applicable 
                 Shoot();
@@ -126,9 +124,9 @@ public class WeaponSystem : MonoBehaviour
         //Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
         //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
         Instantiate(casing, spawnCasing.transform.position + spawnCasing.transform.right, spawnCasing.transform.rotation);
-        audioManager.Play("gunshot");
-        remainingBullets--;
 
+        remainingBullets--;
+        FindObjectOfType<AudioManager>().Play("gunshot");
 
         // Updating the HUD
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);

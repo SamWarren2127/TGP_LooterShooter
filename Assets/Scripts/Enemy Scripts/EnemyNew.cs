@@ -18,6 +18,7 @@ public class EnemyNew : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("EnemyNewAwake");
         InitaliseStateMachine();
     }
     
@@ -27,7 +28,8 @@ public class EnemyNew : MonoBehaviour
         {//can use Enums instead of typeof
             {typeof(WanderState), new WanderState(this) },
             {typeof(ChaseState), new ChaseState(this) },
-            {typeof(AttackState), new AttackState(this) }
+            {typeof(AttackState), new AttackState(this) },
+            {typeof(PatrolState), new PatrolState(this) }
         };
 
         GetComponent<StateMachine>().SetStates(states);
