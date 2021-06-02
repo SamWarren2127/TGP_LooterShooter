@@ -7,11 +7,16 @@ public class PlayerController : MonoBehaviour
     Rigidbody _rigidbody;
     CameraController _camera;
     Collider _collider;
+    CapsuleCollider capsuleCollider;
 
     public float stepRate = 0.5f;
     public float sprintRate = 0.5f;
     public float stepCooldown;
     public float sprintCooldown;
+    public float slidingSpeed;
+    public float slideHeight;
+    float originalHeight;
+    [SerializeField] bool canSlide;
 
 
     [Header("Player Controller Stats")]
@@ -61,6 +66,10 @@ public class PlayerController : MonoBehaviour
 
         distanceToGround = _collider.bounds.extents.y;
         doubleJump = false;
+        
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        originalHeight = capsuleCollider.height;
+        canSlide = true;
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -101,6 +110,11 @@ public class PlayerController : MonoBehaviour
 
         //Debug.Log(isGrounded);
 
+
+        if (Input.GetKeyDown(KeyCode.C) && canSlide)
+        {
+            StartCoroutine(Slide());
+        }
     }
 
     private void SetCharacterMoveDirection()
@@ -192,5 +206,15 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    IEnumerator Slide()
+    {
+        canSlide = false;
+        capsuleCollider.height = slideHeight;
+        _rigidbody.AddForce(transform.forward * slidingSpeed, ForceMode.VelocityChange);
+        yield return new WaitForSeconds(3);
+        capsuleCollider.height = originalHeight;
+        canSlide = true;
     }
 }
