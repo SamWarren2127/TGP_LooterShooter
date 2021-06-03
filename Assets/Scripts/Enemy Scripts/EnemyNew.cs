@@ -8,6 +8,10 @@ public class EnemyNew : MonoBehaviour
     [SerializeField] private Side _side;
     [SerializeField] private GameObject _laserVisual;
 
+    public RaycastHit rayHit;
+    public LayerMask layerMask;
+    public float range = 20.0f;
+    public float damage = 0.08f;
 
     public Transform m_target { get; private set; }
 
@@ -45,12 +49,44 @@ public class EnemyNew : MonoBehaviour
 
     public void FireWeapon()
     {
-        _laserVisual.transform.position = (m_target.position + transform.position) / 2f;
-        float distance = Vector3.Distance(m_target.position, transform.position);
-        _laserVisual.transform.localScale = new Vector3(0.1f, 0.1f, distance);
-        _laserVisual.SetActive(true);
+        Vector3 direction = Vector3.Normalize(m_target.position - transform.position);
 
-        StartCoroutine(TurnOffLaser());
+
+        if (Physics.Raycast(transform.position, direction, out rayHit, range, layerMask))
+        {
+            Debug.Log(rayHit.collider.name);
+
+            if (rayHit.collider.CompareTag("Player"))
+            {
+                PlayerStats health = rayHit.collider.GetComponent<PlayerStats>();
+                IDamageable<float> eInterface = health.gameObject.GetComponent<IDamageable<float>>();
+
+                if (eInterface != null)
+                {
+                    eInterface.Damage(damage);
+                }
+                Debug.Log("Hit Player");
+            }
+
+            
+        }
+
+
+
+        ////Change to the same firing way as the player weapon system
+
+        //_laserVisual.transform.position = (m_target.position + transform.position) / 2f;
+        //float distance = Vector3.Distance(m_target.position, transform.position);
+        //_laserVisual.transform.localScale = new Vector3(0.1f, 0.1f, distance);
+        //_laserVisual.SetActive(true);
+
+        //StartCoroutine(TurnOffLaser());
+    }
+
+
+    void Damage()
+    {
+
     }
 
     private IEnumerator TurnOffLaser()

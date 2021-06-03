@@ -20,11 +20,14 @@ public class PatrolState : BaseState
     public float m_Speed = 10.0f;
     public float turnSpeed = 10f;
 
+    private bool started;
+
     private void Awake()
     {
         m_enodeSetUp = GameObject.FindGameObjectWithTag("ESetUp").GetComponent<EnodeSetUp>();
         m_Enodes = m_enodeSetUp.Enodes;
-        
+        _destination = m_transform.position;
+        started = false;
     }
 
 
@@ -95,13 +98,14 @@ public class PatrolState : BaseState
     {
         m_enodeSetUp = GameObject.FindGameObjectWithTag("ESetUp").GetComponent<EnodeSetUp>();
         m_Enodes = m_enodeSetUp.Enodes;
-        //if(_destination == null)
-        //{
-        //    _destination = m_Enodes[0].transform.position;
-        //}
+        if (_destination == null || !started)
+        {
+            _destination = m_Enodes[0].transform.position;
+            started = true;
+        }
         //else
         //{
-            for (int i = 0; i < m_Enodes.Length; i++)
+        for (int i = 0; i < m_Enodes.Length; i++)
             {
                 if (Vector3.Distance(m_transform.position, m_Enodes[i].transform.position) < 10f)
                 {
@@ -141,11 +145,18 @@ public class PatrolState : BaseState
             if (Physics.Raycast(pos, direction, out hit, aggroRadius))
             {
                 //Will need to sort for player
-                EnemyNew enemy = hit.collider.GetComponent<EnemyNew>();
-                if (enemy != null)
+                //Get Player
+
+
+                PlayerStats m_playerStats = hit.collider.GetComponent<PlayerStats>();
+
+                //EnemyNew enemy = hit.collider.GetComponent<EnemyNew>();
+                //if (enemy != null)
+
+                if (m_playerStats != null)
                 {
                     Debug.DrawRay(pos, direction * hit.distance, Color.red);
-                    return enemy.transform;
+                    return m_playerStats.transform;
                 }
                 else
                 {
