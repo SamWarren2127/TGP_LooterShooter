@@ -84,6 +84,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
             else
             {
                 // Play empty click sound
+                FindObjectOfType<AudioManager>().Play("EmptyClick");
             }
         }
 
