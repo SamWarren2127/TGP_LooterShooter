@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 2ee6f85825a0b764991d5259e2ea5bbf, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1612,7 +1612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ecd1bbb3363bad4a9ac87965fb5cb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1676209901}
   attackPoint: {fileID: 0}
   layerMask:
     serializedVersion: 2
@@ -1623,12 +1622,19 @@ MonoBehaviour:
   bulletHoleGraphic: {fileID: 0}
   damage: 0
   magazineSize: 30
+  totalAmmo: 0
+  bulletsPerBurst: 0
   rateOfFire: 0.1
   recoilX: 0
   recoilY: 0
   range: 0
   reloadTime: 0
-  hudManager: {fileID: 0}
+  fullAutoFire: 0
+  semiAutoFire: 0
+  burstFire: 0
+  safety: 0
+  burstWeapon: 0
+  fullAutoWeapon: 0
 --- !u!1 &736141456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,6 +1801,9 @@ MonoBehaviour:
   sprintRate: 0.5
   stepCooldown: 0
   sprintCooldown: 0
+  slidingSpeed: 0
+  slideHeight: 0
+  canSlide: 0
   speed: 0
   jumpForce: {x: 0, y: 0, z: 0}
   dashForce: 0
@@ -1802,6 +1811,9 @@ MonoBehaviour:
   sprintMult: 0
   jumpTime: 0
   doubleJump: 0
+  gunTemplates: []
+  gunObj: {fileID: 0}
+  GunPosition: {fileID: 0}
 --- !u!136 &937190813
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2194,7 +2206,6 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 0
-  health: 0
 --- !u!1 &1296739288
 GameObject:
   m_ObjectHideFlags: 0

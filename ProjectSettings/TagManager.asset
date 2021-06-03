@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Enode
   - ESetUp
+  - Floor
+  - EnemySpawn
   layers:
   - Default
   - TransparentFX
