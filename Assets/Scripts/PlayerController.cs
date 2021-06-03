@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     CameraController _camera;
     Collider _collider;
     CapsuleCollider capsuleCollider;
+    HUDManager hudManager;
+    Camera playerCamera;
 
     public float stepRate = 0.5f;
     public float sprintRate = 0.5f;
@@ -37,9 +39,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float jumpTime;
 
+    [HideInInspector]
     public bool doubleJump;
 
     private bool isGrounded;
+
+    private Vector3 weaponPosition;
+    private Quaternion weaponRotation;
+    [SerializeField] GameObject[] gunTemplates;
+    [SerializeField] private Transform gunObj;
+    private IGunDisplayable gunType;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +73,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        playerCamera = GetComponentInChildren<Camera>();
+
         distanceToGround = _collider.bounds.extents.y;
         doubleJump = false;
         
@@ -72,13 +83,17 @@ public class PlayerController : MonoBehaviour
         canSlide = true;
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        hudManager = GetComponent<PlayerStats>().hudManager;
+
+        weaponPosition = gunObj.transform.position;
+        weaponRotation = gunObj.transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
         groundedPlayer = IsGrounded();
-
 
         SetCharacterMoveDirection();
         Crouch();
@@ -108,12 +123,24 @@ public class PlayerController : MonoBehaviour
             sprintCooldown = sprintRate;
         }
 
-        //Debug.Log(isGrounded);
-
-
         if (Input.GetKeyDown(KeyCode.C) && canSlide)
         {
             StartCoroutine(Slide());
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ChangeGun(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ChangeGun(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ChangeGun(2);
         }
     }
 
@@ -121,6 +148,15 @@ public class PlayerController : MonoBehaviour
     {
         moveDirection.x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         moveDirection.z = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+    }
+
+    private void ChangeGun(int _gun)
+    {
+        Destroy(gunObj.gameObject);
+
+        gunObj = Instantiate<GameObject>(gunTemplates[_gun], weaponPosition, weaponRotation, playerCamera.gameObject.transform).transform;
+        gunType = gunObj.GetComponent<IGunDisplayable>();
+        hudManager.UpdateEquippedGunText(gunType.GetGunName());
     }
 
     private void Sprint()

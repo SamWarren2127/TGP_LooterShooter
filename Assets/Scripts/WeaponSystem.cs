@@ -1,15 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSystem : MonoBehaviour
+public class WeaponSystem : MonoBehaviour, IGunDisplayable
 {
     Camera cam;
     public Transform attackPoint;
     public RaycastHit rayHit;
     public LayerMask layerMask;
     public GameObject spawnCasing, casing, muzzleFlash, bulletHoleGraphic;
-    public string weaponName;
+    private string weaponName;
     public int damage, magazineSize, totalAmmo, bulletsPerBurst;
     public float rateOfFire, recoilX, recoilY, range, reloadTime;
     int remainingBullets, currentBurst;
@@ -17,7 +16,8 @@ public class WeaponSystem : MonoBehaviour
     public bool fullAutoFire, semiAutoFire, burstFire, safety, burstWeapon, fullAutoWeapon; // todo add a full auto weapon bool
 
     HUDManager hudManager;
-
+    private GUNTYPE gunType;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -114,18 +114,15 @@ public class WeaponSystem : MonoBehaviour
 
             if (rayHit.collider.CompareTag("Enemy"))
             {
-                GameObject enemy = rayHit.collider.gameObject;
                 Debug.Log("Hit enemy");
-
-                IDamageable<float> eInterface = enemy.gameObject.GetComponent<IDamageable<float>>();
-
-                if (eInterface != null)
-                {
-                    eInterface.Damage(damage);
-                }
             }
 
+            Enemy health = rayHit.collider.GetComponent<Enemy>();
 
+            if (health != null)
+            {
+                health.TakeDamage(damage);
+            }
         }
 
         // Sound and nice looking stuff
@@ -266,7 +263,39 @@ public class WeaponSystem : MonoBehaviour
 
         hudManager.HideReload();
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+    }
 
+    void Damage(Transform enemy)
+    {
+        Enemy e = enemy.GetComponent<Enemy>();
+
+        //if(e != null)
+        //{
+        //    e.TakeDamage(damage);
+        //}
+
+        IDamageable<float> eInterface = enemy.gameObject.GetComponent<IDamageable<float>>();
+
+        if (eInterface != null)
+        {
+            eInterface.Damage(damage);
+        }
+    }
+
+    public GUNTYPE GetGunType()
+    {
+        return gunType;
+    }
+
+    public string GetGunName()
+    {
+        return weaponName;
     }
 }
 
+public enum GUNTYPE
+{
+    MP7,
+    AK47,
+    SKORPION
+}
