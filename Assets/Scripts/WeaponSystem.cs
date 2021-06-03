@@ -266,6 +266,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
             yield return null;
         }
         yield return new WaitForSeconds(reloadTime);
+        FindObjectOfType<AudioManager>().Play("Reload");
 
         //remainingBullets = magazineSize;
         reloading = false;
