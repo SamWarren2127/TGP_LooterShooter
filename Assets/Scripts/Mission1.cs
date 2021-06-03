@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Mission : MonoBehaviour
+public class Mission1 : MonoBehaviour
 {
     public Text missionText;
     public int enemiesKilled;
@@ -11,7 +11,7 @@ public class Mission : MonoBehaviour
 
     public GameObject missionUI;
 
-    int[] enemies = new int[4] { 4, 5, 6, 7 };
+    int[] enemies = new int[7] { 1, 2, 3, 4, 5, 6, 7 };
 
     // Start is called before the first frame update
     void Start()

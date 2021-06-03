@@ -92,14 +92,14 @@ public class HUDManager : MonoBehaviour
             HideXP();
         }
 
-        if(levelNotHighEnoughText.enabled == true)
+        /*if(levelNotHighEnoughText.enabled == true)
         {
             levelNotHighEnoughShowTimer += Time.deltaTime;
         }
         else
         {
             levelNotHighEnoughShowTimer = 0;
-        }
+        }*/
 
         if(levelNotHighEnoughShowTimer >= levelNotHighEnoughShowTime)
         {
