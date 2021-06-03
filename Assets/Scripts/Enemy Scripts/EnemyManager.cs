@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
         {
             SpawnEnemies(4 - enemies.Length);
             Wave++;
-            hudManager.roundsSurvived++;
+            hudManager.roundsSurvived = Wave;
         }
     }
 

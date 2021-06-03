@@ -59,6 +59,7 @@ public class HUDManager : MonoBehaviour
         animateTime = 2.5f;
         m_grenades = new Image[] { grenadeIcon1, grenadeIcon2, grenadeIcon3 };
         originalColor = abilityBackground.color;
+        roundsSurvived = 1;
 
         // Make sure xp panel isnt showing
         if (xpPanel.activeSelf)
