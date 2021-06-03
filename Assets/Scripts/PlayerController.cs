@@ -44,8 +44,6 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded;
 
-    private Vector3 weaponPosition;
-    private Quaternion weaponRotation;
     [SerializeField] GameObject[] gunTemplates;
     [SerializeField] private Transform gunObj;
     [SerializeField] private Transform GunPosition;
@@ -87,9 +85,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         hudManager = GetComponent<PlayerStats>().hudManager;
-
-        weaponPosition = gunObj.transform.position;
-        weaponRotation = gunObj.transform.rotation;
     }
 
     // Update is called once per frame

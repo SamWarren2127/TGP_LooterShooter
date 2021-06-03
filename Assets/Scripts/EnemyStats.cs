@@ -21,7 +21,6 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
 
         }
         return;
-        throw new System.NotImplementedException();
     }
 
     public void TakeDamage(float amount)

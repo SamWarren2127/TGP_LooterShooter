@@ -2558,7 +2558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015164345, y: 0.032337982}
   m_AnchorMax: {x: 0.28056166, y: 0.15}
-  m_AnchoredPosition: {x: -80.980225, y: -10.334534}
+  m_AnchoredPosition: {x: -80.980225, y: -10.334412}
   m_SizeDelta: {x: -195.68231, y: -20.042122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &180515899
@@ -3399,8 +3399,8 @@ MonoBehaviour:
   sprintRate: 1
   stepCooldown: 0
   sprintCooldown: 0
-  slidingSpeed: 0
-  slideHeight: 0
+  slidingSpeed: 5
+  slideHeight: 1
   canSlide: 0
   speed: 5
   jumpForce: {x: 0, y: 6, z: 0}
@@ -3414,6 +3414,7 @@ MonoBehaviour:
   - {fileID: 8137031789854193791, guid: 470faa505b33c8b45a1a88ef876d4f4b, type: 3}
   - {fileID: 3083166834683888881, guid: d37b316ed2b78da41add3c38e9bfebfb, type: 3}
   gunObj: {fileID: 264716637}
+  GunPosition: {fileID: 0}
 --- !u!136 &216271277
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3539,7 +3540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81c9432ecee97ff4c824d696011c6718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillpoints: 10
 --- !u!1 &220734968
 GameObject:
   m_ObjectHideFlags: 0
@@ -4302,7 +4302,7 @@ MonoBehaviour:
   attackPoint: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 257
   spawnCasing: {fileID: 1754706197}
   casing: {fileID: 1170647774315830, guid: 522b470e09ed8b8488c6b8788f9d6206, type: 3}
   muzzleFlash: {fileID: 0}
@@ -4314,7 +4314,7 @@ MonoBehaviour:
   rateOfFire: 0.1
   recoilX: 0
   recoilY: 0
-  range: 0
+  range: 100
   reloadTime: 1
   fullAutoFire: 0
   semiAutoFire: 0
@@ -5213,7 +5213,6 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 0
-  health: 0
 --- !u!136 &331338051
 CapsuleCollider:
   m_ObjectHideFlags: 0

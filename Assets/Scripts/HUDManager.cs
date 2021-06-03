@@ -55,8 +55,6 @@ public class HUDManager : MonoBehaviour
         UpdateEquippedGunText("MP7");
         showTime = 5f;
         xpShowTimer = 0f;
-        levelNotHighEnoughShowTime = 4f;
-        levelNotHighEnoughShowTimer = 0f;
         animateTime = 2.5f;
         m_grenades = new Image[] { grenadeIcon1, grenadeIcon2, grenadeIcon3 };
         originalColor = abilityBackground.color;
@@ -72,6 +70,8 @@ public class HUDManager : MonoBehaviour
         {
             abilityUI.SetActive(!abilityUI.activeSelf);
         }
+
+        levelNotHighEnoughText.enabled = false;
     }
 
     private void Update()
@@ -92,20 +92,6 @@ public class HUDManager : MonoBehaviour
             HideXP();
         }
 
-        /*if(levelNotHighEnoughText.enabled == true)
-        {
-            levelNotHighEnoughShowTimer += Time.deltaTime;
-        }
-        else
-        {
-            levelNotHighEnoughShowTimer = 0;
-        }*/
-
-        if(levelNotHighEnoughShowTimer >= levelNotHighEnoughShowTime)
-        {
-            levelNotHighEnoughText.enabled = false;
-        }
-
         //TODO Call these functions when a grenade is thrown or picked up
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -122,6 +108,14 @@ public class HUDManager : MonoBehaviour
     public void ToggleLevelNotHighEnoughText(bool _toggle)
     {
         levelNotHighEnoughText.enabled = _toggle;
+        Debug.Log("Starting Coroutine");
+        StartCoroutine(HideLevelNotHighEnoughText());
+    }
+
+    IEnumerator HideLevelNotHighEnoughText()
+    {
+        yield return new WaitForSecondsRealtime(1.0f);
+        levelNotHighEnoughText.enabled = false;
     }
 
     public void ToggleUnkillablePanel(bool _toggle)

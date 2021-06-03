@@ -277,7 +277,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
     {
         Enemy e = enemy.GetComponent<Enemy>();
 
-        //if(e != null)
+        //if (e != null)
         //{
         //    e.TakeDamage(damage);
         //}

@@ -9,7 +9,7 @@ public class DoubleJumpAbility : Ability
     {
         name = "Double Jump";
         cooldown = 6f;
-        cost = 2;
+        cost = 1;
         levelRequirement = 2;
     }
 

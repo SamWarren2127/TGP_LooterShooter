@@ -175,16 +175,16 @@ public class AbilityController : MonoBehaviour
 
     public void UnlockAbilityByNumber(int _number)
     {
-        if(skills.skillpoints <= 0 && skills.skillpoints < abilities[_number].GetCost())
-        {
-            Debug.Log("Dont have enough skill points");
-            return;
-        }
-
-        if(testXp.Level < abilities[_number].GetLevelRequirement())
+        if (testXp.Level < abilities[_number].GetLevelRequirement())
         {
             Debug.Log("Level is not high enough");
             hudManager.ToggleLevelNotHighEnoughText(true);
+            return;
+        }
+
+        if (skills.skillpoints <= 0 && skills.skillpoints < abilities[_number].GetCost())
+        {
+            Debug.Log("Dont have enough skill points");
             return;
         }
 
