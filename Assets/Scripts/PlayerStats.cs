@@ -158,7 +158,8 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
 
     public void Damage(float _damageAmount)
     {
-        hudManager.damageTaken += (int)_damageAmount * 100;
+        hudManager.UpdateDamageTaken(_damageAmount * 100);
+
         if (_damageAmount > 0f && _damageAmount < 1.0f)
         {
             if (hasArmor())
