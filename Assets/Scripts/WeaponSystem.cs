@@ -124,7 +124,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
 
             if (health != null)
             {
-                IDamageable<float> eInterface = enemy.gameObject.GetComponent<IDamageable<float>>();
+                IDamageable<float> eInterface = health.gameObject.GetComponent<IDamageable<float>>();
 
                 if (eInterface != null)
                 {
