@@ -2371,7 +2371,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015164345, y: 0.032337982}
   m_AnchorMax: {x: 0.28056166, y: 0.15}
-  m_AnchoredPosition: {x: -80.97998, y: -10.334473}
+  m_AnchoredPosition: {x: -80.9801, y: -10.334534}
   m_SizeDelta: {x: -195.68231, y: -20.042122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &180515899
@@ -3074,8 +3074,8 @@ MonoBehaviour:
   doubleJump: 0
   gunTemplates:
   - {fileID: 3280751466956534877, guid: f9f74b524ec361b4eb82010893880e1c, type: 3}
-  - {fileID: 8137031789854193791, guid: 470faa505b33c8b45a1a88ef876d4f4b, type: 3}
-  - {fileID: 4699165105476044822, guid: 17a03e7f9324c4941928d91ffa8c2ffe, type: 3}
+  - {fileID: 8257255854876190063, guid: 470faa505b33c8b45a1a88ef876d4f4b, type: 3}
+  - {fileID: 7250150126138142231, guid: d37b316ed2b78da41add3c38e9bfebfb, type: 3}
   gunObj: {fileID: 264716637}
   gunTransform: {fileID: 2010843546}
   tutorialUI: {fileID: 371040046}
@@ -4094,10 +4094,10 @@ MonoBehaviour:
   casing: {fileID: 1170647774315830, guid: 522b470e09ed8b8488c6b8788f9d6206, type: 3}
   muzzleFlash: {fileID: 0}
   bulletHoleGraphic: {fileID: 0}
-  damage: 10
   magazineSize: 30
   totalAmmo: 30
   bulletsPerBurst: 0
+  damage: 10
   rateOfFire: 0.1
   recoilX: 0
   recoilY: 0
@@ -4109,6 +4109,7 @@ MonoBehaviour:
   safety: 0
   burstWeapon: 0
   fullAutoWeapon: 0
+  gunType: 0
 --- !u!1 &272000403
 GameObject:
   m_ObjectHideFlags: 0
@@ -21413,7 +21414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5042937609683197833, guid: 682a156facea27c46b16c0550a9a9a49, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5042937609683197833, guid: 682a156facea27c46b16c0550a9a9a49, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
