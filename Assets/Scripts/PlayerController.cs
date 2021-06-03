@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
     private IGunDisplayable gunType;
 
+    [SerializeField] TutorialUI tutorialUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -236,6 +238,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
+
     }
 
     void OnCollisionExit(Collision col)
@@ -243,6 +246,32 @@ public class PlayerController : MonoBehaviour
         if(col.gameObject.tag == "Floor")
         {
             isGrounded = false;
+        }
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.name == "CrouchCollider")
+        {
+            tutorialUI.ShowCrouch();
+        }
+        else if(col.gameObject.name == "AbilityCollider")
+        {
+            tutorialUI.ShowAbility();
+            Destroy(col.gameObject);
+            Debug.Log("collided");
+        }
+        else if(col.gameObject.name == "JumpCollider")
+        {
+            tutorialUI.ShowJump();
+        }
+        else if(col.gameObject.name == "DoubleJumpCollider")
+        {
+            tutorialUI.ShowDoubleJump();
+        }
+        else if(col.gameObject.name == "ObjectiveCollider")
+        {
+            tutorialUI.ShowObjective();
         }
     }
 
