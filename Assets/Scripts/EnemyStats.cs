@@ -8,6 +8,8 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
 
     private bool isDead = false;
 
+    [SerializeField] Mission mission;
+
     public void Damage(float _damageAmount)
     {
         health -= _damageAmount;
@@ -18,6 +20,7 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
 
             //kill the enemy
             Destroy(gameObject);
+            mission.enemiesKilled++;
 
         }
         return;
