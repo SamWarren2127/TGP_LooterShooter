@@ -14,6 +14,6 @@ public class ItemData : ScriptableObject
     public virtual void Use()
         {
             //use 
-            Debug.Log("item used");
+            
         }
 }
