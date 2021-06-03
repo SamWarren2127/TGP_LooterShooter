@@ -8,7 +8,12 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
 
     private bool isDead = false;
 
-    [SerializeField] Mission mission;
+    Mission mission;
+
+    void Start()
+    {
+        mission = FindObjectOfType<Mission>();
+    }
 
     public void Damage(float _damageAmount)
     {
