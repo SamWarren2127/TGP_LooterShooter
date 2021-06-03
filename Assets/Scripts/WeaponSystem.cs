@@ -9,14 +9,14 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
     public LayerMask layerMask;
     public GameObject spawnCasing, casing, muzzleFlash, bulletHoleGraphic;
     private string weaponName;
-    public int damage, magazineSize, totalAmmo, bulletsPerBurst;
-    public float rateOfFire, recoilX, recoilY, range, reloadTime;
+    public int magazineSize, totalAmmo, bulletsPerBurst;
+    public float damage, rateOfFire, recoilX, recoilY, range, reloadTime;
     int remainingBullets, currentBurst;
     bool shooting, canShoot, reloading, jammed, isClearingJam, changingFireRate;
     public bool fullAutoFire, semiAutoFire, burstFire, safety, burstWeapon, fullAutoWeapon; // todo add a full auto weapon bool
 
     HUDManager hudManager;
-    private GUNTYPE gunType;
+    [SerializeField] private GUNTYPE gunType;
 
 
     public void GainAmmo(int ammo)
@@ -307,6 +307,17 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
     public string GetGunName()
     {
         return weaponName;
+    }
+
+    public void SetGunType(int _num)
+    {
+        gunType = (GUNTYPE)_num;
+        SetGunName();
+    }
+
+    private void SetGunName()
+    {
+        weaponName = gunType.ToString();
     }
 }
 

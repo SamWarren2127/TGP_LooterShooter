@@ -2,4 +2,5 @@
 {
     GUNTYPE GetGunType();
     string GetGunName();
+    void SetGunType(int _gun);
 }

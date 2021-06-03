@@ -46,7 +46,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject[] gunTemplates;
     [SerializeField] private Transform gunObj;
-    [SerializeField] private Transform GunPosition;
+    [SerializeField] private Transform gunTransform;
+    private Vector3 gunPosition;
+    private Quaternion gunRotation;
 
     private IGunDisplayable gunType;
 
@@ -88,6 +90,8 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         hudManager = GetComponent<PlayerStats>().hudManager;
+        gunPosition = gunObj.transform.position;
+        gunRotation = gunObj.transform.rotation;
     }
 
     // Update is called once per frame
@@ -154,8 +158,9 @@ public class PlayerController : MonoBehaviour
     {
         Destroy(gunObj.gameObject);
 
-        gunObj = Instantiate<GameObject>(gunTemplates[_gun], GunPosition.position, GunPosition.rotation, playerCamera.gameObject.transform).transform;
+        gunObj = Instantiate<GameObject>(gunTemplates[_gun], gunTransform.position, gunTransform.rotation, gunTransform.transform).transform;
         gunType = gunObj.GetComponent<IGunDisplayable>();
+        gunType.SetGunType(_gun);
         hudManager.UpdateEquippedGunText(gunType.GetGunName());
     }
 
