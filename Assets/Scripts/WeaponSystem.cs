@@ -117,11 +117,19 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
                 Debug.Log("Hit enemy");
             }
 
-            Enemy health = rayHit.collider.GetComponent<Enemy>();
+
+            EnemyStats health = rayHit.collider.GetComponent<EnemyStats>();
+            
+            
 
             if (health != null)
             {
-                health.TakeDamage(damage);
+                IDamageable<float> eInterface = health.gameObject.GetComponent<IDamageable<float>>();
+
+                if (eInterface != null)
+                {
+                    eInterface.Damage(damage);
+                }
             }
         }
 
