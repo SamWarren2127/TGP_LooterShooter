@@ -335,10 +335,10 @@ public class HUDManager : MonoBehaviour
     void UpdateStatistics()
     {
         // End of game statistics
-        statistics[1].text = kills.ToString();
-        statistics[2].text = shotsFired.ToString();
-        statistics[3].text = damageTaken.ToString();
-        statistics[4].text = damageGiven.ToString();
-        statistics[5].text = roundsSurvived.ToString();
+        statistics[0].text = kills.ToString();
+        statistics[1].text = shotsFired.ToString();
+        statistics[2].text = damageTaken.ToString();
+        statistics[3].text = damageGiven.ToString();
+        statistics[4].text = roundsSurvived.ToString();
     }
 }

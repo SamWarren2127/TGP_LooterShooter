@@ -1635,12 +1635,11 @@ MonoBehaviour:
   attackPoint: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 257
   spawnCasing: {fileID: 6820278348121873693}
   casing: {fileID: 1170647774315830, guid: 522b470e09ed8b8488c6b8788f9d6206, type: 3}
   muzzleFlash: {fileID: 0}
   bulletHoleGraphic: {fileID: 0}
-  weaponName: MP7
   damage: 0
   magazineSize: 30
   totalAmmo: 240

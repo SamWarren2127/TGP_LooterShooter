@@ -11,11 +11,8 @@ public class AbilityButtonManager : MonoBehaviour
     [SerializeField] GameObject[] buttons = new GameObject[5];
     AbilityController abilityController;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        abilityController = FindObjectOfType<AbilityController>();
-
         // Initialize array
         abilityButtons = new GameObject[columns, rows];
 
@@ -29,11 +26,18 @@ public class AbilityButtonManager : MonoBehaviour
             Button[] temp = new Button[3];
             temp = buttons[i].GetComponentsInChildren<Button>(true);
 
+            // Fill array with children buttons
             for (int j = 0; j < rows; j++)
             {
                 abilityButtons[i, j] = temp[j].gameObject;
             }
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        abilityController = FindObjectOfType<AbilityController>();
     }
 
     public void ToggleEquippedButton(int _abilityButton, bool _toggle)
@@ -76,9 +80,13 @@ public class AbilityButtonManager : MonoBehaviour
 
     public void EquipAbilityButton(int _abilityButton)
     {
-        // Get the currently equipped button and revert it to the 
-        ToggleEquipButton(CurrentlyEquippedButton, true);
-        ToggleEquippedButton(CurrentlyEquippedButton, false);
+        if(CurrentlyEquippedButton != null)
+        {
+            // Get the currently equipped button and revert it to the 
+            ToggleEquipButton(CurrentlyEquippedButton, true);
+            ToggleEquippedButton(CurrentlyEquippedButton, false);
+        }
+
 
         // Change the currently equipped button 
         ToggleEquipButton(_abilityButton, false);

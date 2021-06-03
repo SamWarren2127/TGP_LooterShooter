@@ -79,20 +79,19 @@ MonoBehaviour:
   attackPoint: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 257
   spawnCasing: {fileID: 4699165104977079173}
   casing: {fileID: 1813149051434618, guid: e39e7cde86a86c64c83525205116b198, type: 3}
   muzzleFlash: {fileID: 0}
   bulletHoleGraphic: {fileID: 0}
-  weaponName: UMP-45
-  damage: 0
+  damage: 1
   magazineSize: 30
   totalAmmo: 240
   bulletsPerBurst: 3
   rateOfFire: 0.2
   recoilX: 0
   recoilY: 0
-  range: 0
+  range: 100
   reloadTime: 5
   fullAutoFire: 1
   semiAutoFire: 0
@@ -159,8 +158,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f90ae181d66a1a4aa039e9cb975a6ac, type: 2}
-  - {fileID: 2100000, guid: 4d0f6026188b5e648ba5425f7afc4d12, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -241,7 +240,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16840cfda52056143857fbb613b6c563, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

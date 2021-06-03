@@ -178,12 +178,14 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Crouch"))
             {
                 speed /= 3;
+                capsuleCollider.height *= 0.5f;
                 //_camera.LowerCamera();
             }
 
             if (Input.GetButtonUp("Crouch"))
             {
                 speed *= 3;
+                capsuleCollider.height *= 2f;
                 //_camera.RaiseCamera();
             }
         }
