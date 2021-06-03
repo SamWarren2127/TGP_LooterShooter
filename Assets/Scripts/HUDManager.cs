@@ -337,8 +337,13 @@ public class HUDManager : MonoBehaviour
         // End of game statistics
         statistics[0].text = kills.ToString();
         statistics[1].text = shotsFired.ToString();
-        statistics[2].text = damageTaken.ToString();
-        statistics[3].text = damageGiven.ToString();
+        statistics[2].text = damageGiven.ToString();
+        statistics[3].text = damageTaken.ToString();
         statistics[4].text = roundsSurvived.ToString();
     }
+
+    public void UpdateDamageTaken(float _damage)
+    {
+        damageTaken += (int)_damage;
+    }    
 }
