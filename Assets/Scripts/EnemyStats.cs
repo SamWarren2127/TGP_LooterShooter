@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour, IDamageable<float>
 {
     public float health;
+    HUDManager hudManager;
 
     private bool isDead = false;
 
@@ -13,11 +14,14 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
     void Start()
     {
         mission = FindObjectOfType<Mission>();
+        hudManager = FindObjectOfType<HUDManager>();
     }
 
     public void Damage(float _damageAmount)
     {
         health -= _damageAmount;
+
+        hudManager.damageGiven += (int)_damageAmount * 100;
 
         if (health <= 0)
         {
