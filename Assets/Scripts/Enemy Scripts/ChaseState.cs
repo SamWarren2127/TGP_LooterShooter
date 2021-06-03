@@ -6,6 +6,8 @@ using UnityEngine;
 public class ChaseState : BaseState
 {
     private EnemyNew _enemyNew;
+    private float m_Speed = 8.0f;
+    private float turnSpeed = 10f;
 
     public ChaseState(EnemyNew enemyNew) : base(enemyNew.gameObject) //might need to be m_gameObject
     {
@@ -20,10 +22,10 @@ public class ChaseState : BaseState
         }
 
         m_transform.LookAt(_enemyNew.m_target);
-        m_transform.Translate(Vector3.forward * Time.deltaTime * 4f); //GameSettings.EnemySpeed
+        m_transform.Translate(Vector3.forward * Time.deltaTime * m_Speed); 
 
-        var distance = Vector3.Distance(m_transform.position, _enemyNew.m_target.transform.position);
-        if (distance <= 10f) //GameSettings.AttackRange
+        float distance = Vector3.Distance(m_transform.position, _enemyNew.m_target.transform.position);
+        if (distance <= 25f) 
         {
             return typeof(AttackState);
         }

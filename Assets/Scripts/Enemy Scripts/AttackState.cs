@@ -24,10 +24,14 @@ public class AttackState : BaseState
         
         _attackReadyTimer -= Time.deltaTime;
 
-        if(_attackReadyTimer <= 0f)
+        //Debug.Log("Ray Activated");
+        //Vector3 direction = Vector3.Normalize(_enemyNew.m_target.position - m_transform.position);
+        //Debug.DrawRay(m_transform.position, direction * 25f, Color.red);
+        if (_attackReadyTimer <= 0f)
         {
             Debug.Log("Attack!");
             _enemyNew.FireWeapon();
+            _attackReadyTimer = 2f;
         }
 
 
