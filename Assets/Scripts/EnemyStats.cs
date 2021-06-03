@@ -28,10 +28,9 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
             //Drop Items
 
             //kill the enemy
-            Destroy(gameObject);
-            mission.enemiesKilled++;
+            //mission.enemiesKilled++;
             hudManager.kills++;
-
+            Destroy(gameObject);
         }
         return;
     }
