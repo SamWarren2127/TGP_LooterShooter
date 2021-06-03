@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     private IGunDisplayable gunType;
 
     [SerializeField] TutorialUI tutorialUI;
+    [SerializeField] TestXp testXp;
 
     // Start is called before the first frame update
     void Start()
@@ -255,8 +256,8 @@ public class PlayerController : MonoBehaviour
         else if(col.gameObject.name == "AbilityCollider")
         {
             tutorialUI.ShowAbility();
+            testXp.LevelUp();
             Destroy(col.gameObject);
-            Debug.Log("collided");
         }
         else if(col.gameObject.name == "JumpCollider")
         {

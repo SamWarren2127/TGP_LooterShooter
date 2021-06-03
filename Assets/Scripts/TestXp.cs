@@ -35,7 +35,7 @@ public class TestXp : MonoBehaviour
         }
     }
 
-    void LevelUp()
+    public void LevelUp()
     {
         Level++;
         currentXp = 0;
