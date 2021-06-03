@@ -38,7 +38,7 @@ public class StateMachine : MonoBehaviour
         {
             SwitchToNewState(nextState);
         }
-        Debug.Log(CurrentState);
+        // Debug.Log(CurrentState);
     }
 
     private void SwitchToNewState(Type nextState)

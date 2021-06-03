@@ -4,16 +4,51 @@ using UnityEngine;
 
 public class PlayerEquippedItem : MonoBehaviour
 {
-    public EquippedItem equippedItem;
-    
-    public void PlayerEquip(ItemData item, Mesh mesh)
+    public GameObject equippedObject;
+    public GameObject weaponObject;
+
+    public Quaternion setRotation;
+
+    public ItemData itemData;
+
+    public bool itemEquippedBool;
+
+    public void SetEquipped(ItemData item, GameObject weaponPrefab)
     {
-        //equippedItem.SetEquipped(item, mesh);
+
+        Debug.Log("Setting equipped weapon");
+
+        RemoveEquipped();
+
+        itemEquippedBool = true;
+        itemData = item;
+        weaponObject = weaponPrefab;
+        UpdateEquipped();
     }
 
-    public void PlayerRemove()
+    private void UpdateEquipped()
     {
-        equippedItem.RemoveEquipped();
+
+        Debug.Log("Update Equpped item");
+
+
+        equippedObject = Instantiate(weaponObject, this.transform.position, Quaternion.identity) as GameObject;
+        equippedObject.transform.parent = this.transform;
+        equippedObject.transform.rotation = setRotation;
+
+    }
+
+
+
+    public void RemoveEquipped()
+    {
+        Destroy(equippedObject);
+
+        itemEquippedBool = false;
+        itemData = null;
+        equippedObject = null;
+        weaponObject = null;
+
     }
 
 }

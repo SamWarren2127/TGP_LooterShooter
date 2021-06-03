@@ -80,6 +80,8 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
         
+   
+
         //for objects that need to be interacted with manually
         if (Input.GetButtonDown("Interact")) // if player presses interact key, bound to e by default
         {

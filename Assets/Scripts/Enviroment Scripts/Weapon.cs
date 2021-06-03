@@ -12,9 +12,15 @@ public class Weapon : ItemData
 
     public override void Use()
     {
+        Debug.Log("Use called");
+
         player = GameObject.FindGameObjectWithTag("Player");
 
         base.Use();
+
+        Debug.Log(weaponObject.name);
+
+
 
         if (weaponObject != null)
         {
