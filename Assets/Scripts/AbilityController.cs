@@ -184,6 +184,7 @@ public class AbilityController : MonoBehaviour
         if(testXp.Level < abilities[_number].GetLevelRequirement())
         {
             Debug.Log("Level is not high enough");
+            hudManager.ToggleLevelNotHighEnoughText(true);
             return;
         }
 
