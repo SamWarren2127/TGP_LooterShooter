@@ -129,6 +129,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
                 if (eInterface != null)
                 {
                     eInterface.Damage(damage);
+                    hudManager.damageGiven += damage;
                 }
             }
         }
@@ -140,6 +141,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
 
         remainingBullets--;
         FindObjectOfType<AudioManager>().Play("gunshot");
+        hudManager.shotsFired++;
 
         // Updating the HUD
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);

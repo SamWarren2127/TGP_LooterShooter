@@ -12,8 +12,9 @@ public class HUDManager : MonoBehaviour
     [SerializeField] Text reloadingText;
     [SerializeField] Text equippedGunText;
     [SerializeField] Text abilityTempText;
+    [SerializeField] TextMeshProUGUI roundsText;
     [SerializeField] TextMeshProUGUI skillPointsText;
-    [SerializeField] TextMeshProUGUI[] statistics = new TextMeshProUGUI[4];
+    [SerializeField] TextMeshProUGUI[] statistics = new TextMeshProUGUI[5];
     [SerializeField] TextMeshProUGUI[] costAndCooldownText = new TextMeshProUGUI[6];
 
     [SerializeField] Slider healthBar;
@@ -41,14 +42,14 @@ public class HUDManager : MonoBehaviour
 
     private float showTime;
     private float xpShowTimer;
-    private float levelNotHighEnoughShowTimer;
-    private float levelNotHighEnoughShowTime;
     private float animateTime;
     private float animateTimer;
 
     private string ammoString = "Ammo: ";
 
     private Color originalColor;
+
+    public int kills, shotsFired, damageGiven, damageTaken, roundsSurvived;
 
     private void Start()
     {
@@ -108,7 +109,6 @@ public class HUDManager : MonoBehaviour
     public void ToggleLevelNotHighEnoughText(bool _toggle)
     {
         levelNotHighEnoughText.enabled = _toggle;
-        Debug.Log("Starting Coroutine");
         StartCoroutine(HideLevelNotHighEnoughText());
     }
 
@@ -145,6 +145,7 @@ public class HUDManager : MonoBehaviour
 
     public void ShowDeathMenu()
     {
+        UpdateStatistics();
         deathMenu.SetActive(true);
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
@@ -323,5 +324,21 @@ public class HUDManager : MonoBehaviour
     public void UpdateCostAndCooldown(int _ability, int _cost, float _cooldown)
     {
         costAndCooldownText[_ability].text = "Cost: " + _cost + "\n" + "Cooldown: " + _cooldown;
+    }
+
+    public void UpdateRound(int round)
+    {
+        roundsText.text = "Rounds " + round;
+        roundsSurvived = round;
+    }
+
+    void UpdateStatistics()
+    {
+        // End of game statistics
+        statistics[1].text = kills.ToString();
+        statistics[2].text = shotsFired.ToString();
+        statistics[3].text = damageTaken.ToString();
+        statistics[4].text = damageGiven.ToString();
+        statistics[5].text = roundsSurvived.ToString();
     }
 }
