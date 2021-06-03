@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
     private Quaternion weaponRotation;
     [SerializeField] GameObject[] gunTemplates;
     [SerializeField] private Transform gunObj;
+    [SerializeField] private Transform GunPosition;
+
     private IGunDisplayable gunType;
 
     // Start is called before the first frame update
@@ -154,7 +156,7 @@ public class PlayerController : MonoBehaviour
     {
         Destroy(gunObj.gameObject);
 
-        gunObj = Instantiate<GameObject>(gunTemplates[_gun], weaponPosition, weaponRotation, playerCamera.gameObject.transform).transform;
+        gunObj = Instantiate<GameObject>(gunTemplates[_gun], GunPosition.position, GunPosition.rotation, playerCamera.gameObject.transform).transform;
         gunType = gunObj.GetComponent<IGunDisplayable>();
         hudManager.UpdateEquippedGunText(gunType.GetGunName());
     }

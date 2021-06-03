@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IDamageable<float>
+public class Enemy : MonoBehaviour
 {
     
 
@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>
     private EnemyState _currentState;
     private Vector3 _destination, _direction;
    
-    private float m_moveSpeed = 10f;
+    private float m_moveSpeed = 7f;
     private Quaternion _desiredRotation;
     private float _attackRange = 10f;
     private float _rayDistance = 5f;
@@ -169,22 +169,7 @@ public class Enemy : MonoBehaviour, IDamageable<float>
 
 
 
-    public float health;
-    private bool isDead = false;
-    public void TakeDamage(float amount)
-    {
-        health -= amount;
-
-        if (health <= 0 && !isDead)
-        {
-            Die();
-        }
-    }
-    void Die()
-    {
-        Destroy(gameObject);
-        isDead = true;
-    }
+    
 
 
 
@@ -212,20 +197,6 @@ public class Enemy : MonoBehaviour, IDamageable<float>
         _desiredRotation = Quaternion.LookRotation(_direction);
     }
 
-    public void Damage(float _damageAmount)
-    {
-        health -= _damageAmount;
-
-        if(health <= 0)
-        {
-            //Drop Items
-
-            //kill the enemy
-            Destroy(gameObject);
-            
-        }
-        throw new System.NotImplementedException();
-    }
 
     public enum EnemyState
     {

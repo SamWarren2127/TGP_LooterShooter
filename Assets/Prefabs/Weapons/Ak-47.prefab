@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8137031789854193791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.292}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8137031789877060226}
@@ -55,7 +55,6 @@ MonoBehaviour:
   casing: {fileID: 1838114916151622, guid: a12bdde7557f6a64cb021f6e2d55c7ed, type: 3}
   muzzleFlash: {fileID: 0}
   bulletHoleGraphic: {fileID: 0}
-  weaponName: Ak-47
   damage: 0
   magazineSize: 30
   totalAmmo: 150
