@@ -17,6 +17,14 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
 
     HUDManager hudManager;
     private GUNTYPE gunType;
+
+
+    public void GainAmmo(int ammo)
+    {
+        totalAmmo += ammo;
+        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+    }
+
  
     // Start is called before the first frame update
     void Start()
@@ -84,7 +92,6 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
             else
             {
                 // Play empty click sound
-                FindObjectOfType<AudioManager>().Play("EmptyClick");
             }
         }
 
@@ -130,7 +137,6 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
                 if (eInterface != null)
                 {
                     eInterface.Damage(damage);
-                    hudManager.damageGiven += damage;
                 }
             }
         }
@@ -142,7 +148,6 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
 
         remainingBullets--;
         FindObjectOfType<AudioManager>().Play("gunshot");
-        hudManager.shotsFired++;
 
         // Updating the HUD
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);
@@ -268,7 +273,6 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
             yield return null;
         }
         yield return new WaitForSeconds(reloadTime);
-        FindObjectOfType<AudioManager>().Play("Reload");
 
         //remainingBullets = magazineSize;
         reloading = false;
