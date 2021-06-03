@@ -22,11 +22,33 @@ public class PlayerStats : MonoBehaviour, IHealable<float>, IDamageable<float>
 
     private bool canDamage;
 
+    public bool IncreaseArmor(float armourValue)
+    {
+        if (Armor == maxArmor)
+        {
+            return false;
+        }
+            
+            float newArmor = Armor + armourValue;
+            Armor = newArmor;
+            Debug.Log(Armor);
+            UpdateArmorBar();
+
+            if (Armor > maxArmor)
+            {
+                Armor = maxArmor;
+                UpdateArmorBar();
+            }
+
+        return true;
+       
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         Health = maxHealth;
-        Armor = maxArmor;
+        Armor = 0.75f * maxArmor;
         isUnkillable = false;
         canDamage = false;
         UpdateHealthBar();
