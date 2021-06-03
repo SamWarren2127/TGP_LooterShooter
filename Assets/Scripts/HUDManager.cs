@@ -30,6 +30,7 @@ public class HUDManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI levelTextMesh;
     [SerializeField] TextMeshProUGUI levelUpText;
+    [SerializeField] TextMeshProUGUI levelNotHighEnoughText;
 
     //TODO This only needs to be an array
     private Image[] m_grenades;
@@ -40,7 +41,8 @@ public class HUDManager : MonoBehaviour
 
     private float showTime;
     private float xpShowTimer;
-
+    private float levelNotHighEnoughShowTimer;
+    private float levelNotHighEnoughShowTime;
     private float animateTime;
     private float animateTimer;
 
@@ -53,6 +55,8 @@ public class HUDManager : MonoBehaviour
         UpdateEquippedGunText("MP7");
         showTime = 5f;
         xpShowTimer = 0f;
+        levelNotHighEnoughShowTime = 4f;
+        levelNotHighEnoughShowTimer = 0f;
         animateTime = 2.5f;
         m_grenades = new Image[] { grenadeIcon1, grenadeIcon2, grenadeIcon3 };
         originalColor = abilityBackground.color;
@@ -88,6 +92,20 @@ public class HUDManager : MonoBehaviour
             HideXP();
         }
 
+        if(levelNotHighEnoughText.enabled == true)
+        {
+            levelNotHighEnoughShowTimer += Time.deltaTime;
+        }
+        else
+        {
+            levelNotHighEnoughShowTimer = 0;
+        }
+
+        if(levelNotHighEnoughShowTimer >= levelNotHighEnoughShowTime)
+        {
+            levelNotHighEnoughText.enabled = false;
+        }
+
         //TODO Call these functions when a grenade is thrown or picked up
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -99,6 +117,11 @@ public class HUDManager : MonoBehaviour
             Debug.Log("DownArrowPressed");
             HideGrenade();
         }
+    }
+
+    public void ToggleLevelNotHighEnoughText(bool _toggle)
+    {
+        levelNotHighEnoughText.enabled = _toggle;
     }
 
     public void ToggleUnkillablePanel(bool _toggle)
