@@ -1943,7 +1943,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46be5f15e363aac4381cc9eb6efc673f, type: 2}
+  - {fileID: 2100000, guid: 9c56017d751923748bac11cbe9db600e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2491,7 +2491,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46be5f15e363aac4381cc9eb6efc673f, type: 2}
+  - {fileID: 2100000, guid: 9c56017d751923748bac11cbe9db600e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3423,6 +3423,9 @@ MonoBehaviour:
   sprintMult: 1.75
   jumpTime: 1
   doubleJump: 0
+  gunTemplates: []
+  gunObj: {fileID: 0}
+  GunPosition: {fileID: 0}
 --- !u!136 &216271277
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4329,7 +4332,6 @@ MonoBehaviour:
   casing: {fileID: 1170647774315830, guid: 522b470e09ed8b8488c6b8788f9d6206, type: 3}
   muzzleFlash: {fileID: 0}
   bulletHoleGraphic: {fileID: 0}
-  weaponName: 
   damage: 0
   magazineSize: 30
   totalAmmo: 0
@@ -4890,7 +4892,7 @@ Transform:
   m_Children:
   - {fileID: 962457243}
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &314735180 stripped
 GameObject:
@@ -5082,7 +5084,6 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 257
-  health: 0
 --- !u!136 &331338051
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6459,7 +6460,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46be5f15e363aac4381cc9eb6efc673f, type: 2}
+  - {fileID: 2100000, guid: 9c56017d751923748bac11cbe9db600e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16339,7 +16340,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46be5f15e363aac4381cc9eb6efc673f, type: 2}
+  - {fileID: 2100000, guid: 9c56017d751923748bac11cbe9db600e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18477,7 +18478,7 @@ RectTransform:
   - {fileID: 1849795306}
   - {fileID: 1184460577}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -22297,7 +22298,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46be5f15e363aac4381cc9eb6efc673f, type: 2}
+  - {fileID: 2100000, guid: 9c56017d751923748bac11cbe9db600e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23008,7 +23009,7 @@ RectTransform:
   - {fileID: 1726358739}
   - {fileID: 1667238018}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -23811,7 +23812,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1963890459 stripped
 Transform:
@@ -24977,7 +24978,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9c56017d751923748bac11cbe9db600e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25181,7 +25182,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 573165ec89c0f4a488f962940dc8d6d9, type: 2}
+  - {fileID: 2100000, guid: 9d41c32f719dc4b47bd0cbe39860bdae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
