@@ -30,6 +30,7 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
             //kill the enemy
             Destroy(gameObject);
             mission.enemiesKilled++;
+            hudManager.kills++;
 
         }
         return;
