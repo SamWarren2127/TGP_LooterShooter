@@ -69,6 +69,7 @@ public class EnemyNew : MonoBehaviour
 
                 if (eInterface != null)
                 {
+                    FindObjectOfType<AudioManager>().Play("gunshot");
                     eInterface.Damage(damage);
                 }
                 Debug.Log("Hit Player");
