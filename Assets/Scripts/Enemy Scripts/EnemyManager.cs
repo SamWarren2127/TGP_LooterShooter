@@ -6,11 +6,13 @@ public class EnemyManager : MonoBehaviour
 {
     public GameObject[] EnemyVariants;
     public GameObject[] enemySpawnPoints;
+    HUDManager hudManager;
     private int Wave;
     // Start is called before the first frame update
     void Start()
     {
         Wave = 0;
+        hudManager = FindObjectOfType<HUDManager>();
     }
 
     // Update is called once per frame
@@ -22,6 +24,7 @@ public class EnemyManager : MonoBehaviour
         {
             SpawnEnemies(4 - enemies.Length);
             Wave++;
+            hudManager.roundsSurvived++;
         }
     }
 
