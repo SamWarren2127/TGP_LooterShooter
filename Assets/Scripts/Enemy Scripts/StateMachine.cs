@@ -14,32 +14,35 @@ public class StateMachine : MonoBehaviour
     public BaseState CurrentState { get; private set; }
     public event Action<BaseState> OnStateChanged;
 
+    public void Start()
+    {
+        CurrentState = _availableStates.Values.Last();
+    }
+
     public void SetStates(Dictionary<Type, BaseState> states)
     {
         Debug.Log("Setting States");
         _availableStates = states;
     }
 
-
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (CurrentState == null && PatrolAI != 1)
-        {
-            CurrentState = _availableStates.Values.First();
+        //if (CurrentState == null && PatrolAI != 1)
+        //{
+        //    CurrentState = _availableStates.Values.First();
 
-        }
-        else if(CurrentState == null && PatrolAI == 1)
-        {
-            CurrentState = _availableStates.Values.Last();
-        }
+        //}
+        //else if(CurrentState == null && PatrolAI == 1)
+        //{
+        //    CurrentState = _availableStates.Values.Last();
+        //}
 
         Type nextState = CurrentState?.Tick(); //?. checks its not null. The tick method returns back the type of the state.
         if(nextState != null && nextState != CurrentState?.GetType())
         {
             SwitchToNewState(nextState);
         }
-        // Debug.Log(CurrentState);
     }
 
     private void SwitchToNewState(Type nextState)

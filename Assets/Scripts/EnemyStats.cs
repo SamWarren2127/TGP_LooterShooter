@@ -7,8 +7,6 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
     public float health;
     HUDManager hudManager;
     EnemyManager m_Emanager;
-
-
     Mission mission;
 
     void Start()
@@ -35,10 +33,7 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
 
             Destroy(gameObject);
         }
-        return;
     }
-
-
 }
 
 

@@ -99,7 +99,7 @@ MonoBehaviour:
   safety: 0
   burstWeapon: 1
   fullAutoWeapon: 1
-  gunType: 0
+  gunType: 2
 --- !u!1 &8982636381171567643
 GameObject:
   m_ObjectHideFlags: 0

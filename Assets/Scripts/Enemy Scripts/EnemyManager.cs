@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
     {
         if(counter < 1)
         {
-            StartCoroutine(SpawnEnemy(4));
+            StartCoroutine(SpawnEnemy(1));
             Wave++;
             hudManager.UpdateRound(Wave);
         }
@@ -39,7 +39,7 @@ public class EnemyManager : MonoBehaviour
             int rnd = Random.Range(0, 2);
             int rnd2 = Random.Range(0, enemySpawnPoints.Length - 1);
             print("spawning enemy");
-            Instantiate(EnemyVariants[rnd], enemySpawnPoints[rnd2].transform.position, enemySpawnPoints[rnd2].transform.rotation);
+            Instantiate(EnemyVariants[0], enemySpawnPoints[rnd2].transform.position, enemySpawnPoints[rnd2].transform.rotation);
             counter++;
             print("spawned enemy");
             yield return new WaitForSeconds(2f);
