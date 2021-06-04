@@ -329,7 +329,7 @@ public class HUDManager : MonoBehaviour
 
     public void UpdateRound(int round)
     {
-        roundsText.text = "Rounds " + round;
+        roundsText.text = "Round " + round;
         roundsSurvived = round;
     }
 

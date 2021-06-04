@@ -2371,7 +2371,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015164345, y: 0.032337982}
   m_AnchorMax: {x: 0.28056166, y: 0.15}
-  m_AnchoredPosition: {x: -80.9801, y: -10.334534}
+  m_AnchoredPosition: {x: -80.980225, y: -10.334534}
   m_SizeDelta: {x: -195.68231, y: -20.042122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &180515899
@@ -5856,7 +5856,7 @@ MonoBehaviour:
   reloadingText: {fileID: 1133194259}
   equippedGunText: {fileID: 1320834028}
   abilityTempText: {fileID: 1091492130}
-  roundsText: {fileID: 0}
+  roundsText: {fileID: 1885938266}
   skillPointsText: {fileID: 872381808}
   statistics:
   - {fileID: 60650508}

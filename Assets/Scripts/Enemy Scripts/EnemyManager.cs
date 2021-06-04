@@ -13,9 +13,10 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Wave = 0;
+        Wave = 1;
         hudManager = FindObjectOfType<HUDManager>();
-        enemySpawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawn");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        counter = enemies.Length;
     }
 
     // Update is called once per frame
@@ -23,34 +24,27 @@ public class EnemyManager : MonoBehaviour
     {
         if(counter < 1)
         {
-            SpawnEnemies(1);
+            StartCoroutine(SpawnEnemy(4));
             Wave++;
-            hudManager.roundsSurvived = Wave;
-            enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            counter = enemies.Length;
+            hudManager.UpdateRound(Wave);
         }
     }
 
-
-    private void SpawnEnemies(int x)
+    IEnumerator SpawnEnemy(int _num)
     {
-        int m_x = x;
-        for(int i = 0; i < m_x; i++)
+        print("Couroutine called");
+        counter = 0;
+        for (int i = 0; i < _num; i++)
         {
-
-            StartCoroutine(SpawnEnemy());
+            int rnd = Random.Range(0, 2);
+            int rnd2 = Random.Range(0, enemySpawnPoints.Length - 1);
+            print("spawning enemy");
+            Instantiate(EnemyVariants[rnd], enemySpawnPoints[rnd2].transform.position, enemySpawnPoints[rnd2].transform.rotation);
+            counter++;
+            print("spawned enemy");
+            yield return new WaitForSeconds(2f);
+            print("wait complete");
         }
-        
-    }
-
-
-    IEnumerator SpawnEnemy()
-    {
-        int rnd = Random.Range(0, 2);
-        int rnd2 = Random.Range(0, enemySpawnPoints.Length);
-        GameObject Enemy = Instantiate(EnemyVariants[rnd], enemySpawnPoints[rnd2].transform.position, enemySpawnPoints[rnd2].transform.rotation);
-        yield return new WaitForSeconds(0.5f);
-        
     }
 
 
