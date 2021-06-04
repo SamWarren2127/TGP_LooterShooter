@@ -9,13 +9,14 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
     public LayerMask layerMask;
     public GameObject spawnCasing, casing, muzzleFlash, bulletHoleGraphic;
     private string weaponName;
-    public int magazineSize, totalAmmo, bulletsPerBurst;
+    public int magazineSize, bulletsPerBurst;
     public float damage, rateOfFire, recoilX, recoilY, range, reloadTime;
-    int remainingBullets, currentBurst;
+    int remainingBullets, currentBurst, totalAmmo;
     bool shooting, canShoot, reloading, jammed, isClearingJam, changingFireRate;
     public bool fullAutoFire, semiAutoFire, burstFire, safety, burstWeapon, fullAutoWeapon; // todo add a full auto weapon bool
 
     HUDManager hudManager;
+    AmmoManager ammoManager;
     [SerializeField] private GUNTYPE gunType;
 
 
@@ -38,6 +39,8 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
         changingFireRate = false;
         hudManager = FindObjectOfType<HUDManager>();
         cam = GetComponentInParent<Camera>();
+        ammoManager = cam.GetComponent<AmmoManager>();
+        totalAmmo = ammoManager.GetCurrentMaxAmmo();
 
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
@@ -248,6 +251,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
         {
             print(1);
             totalAmmo -= magazineSize;
+            ammoManager.UpdateCurrentAmmo(totalAmmo);
             remainingBullets = magazineSize;
         }
         else if (magazineSize > totalAmmo && totalAmmo > 0)
@@ -265,7 +269,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
             {
                 totalAmmo = 0;
             }
-
+            ammoManager.UpdateCurrentAmmo(totalAmmo);
         }
         else
         {
