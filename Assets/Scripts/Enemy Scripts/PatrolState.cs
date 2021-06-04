@@ -65,7 +65,8 @@ public class PatrolState : BaseState
         //Debug.DrawRay(m_transform.position, _direction * _rayDistance, Color.red);
         while (IsPathBlocked())
         {
-            FindNextDestination();
+            return typeof(WanderState);
+            //FindNextDestination();
             //Debug.Log("Wall");
         }
 
