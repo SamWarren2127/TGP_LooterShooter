@@ -8,13 +8,14 @@ public class AmmoManager : MonoBehaviour
     public int smgMaxAmmo;
     static int curARAmmo;
     static int curSMGAmmo;
-    IGunDisplayable gunDisplayable;
+    private IGunDisplayable gunDisplayable;
 
     // Start is called before the first frame update
     void Start()
     {
         curARAmmo = arMaxAmmo;
         curSMGAmmo = smgMaxAmmo;
+        gunDisplayable = GetComponentInChildren<IGunDisplayable>();
     }
 
     public void IncreaseCurrentAmmo(int amount)
@@ -93,5 +94,10 @@ public class AmmoManager : MonoBehaviour
                 arMaxAmmo = ammo;
             }
         }
+    }
+
+    public void SetInterface()
+    {
+        gunDisplayable = GetComponentInChildren<IGunDisplayable>();
     }
 }

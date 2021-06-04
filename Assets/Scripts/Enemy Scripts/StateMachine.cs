@@ -28,16 +28,6 @@ public class StateMachine : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //if (CurrentState == null && PatrolAI != 1)
-        //{
-        //    CurrentState = _availableStates.Values.First();
-
-        //}
-        //else if(CurrentState == null && PatrolAI == 1)
-        //{
-        //    CurrentState = _availableStates.Values.Last();
-        //}
-
         Type nextState = CurrentState?.Tick(); //?. checks its not null. The tick method returns back the type of the state.
         if(nextState != null && nextState != CurrentState?.GetType())
         {

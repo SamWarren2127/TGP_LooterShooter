@@ -39,7 +39,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
         changingFireRate = false;
         hudManager = FindObjectOfType<HUDManager>();
         cam = GetComponentInParent<Camera>();
-        ammoManager = cam.GetComponent<AmmoManager>();
+        ammoManager = FindObjectOfType<AmmoManager>();
         totalAmmo = ammoManager.GetCurrentMaxAmmo();
 
         hudManager.UpdateAmmoText(remainingBullets, magazineSize);

@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: 696184850725027690}
   - component: {fileID: 696184850725027689}
   - component: {fileID: 696184850725027688}
-  - component: {fileID: 696184850725027700}
+  - component: {fileID: 1658601815873819050}
   m_Layer: 5
   m_Name: 'Worldspace '
   m_TagString: Untagged
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &696184850725027700
+--- !u!114 &1658601815873819050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 696184850725027695}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 588729ec9e8c5c34db69639442784f5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9350a83ef3305a24e8eed9029aa2e84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   crouchPanel: {fileID: 696184850145777551}

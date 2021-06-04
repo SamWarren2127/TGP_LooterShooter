@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     CapsuleCollider capsuleCollider;
     HUDManager hudManager;
     Camera playerCamera;
+    AmmoManager ammoManager;
 
     public float stepRate = 0.5f;
     public float sprintRate = 0.5f;
@@ -71,18 +72,27 @@ public class PlayerController : MonoBehaviour
         }
 
         _collider = GetComponent<Collider>();
+        if (_collider == null)
         {
-            if (_collider == null)
-            {
-                Debug.Log("_collider is a null reference");
-            }
+            Debug.Log("_collider is a null reference");
         }
 
         playerCamera = GetComponentInChildren<Camera>();
+        if (playerCamera == null)
+        {
+            Debug.Log("playerCamera is a null reference");
+        }
+
+        ammoManager = GetComponent<AmmoManager>();
+        if (ammoManager == null)
+        {
+            Debug.Log("ammoManager is a null reference");
+        }
+
 
         distanceToGround = _collider.bounds.extents.y;
         doubleJump = false;
-        
+
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalHeight = capsuleCollider.height;
         canSlide = true;
@@ -132,7 +142,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Slide());
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ChangeGun(0);
         }
@@ -160,6 +170,7 @@ public class PlayerController : MonoBehaviour
 
         gunObj = Instantiate<GameObject>(gunTemplates[_gun], gunTransform.position, gunTransform.rotation, gunTransform.transform).transform;
         gunType = gunObj.GetComponent<IGunDisplayable>();
+        ammoManager.SetInterface();
         gunType.SetGunType(_gun);
         hudManager.UpdateEquippedGunText(gunType.GetGunName());
     }
@@ -206,10 +217,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Jump");
         }
     }
-    
+
     public void DoubleJump()
     {
-        if(doubleJump && !groundedPlayer)
+        if (doubleJump && !groundedPlayer)
         {
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
             _rigidbody.AddForce(jumpForce, ForceMode.VelocityChange);
@@ -222,7 +233,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.AddRelativeForce(Vector3.forward * dashForce, ForceMode.VelocityChange);
     }
 
-     public bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
     }
@@ -237,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "Floor")
+        if (col.gameObject.tag == "Floor")
         {
             isGrounded = true;
         }
@@ -246,7 +257,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionExit(Collision col)
     {
-        if(col.gameObject.tag == "Floor")
+        if (col.gameObject.tag == "Floor")
         {
             isGrounded = false;
         }
@@ -254,25 +265,25 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.name == "CrouchCollider")
+        if (col.gameObject.name == "CrouchCollider")
         {
             tutorialUI.ShowCrouch();
         }
-        else if(col.gameObject.name == "AbilityCollider")
+        else if (col.gameObject.name == "AbilityCollider")
         {
             tutorialUI.ShowAbility();
             testXp.LevelUp();
             Destroy(col.gameObject);
         }
-        else if(col.gameObject.name == "JumpCollider")
+        else if (col.gameObject.name == "JumpCollider")
         {
             tutorialUI.ShowJump();
         }
-        else if(col.gameObject.name == "DoubleJumpCollider")
+        else if (col.gameObject.name == "DoubleJumpCollider")
         {
             tutorialUI.ShowDoubleJump();
         }
-        else if(col.gameObject.name == "ObjectiveCollider")
+        else if (col.gameObject.name == "ObjectiveCollider")
         {
             tutorialUI.ShowObjective();
         }
