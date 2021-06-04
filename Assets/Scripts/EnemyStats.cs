@@ -8,7 +8,6 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
     HUDManager hudManager;
     EnemyManager m_Emanager;
 
-    private bool isDead = false;
 
     Mission mission;
 
@@ -23,7 +22,7 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
     {
         health -= _damageAmount;
 
-        hudManager.damageGiven += (int)_damageAmount * 100;
+        hudManager.damageGiven += (int)(_damageAmount * 100);
 
         if (health <= 0)
         {
@@ -39,45 +38,7 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
         return;
     }
 
-    public void TakeDamage(float amount)
-    {
-        health -= amount;
 
-        if(health <= 0 && !isDead)
-        {
-            Die();
-        }
-    }
-    void Die()
-    {
-        Destroy(gameObject);
-        isDead = true;
-    }
 }
 
 
-/*public class EnemyStats : MonoBehaviour
-{
-    private float HP;
-
-    private void Start()
-    {
-        HP = 1;
-    }
-
-
-    public void Damage(float x)
-    {
-        HP -= x;
-
-        if(HP < 0)
-        {
-
-        }
-
-    }
-
-
-
-
-}*/
