@@ -39,7 +39,7 @@ public class WeaponSystem : MonoBehaviour, IGunDisplayable
         hudManager = FindObjectOfType<HUDManager>();
         cam = GetComponentInParent<Camera>();
 
-        //hudManager.UpdateAmmoText(remainingBullets, magazineSize);
+        hudManager.UpdateAmmoText(remainingBullets, magazineSize);
     }
 
     // Update is called once per frame
