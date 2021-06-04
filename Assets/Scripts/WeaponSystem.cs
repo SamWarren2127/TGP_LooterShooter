@@ -325,5 +325,5 @@ public enum GUNTYPE
 {
     MP7,
     AK47,
-    SKORPION
+    UMP45
 }
