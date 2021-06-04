@@ -34,11 +34,22 @@ public class EnemyManager : MonoBehaviour
         int m_x = x;
         for(int i = 0; i < m_x; i++)
         {
-            int rnd = Random.Range(0, 2);
-            int rnd2 = Random.Range(0, enemySpawnPoints.Length);
-            GameObject Enemy = Instantiate(EnemyVariants[rnd], enemySpawnPoints[rnd2].transform.position, enemySpawnPoints[rnd2].transform.rotation);
-            
+
+            StartCoroutine(SpawnEnemy());
         }
         
     }
+
+
+    IEnumerator SpawnEnemy()
+    {
+        int rnd = Random.Range(0, 2);
+        int rnd2 = Random.Range(0, enemySpawnPoints.Length);
+        GameObject Enemy = Instantiate(EnemyVariants[rnd], enemySpawnPoints[rnd2].transform.position, enemySpawnPoints[rnd2].transform.rotation);
+        yield return new WaitForSeconds(0.5f);
+        
+    }
+
 }
+
+
