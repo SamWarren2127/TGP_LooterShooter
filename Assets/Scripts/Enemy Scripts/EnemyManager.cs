@@ -6,6 +6,8 @@ public class EnemyManager : MonoBehaviour
 {
     public GameObject[] EnemyVariants;
     public GameObject[] enemySpawnPoints;
+    private GameObject[] enemies;
+    private int counter;
     HUDManager hudManager;
     private int Wave;
     // Start is called before the first frame update
@@ -19,13 +21,13 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if(enemies.Length < 1)
+        if(counter < 1)
         {
             SpawnEnemies(1);
             Wave++;
             hudManager.roundsSurvived = Wave;
+            enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            counter = enemies.Length;
         }
     }
 
@@ -49,6 +51,12 @@ public class EnemyManager : MonoBehaviour
         GameObject Enemy = Instantiate(EnemyVariants[rnd], enemySpawnPoints[rnd2].transform.position, enemySpawnPoints[rnd2].transform.rotation);
         yield return new WaitForSeconds(0.5f);
         
+    }
+
+
+    public void EnemyDied()
+    {
+        counter--;
     }
 
 }

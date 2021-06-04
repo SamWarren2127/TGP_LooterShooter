@@ -6,6 +6,7 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
 {
     public float health;
     HUDManager hudManager;
+    EnemyManager m_Emanager;
 
     private bool isDead = false;
 
@@ -13,6 +14,7 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
 
     void Start()
     {
+        m_Emanager = FindObjectOfType<EnemyManager>();
         mission = FindObjectOfType<Mission>();
         hudManager = FindObjectOfType<HUDManager>();
     }
@@ -30,6 +32,8 @@ public class EnemyStats : MonoBehaviour, IDamageable<float>
             //kill the enemy
             mission.enemiesKilled++;
             hudManager.kills++;
+            m_Emanager.EnemyDied();
+
             Destroy(gameObject);
         }
         return;
