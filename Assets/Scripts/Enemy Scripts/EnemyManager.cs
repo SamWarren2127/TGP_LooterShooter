@@ -13,16 +13,17 @@ public class EnemyManager : MonoBehaviour
     {
         Wave = 0;
         hudManager = FindObjectOfType<HUDManager>();
+        enemySpawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawn");
     }
 
     // Update is called once per frame
     void Update()
     {
-        enemySpawnPoints = GameObject.FindGameObjectsWithTag("EnemySpawn");
+
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if(enemies.Length < 1)
         {
-            SpawnEnemies(4 - enemies.Length);
+            SpawnEnemies(1);
             Wave++;
             hudManager.roundsSurvived = Wave;
         }
