@@ -25,6 +25,7 @@ public class EnemyNew : MonoBehaviour
     
     private void InitaliseStateMachine()
     {
+        Debug.Log("Making Dictionary");
         Dictionary<Type, BaseState> states = new Dictionary<Type, BaseState>()
         {//can use Enums instead of typeof
             {typeof(WanderState), new WanderState(this) },
@@ -32,6 +33,8 @@ public class EnemyNew : MonoBehaviour
             {typeof(AttackState), new AttackState(this) },
             {typeof(PatrolState), new PatrolState(this) }
         };
+
+
 
         GetComponent<StateMachine>().SetStates(states);
     }

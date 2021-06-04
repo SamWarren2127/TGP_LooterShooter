@@ -16,12 +16,13 @@ public class StateMachine : MonoBehaviour
 
     public void SetStates(Dictionary<Type, BaseState> states)
     {
+        Debug.Log("Setting States");
         _availableStates = states;
     }
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (CurrentState == null && PatrolAI != 1)
         {
